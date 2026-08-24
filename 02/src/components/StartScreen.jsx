@@ -1,47 +1,57 @@
-const categoryDetails = {
-  Tümü: ['12 soru', 'Karma sınav'],
-  JavaScript: ['4 soru', 'Dil temelleri'],
-  React: ['4 soru', 'Bileşen & Hook'],
-  Frontend: ['4 soru', 'HTML & CSS'],
-};
+import { useRef, useState } from 'react';
 
-export default function StartScreen({ category, onCategoryChange, onStart }) {
+export default function StartScreen({ fileName, questionCount, error, onFileSelect, onStart }) {
+  const inputRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+
+  function handleDrop(event) {
+    event.preventDefault();
+    setIsDragging(false);
+    onFileSelect(event.dataTransfer.files[0]);
+  }
+
   return (
     <main className="screen screen-start">
       <section className="start-card panel" aria-labelledby="app-title">
-        <div className="eyebrow"><span className="eyebrow-dot" /> FRONTEND BİLGİ SINAVI</div>
-        <h1 id="app-title">Bilgini ölç.<br /><span>Odağını koru.</span></h1>
-        <p className="intro">
-          Her soru için 30 saniyen var. Bir alan seç, ritmini bul ve sonucu ayrıntılı olarak incele.
+        <h1 className="brand-title" id="app-title">YataQuizing</h1>
+        <p className="upload-intro">
+          Sorularını JSON dosyasıyla ekle ve sınavı başlat.
         </p>
 
-        <div className="section-heading">
-          <span>Kategori</span>
-          <span>Bir seçim yap</span>
-        </div>
-        <div className="category-grid" role="radiogroup" aria-label="Quiz kategorisi">
-          {Object.entries(categoryDetails).map(([name, [count, detail]]) => (
-            <button
-              type="button"
-              className={`category-card ${category === name ? 'is-active' : ''}`}
-              key={name}
-              role="radio"
-              aria-checked={category === name}
-              onClick={() => onCategoryChange(name)}
-            >
-              <span className="category-check" aria-hidden="true">{category === name ? '✓' : ''}</span>
-              <strong>{name}</strong>
-              <small>{detail} · {count}</small>
-            </button>
-          ))}
-        </div>
+        <input
+          ref={inputRef}
+          className="file-input"
+          type="file"
+          accept="application/json,.json"
+          onChange={(event) => {
+            onFileSelect(event.target.files[0]);
+            event.target.value = '';
+          }}
+        />
+
+        <button
+          type="button"
+          className={`upload-zone ${isDragging ? 'is-dragging' : ''} ${questionCount ? 'has-file' : ''}`}
+          onClick={() => inputRef.current?.click()}
+          onDragEnter={(event) => { event.preventDefault(); setIsDragging(true); }}
+          onDragOver={(event) => event.preventDefault()}
+          onDragLeave={() => setIsDragging(false)}
+          onDrop={handleDrop}
+        >
+          <span className="upload-icon" aria-hidden="true">{questionCount ? '✓' : '↑'}</span>
+          <strong>{questionCount ? fileName : 'JSON dosyasını buraya sürükle'}</strong>
+          <span>{questionCount ? `${questionCount} soru kullanıma hazır` : 'veya bilgisayarından seçmek için tıkla'}</span>
+          <small>Yalnızca .json</small>
+        </button>
+
+        {error && <p className="file-error" role="alert">{error}</p>}
 
         <div className="start-footer">
           <div className="quiz-facts" aria-label="Sınav bilgileri">
             <span><b>30 sn</b> / soru</span>
-            <span><b>{categoryDetails[category][0]}</b> toplam</span>
+            <span><b>{questionCount || 0} soru</b> yüklendi</span>
           </div>
-          <button type="button" className="primary-button" onClick={onStart}>
+          <button type="button" className="primary-button" onClick={onStart} disabled={!questionCount}>
             Sınava başla <span aria-hidden="true">→</span>
           </button>
         </div>

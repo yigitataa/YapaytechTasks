@@ -46,7 +46,7 @@ export default function ResultScreen({ questions, answers, onRestart, onHome }) 
                 <div className="review-detail">
                   <p>Senin cevabın: <strong>{isEmpty ? 'Cevaplanmadı' : `${optionLetters[answers[index]]}. ${question.options[answers[index]]}`}</strong></p>
                   {!isCorrect && <p>Doğru cevap: <strong>{optionLetters[question.answer]}. {question.options[question.answer]}</strong></p>}
-                  <small>{question.explanation}</small>
+                  {question.explanation && <small>{question.explanation}</small>}
                 </div>
               </details>
             );
