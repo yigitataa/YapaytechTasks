@@ -65,16 +65,18 @@ Dosyanın kökünde doğrudan bir soru dizisi bulunabilir:
 ```json
 [
   {
-    "id": 1,
-    "category": "React",
-    "question": "Soru metni",
-    "options": ["A seçeneği", "B seçeneği", "C seçeneği", "D seçeneği"],
-    "answer": 0,
-    "explanation": "Doğru cevabın kısa açıklaması."
+    "question": "A pita is a type of what?",
+    "A": "fresh fruit",
+    "B": "flat bread",
+    "C": "French tart",
+    "D": "fried bean dip",
+    "answer": "B"
   }
 ]
 ```
 
-Alternatif olarak bu dizi `{ "questions": [...] }` nesnesinin içinde verilebilir. `answer`, doğru seçeneğin sıfırdan başlayan indeksi, seçenek metni veya `A`, `B`, `C`, `D` harflerinden biri olabilir. `category` ve `explanation` alanları isteğe bağlıdır.
+`A`, `B`, `C`, `D` alanları seçenekleri; `answer` ise doğru seçeneğin harfini belirtir. Daha fazla seçenek gerektiğinde `E`, `F` gibi devam eden büyük harf alanları da kullanılabilir.
+
+Alternatif olarak seçenekler `options` dizisiyle verilebilir ve soru dizisi `{ "questions": [...] }` nesnesinin içine alınabilir. Bu biçimde `answer`, doğru seçeneğin sıfırdan başlayan indeksi, seçenek metni veya seçenek harfi olabilir. `category` ve `explanation` alanları isteğe bağlıdır.
 
 Türkçe karşılıklar olarak `soru`, `secenekler`, `dogruCevap`, `kategori` ve `aciklama` alanları da desteklenir.
