@@ -93,6 +93,7 @@ export default function App() {
       )}
       {screen === 'quiz' && questions[questionIndex] && (
         <QuestionScreen
+          key={questions[questionIndex].id ?? questionIndex}
           question={questions[questionIndex]}
           index={questionIndex}
           total={questions.length}

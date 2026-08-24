@@ -1,6 +1,8 @@
 import TimerLine from './TimerLine';
 
-const optionLetters = ['A', 'B', 'C', 'D'];
+function optionLetter(index) {
+  return String.fromCharCode(65 + index);
+}
 
 export default function QuestionScreen({
   question,
@@ -44,12 +46,13 @@ export default function QuestionScreen({
               <button
                 type="button"
                 className={`option-button ${answer === optionIndex ? 'is-selected' : ''}`}
+                style={{ '--option-index': optionIndex }}
                 key={option}
                 role="radio"
                 aria-checked={answer === optionIndex}
                 onClick={() => onAnswer(optionIndex)}
               >
-                <span className="option-key">{optionLetters[optionIndex]}</span>
+                <span className="option-key">{optionLetter(optionIndex)}</span>
                 <span>{option}</span>
                 <span className="option-mark" aria-hidden="true">{answer === optionIndex ? '✓' : ''}</span>
               </button>
