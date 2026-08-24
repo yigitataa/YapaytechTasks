@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "category": "JavaScript",
+    "question": "JavaScript'te yalnızca kendi öğeleri üzerinde çalışan ve yeni bir dizi döndüren metot hangisidir?",
+    "options": ["forEach", "map", "find", "some"],
+    "answer": 1,
+    "explanation": "map, her öğe için verilen fonksiyonu çalıştırır ve sonuçlardan yeni bir dizi üretir."
+  },
+  {
+    "id": 2,
+    "category": "JavaScript",
+    "question": "Bir değişkenin hem değerini hem de türünü karşılaştıran operatör hangisidir?",
+    "options": ["==", "=", "===", "!="],
+    "answer": 2,
+    "explanation": "=== operatörü tür dönüşümü yapmadan katı eşitlik karşılaştırması gerçekleştirir."
+  },
+  {
+    "id": 3,
+    "category": "JavaScript",
+    "question": "Asenkron bir fonksiyonun sonucunu beklemek için hangi anahtar kelime kullanılır?",
+    "options": ["yield", "defer", "await", "pause"],
+    "answer": 2,
+    "explanation": "await, bir Promise sonuçlanana kadar async fonksiyonun ilgili adımını bekletir."
+  },
+  {
+    "id": 4,
+    "category": "JavaScript",
+    "question": "Aşağıdakilerden hangisi değiştirilemeyen bir bağ tanımlar?",
+    "options": ["let", "const", "var", "static"],
+    "answer": 1,
+    "explanation": "const ile tanımlanan bağ yeniden atanamaz; nesne içeriği ise yine değişebilir."
+  },
+  {
+    "id": 5,
+    "category": "React",
+    "question": "Bir fonksiyon bileşenine yerel durum eklemek için en sık kullanılan Hook hangisidir?",
+    "options": ["useMemo", "useRef", "useState", "useEffect"],
+    "answer": 2,
+    "explanation": "useState, bileşene bir durum değeri ve bu değeri güncelleyen fonksiyon sağlar."
+  },
+  {
+    "id": 6,
+    "category": "React",
+    "question": "React listelerinde key özelliğinin temel amacı nedir?",
+    "options": ["Stil vermek", "Öğeleri kararlı biçimde tanımak", "Sıralamayı kilitlemek", "Olay eklemek"],
+    "answer": 1,
+    "explanation": "Kararlı ve benzersiz key değerleri, React'in listede hangi öğenin değiştiğini anlamasını sağlar."
+  },
+  {
+    "id": 7,
+    "category": "React",
+    "question": "Yan etkileri bileşenin yaşam döngüsüyle eşlemek için hangi Hook kullanılır?",
+    "options": ["useId", "useEffect", "useContext", "useReducer"],
+    "answer": 1,
+    "explanation": "useEffect; veri çekme, abonelik ve DOM senkronizasyonu gibi yan etkiler içindir."
+  },
+  {
+    "id": 8,
+    "category": "React",
+    "question": "Bir üst bileşenden alt bileşene veri aktarmanın standart yolu hangisidir?",
+    "options": ["Props", "Portal", "Reducer", "Fragment"],
+    "answer": 0,
+    "explanation": "Props, veriyi üst bileşenden alt bileşene tek yönlü olarak taşır."
+  },
+  {
+    "id": 9,
+    "category": "Frontend",
+    "question": "Bir form alanını açıklayan metni erişilebilir biçimde bağlamak için hangi HTML etiketi kullanılır?",
+    "options": ["caption", "legend", "label", "summary"],
+    "answer": 2,
+    "explanation": "label etiketi for özniteliğiyle form kontrolünün id değerine bağlanabilir."
+  },
+  {
+    "id": 10,
+    "category": "Frontend",
+    "question": "CSS Grid içinde sütunları tanımlayan özellik hangisidir?",
+    "options": ["grid-auto-flow", "grid-template-columns", "column-count", "justify-grid"],
+    "answer": 1,
+    "explanation": "grid-template-columns, grid kapsayıcısının sütun izlerini tanımlar."
+  },
+  {
+    "id": 11,
+    "category": "Frontend",
+    "question": "Tarayıcının sayfa yapısını temsil ettiği ağaç modelinin kısaltması nedir?",
+    "options": ["DOM", "BOM", "CSSOM", "AST"],
+    "answer": 0,
+    "explanation": "DOM, Document Object Model ifadesinin kısaltmasıdır ve belge yapısını temsil eder."
+  },
+  {
+    "id": 12,
+    "category": "Frontend",
+    "question": "Responsive tasarımda ekran özelliklerine göre stil uygulamak için hangisi kullanılır?",
+    "options": ["@supports", "@keyframes", "@media", "@layer"],
+    "answer": 2,
+    "explanation": "@media sorguları, viewport genişliği gibi medya özelliklerine göre stil uygular."
+  }
+]
