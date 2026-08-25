@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Lutheran Kilisesi adını kimden almıştır?",
+    "A": "Martin Luther King Jr",
+    "B": "Martin Luther",
+    "C": "Luther Vandross",
+    "D": "Lex Luthor",
+    "answer": "B"
+  },
+  {
+    "question": "Gerry Adams hangi kuruluşun başkanıdır?",
+    "A": "Greenpeace",
+    "B": "NASCAR",
+    "C": "Sinn Féin",
+    "D": "FKÖ",
+    "answer": "C"
+  },
+  {
+    "question": "Hangi dini topluluğun kızları geleneksel olarak bone takar?",
+    "A": "Amish",
+    "B": "Sih",
+    "C": "Roma Katoliği",
+    "D": "Hristiyan",
+    "answer": "A"
+  },
+  {
+    "question": "Oyuncular Charlie Sheen ile Emilio Estevez'in akrabalık ilişkisi nedir?",
+    "A": "kuzenler",
+    "B": "kardeşler",
+    "C": "baba ve oğul",
+    "D": "amca/dayı ve yeğen",
+    "answer": "B"
+  },
+  {
+    "question": "3/4 ondalık sayı olarak nasıl ifade edilir?",
+    "A": ".25",
+    "B": ".50",
+    "C": ".75",
+    "D": ".90",
+    "answer": "C"
+  },
+  {
+    "question": "Saat 16.00, askerî saat sisteminde nasıl ifade edilir?",
+    "A": "1600",
+    "B": "004",
+    "C": "0400",
+    "D": "4:00",
+    "answer": "A"
+  },
+  {
+    "question": "Arap rakamı olarak '2' nasıl yazılır?",
+    "A": "2",
+    "B": "II",
+    "C": "I",
+    "D": "ii",
+    "answer": "A"
+  },
+  {
+    "question": "Amerikan ambulanslarının önünde 'ambulance' kelimesi normalde nasıl yazılır?",
+    "A": "Fransızca",
+    "B": "ters yazıyla",
+    "C": "Braille alfabesiyle",
+    "D": "anlamsız biçimde",
+    "answer": "B"
+  },
+  {
+    "question": "ABD Senatosu'nda tek bir görev dönemi kaç yıldır?",
+    "A": "iki yıl",
+    "B": "dört yıl",
+    "C": "altı yıl",
+    "D": "sekiz yıl",
+    "answer": "C"
+  },
+  {
+    "question": "NBA'de hücum süresi saati kaç saniyedir?",
+    "A": "18 saniye",
+    "B": "24 saniye",
+    "C": "30 saniye",
+    "D": "35 saniye",
+    "answer": "B"
+  },
+  {
+    "question": "Bir milyon dolar etmek için kaç adet 100 dolarlık banknot gerekir?",
+    "A": "bin",
+    "B": "beş bin",
+    "C": "on bin",
+    "D": "yüz bin",
+    "answer": "C"
+  },
+  {
+    "question": "Standart bir otomobilde kaç aks bulunur?",
+    "A": "bir",
+    "B": "iki",
+    "C": "dört",
+    "D": "sekiz",
+    "answer": "B"
+  },
+  {
+    "question": "Standart bir Visa kredi kartı numarası kaç haneden oluşur?",
+    "A": "12",
+    "B": "15",
+    "C": "16",
+    "D": "20",
+    "answer": "C"
+  },
+  {
+    "question": "Bir zürafanın kaç gözü vardır?",
+    "A": "bir",
+    "B": "iki",
+    "C": "üç",
+    "D": "dört",
+    "answer": "B"
+  },
+  {
+    "question": "Normal bir Major League Baseball maçında kaç inning vardır?",
+    "A": "yedi",
+    "B": "sekiz",
+    "C": "dokuz",
+    "D": "on",
+    "answer": "C"
+  }
+]

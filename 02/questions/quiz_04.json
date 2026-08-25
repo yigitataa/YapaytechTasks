@@ -1,0 +1,74 @@
+[
+  {
+    "question": "Ekvator'da Dünya'nın yüzeyi ne kadar hızlı dönmektedir?",
+    "A": "saatte yaklaşık 100 mil",
+    "B": "saatte yaklaşık 500 mil",
+    "C": "saatte yaklaşık 1000 mil",
+    "D": "saatte yaklaşık 2000 mil",
+    "answer": "C"
+  },
+  {
+    "question": "Bir kişi yanında yetişkin olmadan ilk kez kaç yaşında R dereceli bir filme girebilir?",
+    "A": "15",
+    "B": "17",
+    "C": "18",
+    "D": "21",
+    "answer": "C"
+  },
+  {
+    "question": "Tavla kaç oyuncuyla oynanan bir oyundur?",
+    "A": "İki",
+    "B": "Üç",
+    "C": "Dört",
+    "D": "Altı",
+    "answer": "A"
+  },
+  {
+    "question": "Phil Jackson koçluğa başlamadan önce aşağıdaki NBA takımlarından hangisinde oynadı?",
+    "A": "Boston Celtics",
+    "B": "Los Angeles Lakers",
+    "C": "New York Knicks",
+    "D": "Philadelphia 76ers",
+    "answer": "C"
+  },
+  {
+    "question": "Bob Keeshan daha çok hangi adla tanınır?",
+    "A": "Palyaço Bozo",
+    "B": "Pee Wee Herman",
+    "C": "Captain Kangaroo",
+    "D": "Buffalo Bob",
+    "answer": "C"
+  },
+  {
+    "question": "Hristiyanlar Baba Tanrı, Oğul Tanrı ve Kutsal Ruh'u topluca hangi adla anar?",
+    "A": "Üçlü",
+    "B": "Troyka",
+    "C": "Triumvirlik",
+    "D": "Teslis",
+    "answer": "D"
+  },
+  {
+    "question": "Federal National Mortgage Association hangi lakapla bilinir?",
+    "A": "Morty",
+    "B": "FEMA",
+    "C": "Freddie Mac",
+    "D": "Fannie Mae",
+    "answer": "D"
+  },
+  {
+    "question": "Cheddar peyniri adını hangi ülkedeki bir köyden almıştır?",
+    "A": "İngiltere",
+    "B": "Fransa",
+    "C": "İsviçre",
+    "D": "Danimarka",
+    "answer": "A"
+  },
+  {
+    "question": "Aşağıdaki yemeklerden hangisinde peynir zorunlu bir malzemedir?",
+    "A": "suşi",
+    "B": "patates kızartması",
+    "C": "dana parmigiana",
+    "D": "tavuklu turta",
+    "answer": "C"
+  }
+]

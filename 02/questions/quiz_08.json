@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Bir yüzüğün üzerinde 925 damgası varsa büyük olasılıkla hangi malzemeden yapılmıştır?",
+    "A": "platin",
+    "B": "altın",
+    "C": "çelik",
+    "D": "gümüş",
+    "answer": "D"
+  },
+  {
+    "question": "Noel Günü cumartesiye denk gelirse, onu izleyen Yılbaşı Günü haftanın hangi gününe denk gelir?",
+    "A": "Pazar",
+    "B": "Pazartesi",
+    "C": "Cuma",
+    "D": "Cumartesi",
+    "answer": "D"
+  },
+  {
+    "question": "Birinin kataraktı varsa vücudunun hangi bölümünün ameliyat edilmesi gerekebilir?",
+    "A": "kulak",
+    "B": "el",
+    "C": "göz",
+    "D": "diz",
+    "answer": "C"
+  },
+  {
+    "question": "Bir 'half pipe' içinde 'fakie' sürüş yapıyorsanız büyük olasılıkla ne yapıyorsunuzdur?",
+    "A": "kayak",
+    "B": "bisiklet",
+    "C": "snowboard",
+    "D": "sörf",
+    "answer": "C"
+  },
+  {
+    "question": "Karanlıktan gerçekten korkuyorsanız hangi fobiden muzdaripsinizdir?",
+    "A": "hipnofobi",
+    "B": "kriptofobi",
+    "C": "hadefobi",
+    "D": "niktofobi",
+    "answer": "D"
+  },
+  {
+    "question": "Bir 'Shavian' oyunu izliyorsanız yazar kimdir?",
+    "A": "Shakespeare",
+    "B": "Aiskhylos",
+    "C": "George Bernard Shaw",
+    "D": "Anton Çehov",
+    "answer": "C"
+  },
+  {
+    "question": "Bir Tayland restoranında 'gai' isterseniz ne gelir?",
+    "A": "karides",
+    "B": "tavuk",
+    "C": "sığır eti",
+    "D": "domuz eti",
+    "answer": "B"
+  },
+  {
+    "question": "Telefonda '411'i ararsanız kimi aramış olursunuz?",
+    "A": "polisi",
+    "B": "Beyaz Saray'ı",
+    "C": "rehberlik hizmetini",
+    "D": "Moviefone'u",
+    "answer": "C"
+  },
+  {
+    "question": "Bir 'sawbuck'ınız varsa ne kadar paranız vardır?",
+    "A": "1 dolar",
+    "B": "5 dolar",
+    "C": "10 dolar",
+    "D": "20 dolar",
+    "answer": "C"
+  },
+  {
+    "question": "'Dolly grip' olarak çalışıyorsanız hangi sektörde çalışıyorsunuzdur?",
+    "A": "koyun yetiştiriciliği",
+    "B": "film yapımı",
+    "C": "inşaat",
+    "D": "taşımacılık",
+    "answer": "B"
+  },
+  {
+    "question": "Frederick Cook 1909'da hangi konuma ulaşan ilk kâşif olduğunu iddia etti?",
+    "A": "Everest Dağı",
+    "B": "Bermuda Şeytan Üçgeni",
+    "C": "Atlantis",
+    "D": "Kuzey Kutbu",
+    "answer": "D"
+  },
+  {
+    "question": "Harlem Globetrotters basketbol takımı 1926'da hangi şehirde kuruldu?",
+    "A": "Boston",
+    "B": "Philadelphia",
+    "C": "Chicago",
+    "D": "New York",
+    "answer": "C"
+  },
+  {
+    "question": "Nazi yetkilisi Adolf Eichmann 1960'ta sonunda hangi ülkede yakalandı?",
+    "A": "Brezilya",
+    "B": "Doğu Almanya",
+    "C": "Arjantin",
+    "D": "Paraguay",
+    "answer": "C"
+  },
+  {
+    "question": "1978'de at yarışlarının Triple Crown'unu kazanan en genç jokey kim oldu?",
+    "A": "Jerry Bailey",
+    "B": "Steve Cauthen",
+    "C": "Willie Shoemaker",
+    "D": "Pasquale Devito",
+    "answer": "B"
+  },
+  {
+    "question": "Libya lideri Muammer Kaddafi 1986'da hangi su kütlesi üzerinde sözde bir 'Ölüm Çizgisi' çizdi?",
+    "A": "Sidra Körfezi",
+    "B": "Umman Körfezi",
+    "C": "Kızıldeniz",
+    "D": "Basra Körfezi",
+    "answer": "A"
+  }
+]

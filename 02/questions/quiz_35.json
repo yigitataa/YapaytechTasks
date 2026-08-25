@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Bu resim araçlarından hangisinde kıllar bulunur?",
+    "A": "şövale",
+    "B": "bıçak",
+    "C": "fırça",
+    "D": "palet",
+    "answer": "C"
+  },
+  {
+    "question": "Bu makarna türlerinden hangisi spiral biçimindedir?",
+    "A": "fettuccine",
+    "B": "rigatoni",
+    "C": "tortellini",
+    "D": "rotini",
+    "answer": "D"
+  },
+  {
+    "question": "Bu kişilerden hangisi Krallar Vadisi'ne gömülmüştür?",
+    "A": "XIV. Louis",
+    "B": "Elvis Presley",
+    "C": "Julius Caesar",
+    "D": "Kral Tut",
+    "answer": "D"
+  },
+  {
+    "question": "Bu kişilerden hangisi 20. yüzyılda hayatta değildi?",
+    "A": "Mark Twain",
+    "B": "Thomas Edison",
+    "C": "Sigmund Freud",
+    "D": "Ulysses S. Grant",
+    "answer": "D"
+  },
+  {
+    "question": "Bu sanatçılardan hangisi sinemaya Spike Lee'nin 'Do the Right Thing' filmiyle adım attı?",
+    "A": "Jennifer Lopez",
+    "B": "Rosie Perez",
+    "C": "Paula Abdul",
+    "D": "Tisha Campbell",
+    "answer": "B"
+  },
+  {
+    "question": "Bu yerlerden hangisi sanat müzayedeleriyle tanınır?",
+    "A": "Shelby's",
+    "B": "Nickleby's",
+    "C": "Gatsby's",
+    "D": "Sotheby's",
+    "answer": "D"
+  },
+  {
+    "question": "Bu bitkilerden hangisi İskoçya'nın ulusal sembolüdür?",
+    "A": "sarmaşık",
+    "B": "devedikeni",
+    "C": "gül",
+    "D": "ıhlamur",
+    "answer": "B"
+  },
+  {
+    "question": "Bu popüler oyunlardan hangisi blöf yapmaya dayanır?",
+    "A": "Outburst",
+    "B": "Balderdash",
+    "C": "Pictionary",
+    "D": "Scattergories",
+    "answer": "B"
+  },
+  {
+    "question": "Bunlardan hangisi içine bayıltıcı ilaç katılmış alkollü bir içeceği ifade eder?",
+    "A": "Zombie",
+    "B": "Kamikaze",
+    "C": "Mickey Finn",
+    "D": "Molotof kokteyli",
+    "answer": "C"
+  },
+  {
+    "question": "Bu nehirlerden hangisi Fransa'dan geçer?",
+    "A": "Volga",
+    "B": "Sen",
+    "C": "Mekong",
+    "D": "Allegheny",
+    "answer": "B"
+  },
+  {
+    "question": "Bu rock gitaristlerinden hangisi renkli bir erkek kravatı koleksiyonu tasarlamıştır?",
+    "A": "Eric Clapton",
+    "B": "Jerry Garcia",
+    "C": "Jeff Beck",
+    "D": "Keith Richards",
+    "answer": "B"
+  },
+  {
+    "question": "Bu kayaçlardan hangisi suda yüzer?",
+    "A": "granit",
+    "B": "kireçtaşı",
+    "C": "şeyl",
+    "D": "ponza taşı",
+    "answer": "D"
+  },
+  {
+    "question": "Bu cümlelerden hangisi dilek-şart kipinde yazılmıştır?",
+    "A": "Ben senin erkeğin değilim.",
+    "B": "Keşke senin erkeğin olsaydım.",
+    "C": "Neden senin erkeğin?",
+    "D": "Senin erkeğin nerede?",
+    "answer": "B"
+  },
+  {
+    "question": "Bu yılanlardan hangisi zehirlidir?",
+    "A": "anakonda",
+    "B": "boa yılanı",
+    "C": "bakırbaşlı yılan",
+    "D": "piton",
+    "answer": "C"
+  },
+  {
+    "question": "Bu şarkılardan hangisi rock grubu The Police için Top 10 hiti olmuştur?",
+    "A": "'Radio Ga-Ga'",
+    "B": "'Ob-la-di, Ob-la-da'",
+    "C": "'De Do Do Do, De Da Da Da'",
+    "D": "'In-a-Gadda-Da-Vida'",
+    "answer": "C"
+  }
+]

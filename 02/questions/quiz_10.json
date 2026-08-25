@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Mafya jargonunda 'kanarya gibi ötmek' ne yaptığınız anlamına gelir?",
+    "A": "Sinatra taklidi yapmak",
+    "B": "polislerle konuşmak",
+    "C": "bir düşmanı öldürmek",
+    "D": "atlara bahis oynamak",
+    "answer": "B"
+  },
+  {
+    "question": "Futbolda oyun alanı içinde ellerini kullanmasına izin verilen oyuncu hangisidir?",
+    "A": "orta saha oyuncusu",
+    "B": "santrfor",
+    "C": "libero",
+    "D": "kaleci",
+    "answer": "D"
+  },
+  {
+    "question": "1960'ların 'Batman' TV dizisinde aşağıdakilerden hangisi konuk kötü karakter değildi?",
+    "A": "The Minstrel",
+    "B": "The Archer",
+    "C": "The Bookworm",
+    "D": "The Squeegee Guy",
+    "answer": "D"
+  },
+  {
+    "question": "1976 yapımı klasik 'King Kong' filminin yeniden çevriminde dev maymun New York'taki hangi yapıya tırmanır?",
+    "A": "Özgürlük Heykeli",
+    "B": "Empire State Binası",
+    "C": "Dünya Ticaret Merkezi",
+    "D": "Chrysler Binası",
+    "answer": "C"
+  },
+  {
+    "question": "1992 yapımı animasyon filmi 'Aladdin'de kahraman bir yerden başka bir yere gitmek için ne kullanır?",
+    "A": "konuşan araba",
+    "B": "kanatlı at",
+    "C": "sihirli halı",
+    "D": "sıcak hava balonu",
+    "answer": "C"
+  },
+  {
+    "question": "Arthur efsanesinde Guinevere kiminle evlidir?",
+    "A": "Merlin",
+    "B": "Kral Arthur",
+    "C": "Lancelot",
+    "D": "Camelot",
+    "answer": "B"
+  },
+  {
+    "question": "Blackjack kart oyununda bir kız ve bir papazın toplam değeri kaçtır?",
+    "A": "11",
+    "B": "15",
+    "C": "20",
+    "D": "21",
+    "answer": "C"
+  },
+  {
+    "question": "Çocuk oyununda 'Rover' ne renktir?",
+    "A": "yeşil",
+    "B": "siyah",
+    "C": "kırmızı",
+    "D": "mavi",
+    "answer": "C"
+  },
+  {
+    "question": "Klasik 'Take Me Out to the Ballgame' şarkısında kimin için 'root root root' diye tezahürat ederiz?",
+    "A": "hakem",
+    "B": "ev sahibi takım",
+    "C": "sopa taşıyan çocuk",
+    "D": "Mighty Casey",
+    "answer": "B"
+  },
+  {
+    "question": "'Peanuts' çizgi romanında Schroeder ne yapmasıyla tanınır?",
+    "A": "dans etmek",
+    "B": "futbol oynamak",
+    "C": "piyano çalmak",
+    "D": "hayali bir uçak uçurmak",
+    "answer": "C"
+  },
+  {
+    "question": "Ünlü 'Fındıkkıran' balesinde kahraman kimi yener?",
+    "A": "Şeker Perisi",
+    "B": "Fare Kralı",
+    "C": "Kar Kraliçesi",
+    "D": "Marzipan",
+    "answer": "B"
+  },
+  {
+    "question": "Ünlü beyzbol şiiri 'Casey at the Bat'te Casey hangi kasabanın takımı için oynar?",
+    "A": "Stormfield",
+    "B": "Fog City",
+    "C": "Mudville",
+    "D": "Waterlog",
+    "answer": "C"
+  },
+  {
+    "question": "'Easy Rider' filminde Peter Fonda'nın deri ceketinin arkasında hangi amblem vardır?",
+    "A": "barış sembolü",
+    "B": "Amerikan bayrağı",
+    "C": "iki beyaz güvercin",
+    "D": "Harley-Davidson logosu",
+    "answer": "B"
+  },
+  {
+    "question": "'The Talented Mr. Ripley' filminde Mr. Ripley'i kim canlandırır?",
+    "A": "Jude Law",
+    "B": "Matt Damon",
+    "C": "Dustin Hoffman",
+    "D": "Ben Affleck",
+    "answer": "B"
+  },
+  {
+    "question": "Jimmy Buffett'ın 'Margaritaville' şarkısında şarkıcı ne aramaktadır?",
+    "A": "bir misket limonu",
+    "B": "bir tuzluk",
+    "C": "araba anahtarları",
+    "D": "barmen",
+    "answer": "B"
+  }
+]

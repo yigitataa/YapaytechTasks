@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Bunlardan hangisi New York eyaletinde bir şehir değildir?",
+    "A": "Perskippity",
+    "B": "Kerhonkson",
+    "C": "Schenectady",
+    "D": "Lackawanna",
+    "answer": "A"
+  },
+  {
+    "question": "Bunlardan hangisi bir kumaş değildir?",
+    "A": "Velveteen",
+    "B": "Celotex",
+    "C": "Seersucker",
+    "D": "Tencel",
+    "answer": "B"
+  },
+  {
+    "question": "Bunlardan hangisi bir Hindu tanrısı değildir?",
+    "A": "Shiva",
+    "B": "Vishnu",
+    "C": "Sanskrit",
+    "D": "Brahma",
+    "answer": "C"
+  },
+  {
+    "question": "Bunlardan hangisi standart bir masaüstü bilgisayar klavyesindeki bir 'lock' işlevi değildir?",
+    "A": "print lock",
+    "B": "number lock",
+    "C": "scroll lock",
+    "D": "caps lock",
+    "answer": "A"
+  },
+  {
+    "question": "Bunlardan hangisi bir Amerikan futbolu takımındaki pozisyonlardan biri değildir?",
+    "A": "quarterback",
+    "B": "tight end",
+    "C": "forvet",
+    "D": "free safety",
+    "answer": "C"
+  },
+  {
+    "question": "Bunlardan hangisi bir baharat değildir?",
+    "A": "dereotu",
+    "B": "anason tohumu",
+    "C": "salatalık",
+    "D": "acı kırmızı biber",
+    "answer": "C"
+  },
+  {
+    "question": "Bunlardan hangisi bir ayakkabı stili değildir?",
+    "A": "gingham",
+    "B": "brogan",
+    "C": "espadril",
+    "D": "docksider",
+    "answer": "A"
+  },
+  {
+    "question": "Bunlardan hangisi geleneksel bir Yunan yemeği değildir?",
+    "A": "sukiyaki",
+    "B": "souvlaki",
+    "C": "musakka",
+    "D": "finikia",
+    "answer": "A"
+  },
+  {
+    "question": "Bunlardan hangisi bir acı biber türü değildir?",
+    "A": "habanero",
+    "B": "cheyenne",
+    "C": "jalapeño",
+    "D": "guajillo",
+    "answer": "B"
+  },
+  {
+    "question": "Bunlardan hangisi bir primat türü değildir?",
+    "A": "babun",
+    "B": "marmot",
+    "C": "orangutan",
+    "D": "şempanze",
+    "answer": "B"
+  },
+  {
+    "question": "Bunlardan hangisi bir kayaç türü değildir?",
+    "A": "metamorfik",
+    "B": "tortul",
+    "C": "magmatik",
+    "D": "yaprak döken",
+    "answer": "D"
+  },
+  {
+    "question": "Bunlardan hangisi Yorkshire pudding'in malzemelerinden biri değildir?",
+    "A": "yumurta",
+    "B": "süt",
+    "C": "çikolata",
+    "D": "et suyu/yağı",
+    "answer": "C"
+  },
+  {
+    "question": "Bunlardan hangisi Snickers çikolatasında bulunmaz?",
+    "A": "badem",
+    "B": "çikolata",
+    "C": "nuga",
+    "D": "karamel",
+    "answer": "A"
+  },
+  {
+    "question": "Bunlardan hangisi Ezop masallarından biri değildir?",
+    "A": "'Köpek ve Sincap'",
+    "B": "'Tavşan ve Kaplumbağa'",
+    "C": "'Kartal ve Böcek'",
+    "D": "'Öküz ve Kurbağalar'",
+    "answer": "A"
+  },
+  {
+    "question": "Bunlardan hangisi süper kahraman Captain Marvel'ın yeteneklerinden biri değildir?",
+    "A": "Apollon'un gücü",
+    "B": "Herkül'ün kuvveti",
+    "C": "Akhilleus'un cesareti",
+    "D": "Süleyman'ın bilgeliği",
+    "answer": "A"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Ocak ayının doğum taşı hangisidir?",
+    "A": "topaz",
+    "B": "lal taşı",
+    "C": "opal",
+    "D": "elmas",
+    "answer": "B"
+  },
+  {
+    "question": "Yeni Zelanda'nın başkenti neresidir?",
+    "A": "Sidney",
+    "B": "Wellington",
+    "C": "Auckland",
+    "D": "Melbourne",
+    "answer": "B"
+  },
+  {
+    "question": "Kuzey Dakota'nın başkenti neresidir?",
+    "A": "Bismarck",
+    "B": "Fargo",
+    "C": "Sioux Falls",
+    "D": "Pierre",
+    "answer": "A"
+  },
+  {
+    "question": "Bir katının ısı uygulanarak sıvıya dönüştüğü kimyasal/fiziksel sürece ne denir?",
+    "A": "damıtma",
+    "B": "fotosentez",
+    "C": "donma",
+    "D": "erime",
+    "answer": "D"
+  },
+  {
+    "question": "Gözün renkli kısmına ne denir?",
+    "A": "iris",
+    "B": "göz bebeği",
+    "C": "retina",
+    "D": "koklea",
+    "answer": "A"
+  },
+  {
+    "question": "New Mexico'nun en büyük şehrinin doğru yazılışı hangisidir?",
+    "A": "Albuqerque",
+    "B": "Albuquerque",
+    "C": "Albequerque",
+    "D": "Santa Fe",
+    "answer": "B"
+  },
+  {
+    "question": "ABD Bağlılık Yemini'nin son kelimesi hangisidir?",
+    "A": "Amerika",
+    "B": "durur",
+    "C": "bölünmez",
+    "D": "herkes",
+    "answer": "D"
+  },
+  {
+    "question": "Dünya'da şimdiye kadar yaşamış en büyük hayvan hangisidir?",
+    "A": "mavi balina",
+    "B": "dev kalamar",
+    "C": "yünlü mamut",
+    "D": "Tyrannosaurus",
+    "answer": "A"
+  },
+  {
+    "question": "Pensilvanya'nın en büyük şehri hangisidir?",
+    "A": "Philadelphia",
+    "B": "Stewartsville",
+    "C": "Harrisburg",
+    "D": "Pittsburgh",
+    "answer": "A"
+  },
+  {
+    "question": "Yeni Ahit'in son kitabı hangisidir?",
+    "A": "Vahiy",
+    "B": "Hâkimler",
+    "C": "Rut",
+    "D": "Yuhanna",
+    "answer": "A"
+  },
+  {
+    "question": "Yunan alfabesinin son harfi hangisidir?",
+    "A": "omikron",
+    "B": "omega",
+    "C": "ipsilon",
+    "D": "zeta",
+    "answer": "B"
+  },
+  {
+    "question": "Orion takımyıldızının en parlak yıldızının adı olan 'Betelgeuse' ne anlama gelir?",
+    "A": "kalkan üzerindeki çiçek",
+    "B": "okçunun gözü",
+    "C": "aslanın yelesi",
+    "D": "devin koltuk altı",
+    "answer": "D"
+  },
+  {
+    "question": "Bir doktorun bir hastalığı tanımlaması için kullanılan tıbbi terim nedir?",
+    "A": "Hipnoz",
+    "B": "Prognoz",
+    "C": "Trişinoz",
+    "D": "Tanı",
+    "answer": "D"
+  },
+  {
+    "question": "'Pertussis' hastalığının daha yaygın adı nedir?",
+    "A": "boğmaca",
+    "B": "tenisçi dirseği",
+    "C": "siyah akciğer hastalığı",
+    "D": "kızamıkçık",
+    "answer": "A"
+  },
+  {
+    "question": "Amerika'da düğünler için en popüler ay hangisidir?",
+    "A": "Ocak",
+    "B": "Mayıs",
+    "C": "Ağustos",
+    "D": "Kasım",
+    "answer": "C"
+  }
+]

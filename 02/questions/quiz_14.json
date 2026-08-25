@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Hangi ülkede araçlar yolun sol tarafından kullanılmalıdır?",
+    "A": "Fransa",
+    "B": "İtalya",
+    "C": "İngiltere",
+    "D": "Almanya",
+    "answer": "C"
+  },
+  {
+    "question": "Phoebe, Dione ve Helene hangi gezegenin uydularıdır?",
+    "A": "Jüpiter",
+    "B": "Satürn",
+    "C": "Neptün",
+    "D": "Plüton",
+    "answer": "B"
+  },
+  {
+    "question": "Pop ikonu Tiny Tim hangi müzik aletini çalmasıyla ünlüydü?",
+    "A": "ukulele",
+    "B": "kazoo",
+    "C": "akordeon",
+    "D": "keman",
+    "answer": "A"
+  },
+  {
+    "question": "Birinin aşağıdakilerden hangisini yemesi salmonella zehirlenmesine yakalanmasına en çok yol açabilir?",
+    "A": "havuç",
+    "B": "tavuk",
+    "C": "tofu",
+    "D": "pirinç",
+    "answer": "B"
+  },
+  {
+    "question": "Stevie Wonder ve Michael Jackson, eski Beatles üyelerinden hangisiyle düet kaydetmiştir?",
+    "A": "Paul McCartney",
+    "B": "John Lennon",
+    "C": "George Harrison",
+    "D": "Ringo Starr",
+    "answer": "A"
+  },
+  {
+    "question": "Amerikalı vatansever Paul Revere adını babasından almıştır; babasının asıl adı neydi?",
+    "A": "John Paul Revere",
+    "B": "Paul Silver",
+    "C": "Apollos Rivoire",
+    "D": "Paolo Reverini",
+    "answer": "C"
+  },
+  {
+    "question": "Orijinal Apple iMac bilgisayarı aşağıdaki renklerin hangisinde sunulmamıştı?",
+    "A": "Mandalina",
+    "B": "Çilek",
+    "C": "Kivi",
+    "D": "Üzüm",
+    "answer": "C"
+  },
+  {
+    "question": "'Arkansas toothpick' hangi adla daha iyi bilinir?",
+    "A": "Scottie Pippen",
+    "B": "kaburga",
+    "C": "serçe parmak",
+    "D": "Bowie bıçağı",
+    "answer": "D"
+  },
+  {
+    "question": "İngiliz yemeği 'bangers and mash' sosis ve hangi yiyecekten oluşur?",
+    "A": "yumurta",
+    "B": "pastırma",
+    "C": "karaciğer",
+    "D": "patates",
+    "answer": "D"
+  },
+  {
+    "question": "Uzaktaki nesneleri görmekte zorlanan biri için kullanılan yaygın terim hangisidir?",
+    "A": "uzağı iyi gören",
+    "B": "miyop",
+    "C": "geriye dönük görüşlü",
+    "D": "hipermetrop",
+    "answer": "B"
+  },
+  {
+    "question": "'Fandango' olarak bilinen dansın kökeni neresidir?",
+    "A": "Avustralya",
+    "B": "Afrika",
+    "C": "Kızılderili",
+    "D": "İspanya",
+    "answer": "D"
+  },
+  {
+    "question": "Disko grubu ABBA hangi ülkedendir?",
+    "A": "Norveç",
+    "B": "İsveç",
+    "C": "İsviçre",
+    "D": "Hollanda",
+    "answer": "B"
+  },
+  {
+    "question": "'Stand By Me' filmi hangi yazarın bir eserine dayanır?",
+    "A": "Anne Proulx",
+    "B": "Stephen King",
+    "C": "Dean Koontz",
+    "D": "Frank McCourt",
+    "answer": "B"
+  },
+  {
+    "question": "İlk ticari radyo istasyonu hangi şehirde bulunuyordu?",
+    "A": "Chicago",
+    "B": "Austin",
+    "C": "Pittsburgh",
+    "D": "Cleveland",
+    "answer": "C"
+  },
+  {
+    "question": "Kaydedilip yeniden çalınan ilk ses kaydı hangi çocuk tekerlemesinin okunmasıydı?",
+    "A": "'Humpty Dumpty'",
+    "B": "'Mary Had a Little Lamb'",
+    "C": "'Jack Be Nimble'",
+    "D": "'Home, Sweet Home'",
+    "answer": "B"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Joker kartların kullanılmadığı bir oyunda mümkün olan en yüksek poker eli hangisidir?",
+    "A": "straight flush",
+    "B": "royal flush",
+    "C": "full house",
+    "D": "kare",
+    "answer": "B"
+  },
+  {
+    "question": "Amerika'da pepperoninin ana malzemesi nedir?",
+    "A": "balık",
+    "B": "biber",
+    "C": "buğday",
+    "D": "et",
+    "answer": "D"
+  },
+  {
+    "question": "Amerikan futbolunda bir touchdown kaç puan değerindedir?",
+    "A": "iki",
+    "B": "üç",
+    "C": "altı",
+    "D": "yedi",
+    "answer": "C"
+  },
+  {
+    "question": "Yetişkin bir insanda kalın bağırsak ne kadar uzundur?",
+    "A": "bir fit",
+    "B": "beş fit",
+    "C": "on iki fit",
+    "D": "yirmi fit",
+    "answer": "B"
+  },
+  {
+    "question": "Beyzbolda kaç 'ball' bir walk ile sonuçlanır?",
+    "A": "bir",
+    "B": "iki",
+    "C": "üç",
+    "D": "dört",
+    "answer": "D"
+  },
+  {
+    "question": "Bowlingde strike yapmak için kaç lobut devirmelisiniz?",
+    "A": "sıfır",
+    "B": "8",
+    "C": "10",
+    "D": "12",
+    "answer": "C"
+  },
+  {
+    "question": "İngiliz para biriminde kaç pence bir pound eder?",
+    "A": "10",
+    "B": "100",
+    "C": "500",
+    "D": "1000",
+    "answer": "B"
+  },
+  {
+    "question": "Bilgisayar terminolojisinde 'FTP' kısaltmasının açılımı nedir?",
+    "A": "dosya aktarım protokolü",
+    "B": "tam zamanlı portal",
+    "C": "tam metin işlemcisi",
+    "D": "yazdırması ücretsiz",
+    "answer": "A"
+  },
+  {
+    "question": "Bilgisayar terminolojisinde 'ISP' kısaltmasının açılımı nedir?",
+    "A": "Bireysel Site Gizliliği",
+    "B": "Yatırım İstikrar Planı",
+    "C": "İç Güvenlik Konumu",
+    "D": "İnternet Servis Sağlayıcısı",
+    "answer": "D"
+  },
+  {
+    "question": "Yemek pişirmede 'au gratin' terimi bazen üzerinde hangi malzeme bulunan bir yemeği tanımlamak için kullanılır?",
+    "A": "peynir",
+    "B": "meyve",
+    "C": "sos",
+    "D": "çırpılmış krema",
+    "answer": "A"
+  },
+  {
+    "question": "Golfte parın bir vuruş üzerindeki skora ne denir?",
+    "A": "eagle",
+    "B": "bogey",
+    "C": "dormie",
+    "D": "birdie",
+    "answer": "B"
+  },
+  {
+    "question": "Yunan mitolojisinde Zeus'un babasının adı nedir?",
+    "A": "Apollon",
+    "B": "Kronos",
+    "C": "Prometheus",
+    "D": "Herakles",
+    "answer": "B"
+  },
+  {
+    "question": "At yarışında belirli bir yarışta 1., 2. ve 3. sırayı bitirenleri doğru tahmin etmeye dayalı bahse ne denir?",
+    "A": "triple action",
+    "B": "trifecta",
+    "C": "exacta",
+    "D": "triple crown",
+    "answer": "B"
+  },
+  {
+    "question": "Buz hokeyinde aşağıdakilerden hangisi bir ceza türü değildir?",
+    "A": "hooking",
+    "B": "charging",
+    "C": "carving",
+    "D": "butt-ending",
+    "answer": "C"
+  },
+  {
+    "question": "Mister Rogers'ın tema şarkısında sizden ne olmanızı ister?",
+    "A": "aşçısı",
+    "B": "öğrencisi",
+    "C": "komşusu",
+    "D": "olabileceğiniz her şey",
+    "answer": "C"
+  }
+]

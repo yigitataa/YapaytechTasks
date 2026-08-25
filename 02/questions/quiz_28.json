@@ -1,0 +1,122 @@
+[
+  {
+    "question": "İlkbaharda yaz saati uygulaması başladığında çoğu Amerikalı saatlerini nasıl ayarlar?",
+    "A": "bir saat ileri",
+    "B": "bir saat geri",
+    "C": "iki saat ileri",
+    "D": "iki saat geri",
+    "answer": "B"
+  },
+  {
+    "question": "Araç kullanırken aşağıdaki el işaretlerinden hangisi 'sola dönüş' anlamına gelir?",
+    "A": "kol yukarı doğru bükülü",
+    "B": "başparmak yukarı",
+    "C": "yumruk kapalı",
+    "D": "kol düz şekilde yana uzatılmış",
+    "answer": "D"
+  },
+  {
+    "question": "1932 başkanlık seçiminde FDR kaç ABD eyaletinin seçici kurul oylarını kazanamadı?",
+    "A": "altı",
+    "B": "yedi",
+    "C": "sekiz",
+    "D": "on",
+    "answer": "A"
+  },
+  {
+    "question": "Atların boyunu ölçerken kullanılan bir 'hand' ne kadar uzunluktadır?",
+    "A": "dört inç",
+    "B": "yedi inç",
+    "C": "on inç",
+    "D": "iki fit",
+    "answer": "A"
+  },
+  {
+    "question": "amazon.com internette ilk açıldığında yalnızca ne satıyordu?",
+    "A": "kitaplar",
+    "B": "kompakt diskler",
+    "C": "arabalar",
+    "D": "giysiler",
+    "answer": "A"
+  },
+  {
+    "question": "Yaz saati uygulaması sırasında New York'ta saat öğlen 12.00 iken Honolulu'da saat kaçtır?",
+    "A": "06.00",
+    "B": "06.30",
+    "C": "07.00",
+    "D": "08.00",
+    "answer": "A"
+  },
+  {
+    "question": "Havai fişeklerin ilk olarak nerede geliştirildiği bilinmektedir?",
+    "A": "İtalya",
+    "B": "Çin",
+    "C": "Büyük Britanya",
+    "D": "Yunanistan",
+    "answer": "B"
+  },
+  {
+    "question": "Caz efsanesi Sun Ra nerede doğduğunu iddia ediyordu?",
+    "A": "Atlantis",
+    "B": "Olimpos Dağı",
+    "C": "Satürn",
+    "D": "bir saksafonun içinde",
+    "answer": "C"
+  },
+  {
+    "question": "Lewis ve Clark 1804'teki ünlü keşif gezilerine nereden başladılar?",
+    "A": "Seattle",
+    "B": "St. Louis",
+    "C": "New Orleans",
+    "D": "Washington, DC",
+    "answer": "B"
+  },
+  {
+    "question": "Exxon Valdez Mart 1989'da nerede karaya oturdu?",
+    "A": "Monterey Körfezi",
+    "B": "Prince William Sound",
+    "C": "Cape Cod",
+    "D": "Meksika Körfezi",
+    "answer": "B"
+  },
+  {
+    "question": "Ghirardelli Square nerede bulunur?",
+    "A": "Milano",
+    "B": "Roma",
+    "C": "Washington DC",
+    "D": "San Francisco",
+    "answer": "D"
+  },
+  {
+    "question": "Louvre Müzesi nerededir?",
+    "A": "Paris",
+    "B": "Lyon",
+    "C": "Cenevre",
+    "D": "Vichy",
+    "answer": "A"
+  },
+  {
+    "question": "Tavuk ilk olarak nerede evcilleştirildi?",
+    "A": "Fransa",
+    "B": "Hindistan",
+    "C": "Peru",
+    "D": "Zaire",
+    "answer": "B"
+  },
+  {
+    "question": "Bir icra memurunu (bailiff) genellikle nerede bulursunuz?",
+    "A": "market",
+    "B": "mahkeme salonu",
+    "C": "futbol stadyumu",
+    "D": "doktor muayenehanesi",
+    "answer": "B"
+  },
+  {
+    "question": "Frank Lloyd Wright'ın tasarladığı Fallingwater adlı ev nerededir?",
+    "A": "Connecticut",
+    "B": "Pensilvanya",
+    "C": "Illinois",
+    "D": "New York",
+    "answer": "B"
+  }
+]

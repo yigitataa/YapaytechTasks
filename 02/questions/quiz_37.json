@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Mr. T hangi 'Rocky' filminde yer alır?",
+    "A": "'Rocky II'",
+    "B": "'Rocky III'",
+    "C": "'Rocky IV'",
+    "D": "'Rocky'",
+    "answer": "B"
+  },
+  {
+    "question": "Microsoft'u Bill Gates ile birlikte kim kurdu?",
+    "A": "Steve Jobs",
+    "B": "Steve Wozniak",
+    "C": "Paul Williams",
+    "D": "Paul Allen",
+    "answer": "D"
+  },
+  {
+    "question": "'Ay Işığı Sonatı'nı kim besteledi?",
+    "A": "Mozart",
+    "B": "Handel",
+    "C": "Bach",
+    "D": "Beethoven",
+    "answer": "D"
+  },
+  {
+    "question": "Çizgi film süper kahramanı Underdog'un baş düşmanlarından biri kimdir?",
+    "A": "OverCat",
+    "B": "Muttley",
+    "C": "Mr. Whoopie",
+    "D": "Dick Dastardly",
+    "answer": "A"
+  },
+  {
+    "question": "'Halka açık' bir şirketin sahibi kim kabul edilir?",
+    "A": "CEO",
+    "B": "hissedarlar",
+    "C": "başkan",
+    "D": "hükûmet",
+    "answer": "B"
+  },
+  {
+    "question": "Baseball Hall of Fame'e hiç seçilmemiş oyuncular arasında kariyer boyunca en fazla hit yapan oyuncu kimdir?",
+    "A": "Steve Garvey",
+    "B": "Jim Rice",
+    "C": "Pete Rose",
+    "D": "Ken Griffey Jr",
+    "answer": "C"
+  },
+  {
+    "question": "'The Far Side' çizgi romanının yaratıcısı kimdir?",
+    "A": "Jim Davis",
+    "B": "Gary Larson",
+    "C": "Garry Trudeau",
+    "D": "Charles Schulz",
+    "answer": "B"
+  },
+  {
+    "question": "Roma mitolojisinde çiçeklerin tanrıçası kimdir?",
+    "A": "Diana",
+    "B": "Echo",
+    "C": "Flora",
+    "D": "Niobe",
+    "answer": "C"
+  },
+  {
+    "question": "Hayvanların koruyucu azizi kimdir?",
+    "A": "Sevillalı Aziz Isidore",
+    "B": "Padovalı Aziz Anthony",
+    "C": "Assisili Aziz Francis",
+    "D": "Aziz Jeanne d'Arc",
+    "answer": "C"
+  },
+  {
+    "question": "NBA smaç yarışmasını kazanan en kısa boylu oyuncu kimdir?",
+    "A": "Anthony 'Spud' Webb",
+    "B": "Michael 'Air' Jordan",
+    "C": "Tyrone 'Muggsy' Bogues",
+    "D": "Julius 'Dr. J' Erving",
+    "answer": "A"
+  },
+  {
+    "question": "'Casablanca' filminin başrol oyuncusu kimdir?",
+    "A": "Errol Flynn",
+    "B": "Clark Gable",
+    "C": "Cary Grant",
+    "D": "Humphrey Bogart",
+    "answer": "D"
+  },
+  {
+    "question": "'Everybody Loves Raymond' TV dizisinin yıldızı kimdir?",
+    "A": "Ray Liotta",
+    "B": "Ray Romano",
+    "C": "Ray Parker Jr.",
+    "D": "Sugar Ray Leonard",
+    "answer": "B"
+  },
+  {
+    "question": "'Dear Abby' köşe yazarı Abigail Van Buren'in ikiz kız kardeşi kimdir?",
+    "A": "Martha Stewart",
+    "B": "Dr. Ruth Westheimer",
+    "C": "Ann Landers",
+    "D": "Miss Manners",
+    "answer": "C"
+  },
+  {
+    "question": "'West Side Story' filminin sonunda Tony'yi kim öldürür?",
+    "A": "Riff",
+    "B": "Chino",
+    "C": "Bernardo",
+    "D": "Kendini öldürür.",
+    "answer": "B"
+  },
+  {
+    "question": "1831'de Southampton, Virginia'daki köle ayaklanmasına kim liderlik etti?",
+    "A": "John Brown",
+    "B": "Dred Scott",
+    "C": "Nat Turner",
+    "D": "Harriet Tubman",
+    "answer": "C"
+  }
+]

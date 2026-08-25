@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Bu Hemingway karakterlerinden hangisi gazetecidir?",
+    "A": "Jake Barnes",
+    "B": "Rogelio Gomez",
+    "C": "Frederic Henry",
+    "D": "John MacWalsey",
+    "answer": "A"
+  },
+  {
+    "question": "Bu tatillerden hangisi belirli bir tarihe bağlı değildir?",
+    "A": "Bağımsızlık Günü",
+    "B": "Yılbaşı",
+    "C": "Şükran Günü",
+    "D": "Noel",
+    "answer": "C"
+  },
+  {
+    "question": "Bu korku filmlerinden hangisinin en fazla devam filmi yapılmıştır?",
+    "A": "'Scream'",
+    "B": "'Jaws'",
+    "C": "'Halloween'",
+    "D": "'Friday the 13th'",
+    "answer": "D"
+  },
+  {
+    "question": "Bu evcil hayvanlardan hangisi parvovirüse karşı aşılanmalıdır?",
+    "A": "hamster",
+    "B": "kedi",
+    "C": "köpek",
+    "D": "kuş",
+    "answer": "C"
+  },
+  {
+    "question": "Bunlardan hangisi yaygın olarak bilinen bir yatırım hesabıdır?",
+    "A": "CNN",
+    "B": "EMC",
+    "C": "IRA",
+    "D": "IRS",
+    "answer": "C"
+  },
+  {
+    "question": "Bunlardan hangisi bir balıktır?",
+    "A": "denizatı",
+    "B": "deniz ineği",
+    "C": "deniz yılanı",
+    "D": "deniz aslanı",
+    "answer": "A"
+  },
+  {
+    "question": "Bunlardan hangisi yatırımcıları korumak için kurulmuş bir devlet kurumudur?",
+    "A": "AAA",
+    "B": "NBA",
+    "C": "SEC",
+    "D": "MADD",
+    "answer": "C"
+  },
+  {
+    "question": "Bunlardan hangisi salatalıkgiller ailesinin bir üyesidir?",
+    "A": "yeşil biber",
+    "B": "karpuz",
+    "C": "patates",
+    "D": "taze fasulye",
+    "answer": "B"
+  },
+  {
+    "question": "Bunlardan hangisi 'polis' için kullanılan bir argo sözdür?",
+    "A": "fuzz",
+    "B": "psikiyatristler",
+    "C": "muhasebeciler",
+    "D": "karınca yiyenler",
+    "answer": "A"
+  },
+  {
+    "question": "Bunlardan hangisi geometrik desenler hâlinde kakma ahşap parçalarından oluşan bir sanat türüdür?",
+    "A": "marküteri",
+    "B": "parquetry",
+    "C": "harquetry",
+    "D": "sharquetry",
+    "answer": "B"
+  },
+  {
+    "question": "Bunlardan hangisi İtalyan bir tasarım firmasıdır?",
+    "A": "Escada",
+    "B": "Fendi",
+    "C": "Ghost",
+    "D": "Mainbocher",
+    "answer": "B"
+  },
+  {
+    "question": "Bunlardan hangisi golf sahasının başka bir adıdır?",
+    "A": "Pitch",
+    "B": "Links",
+    "C": "Steps",
+    "D": "Suite",
+    "answer": "B"
+  },
+  {
+    "question": "Bunlardan hangisi alerjileri tedavi etmek için yaygın olarak kullanılır?",
+    "A": "antimadde",
+    "B": "antikoagülanlar",
+    "C": "antiseptikler",
+    "D": "antihistaminikler",
+    "answer": "D"
+  },
+  {
+    "question": "Bunlardan hangisi kakao çekirdeklerinden yapılır?",
+    "A": "marzipan",
+    "B": "soya sosu",
+    "C": "çikolata",
+    "D": "ançuez",
+    "answer": "C"
+  },
+  {
+    "question": "Bunlardan hangisi bir kedi ırkı değildir?",
+    "A": "Persian",
+    "B": "Turkish Angora",
+    "C": "Bichon Frise",
+    "D": "Maine Coon",
+    "answer": "C"
+  }
+]

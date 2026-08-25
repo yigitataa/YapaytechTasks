@@ -1,0 +1,74 @@
+[
+  {
+    "question": "Yale Üniversitesi'nin bir araştırmasına göre Amerikalı yetişkinlerin en kolay tanıdığı koku hangisidir?",
+    "A": "ton balığı",
+    "B": "çamaşır",
+    "C": "patlamış mısır",
+    "D": "kahve",
+    "answer": "D"
+  },
+  {
+    "question": "Halk inanışına göre 'jackalope', hangi hayvanın boynuzlu bir versiyonudur?",
+    "A": "tavuk",
+    "B": "tavşan",
+    "C": "sığın",
+    "D": "yılan",
+    "answer": "B"
+  },
+  {
+    "question": "Yunan mitolojisine göre Apollon'un ikiz kız kardeşi kimdir?",
+    "A": "Afrodit",
+    "B": "Artemis",
+    "C": "Venüs",
+    "D": "Athena",
+    "answer": "B"
+  },
+  {
+    "question": "Efsaneye göre birine 'kem gözle' bakarsanız ne yapmış olursunuz?",
+    "A": "ona lanet etmek",
+    "B": "bir çocuğu kutsamak",
+    "C": "para saymak",
+    "D": "vakit geçirmek",
+    "answer": "A"
+  },
+  {
+    "question": "Efsaneye göre bir leprechaun ile en çok hangi ülkede karşılaşmanız beklenir?",
+    "A": "İrlanda",
+    "B": "Polonya",
+    "C": "Grönland",
+    "D": "İskoçya",
+    "answer": "A"
+  },
+  {
+    "question": "American Kennel Club'a göre 1999 itibarıyla ABD'deki en popüler köpek ırkı hangisidir?",
+    "A": "Kaniş",
+    "B": "Beagle",
+    "C": "Alman çoban köpeği",
+    "D": "Labrador retriever",
+    "answer": "D"
+  },
+  {
+    "question": "İncil'e göre Musa ve Harun'un kız kardeşinin adı neydi?",
+    "A": "Jochebed",
+    "B": "Ruth",
+    "C": "Leah",
+    "D": "Miriam",
+    "answer": "D"
+  },
+  {
+    "question": "Çocuk tekerlemesine göre Kolomb 1492'de nasıl bir okyanusta yelken açtı?",
+    "A": "sakin",
+    "B": "mavi",
+    "C": "rüzgârlı",
+    "D": "gerçekten büyük",
+    "answer": "B"
+  },
+  {
+    "question": "Mother Goose tekerlemesine göre hangi gün doğan çocuk kederle doludur?",
+    "A": "Pazartesi çocuğu",
+    "B": "Çarşamba çocuğu",
+    "C": "Perşembe çocuğu",
+    "D": "Cumartesi çocuğu",
+    "answer": "B"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Bu renklerden hangisi mavinin bir tonudur?",
+    "A": "oker",
+    "B": "deniz salyangozu mavisi",
+    "C": "eflatun",
+    "D": "ekru",
+    "answer": "B"
+  },
+  {
+    "question": "Bu ülkelerden hangisi NAFTA'ya katılmaz?",
+    "A": "Amerika Birleşik Devletleri",
+    "B": "Kanada",
+    "C": "Meksika",
+    "D": "Guatemala",
+    "answer": "D"
+  },
+  {
+    "question": "Bu şirketlerden hangisi çevrim içi hisse senedi aracılık şirketi değildir?",
+    "A": "E*Trade",
+    "B": "EDigital",
+    "C": "Datek Online",
+    "D": "DLJ Direct",
+    "answer": "B"
+  },
+  {
+    "question": "Bu ülkelerden hangisi Avrupa'da değildir?",
+    "A": "İtalya",
+    "B": "İspanya",
+    "C": "Yunanistan",
+    "D": "İsrail",
+    "answer": "D"
+  },
+  {
+    "question": "Bu ülkelerden hangisi II. Dünya Savaşı sırasında Mihver devletlerinin üyesi değildi?",
+    "A": "Almanya",
+    "B": "İtalya",
+    "C": "İspanya",
+    "D": "Japonya",
+    "answer": "C"
+  },
+  {
+    "question": "Bu Demokratlardan hangisi 1984 başkanlık seçiminde Ronald Reagan'a yenildi?",
+    "A": "Michael Dukakis",
+    "B": "Walter Mondale",
+    "C": "Gary Hart",
+    "D": "Jimmy Carter",
+    "answer": "B"
+  },
+  {
+    "question": "Bu yemeklerden hangisi domuz bağırsağından yapılır?",
+    "A": "haggis",
+    "B": "chitlins",
+    "C": "grits",
+    "D": "chop suey",
+    "answer": "B"
+  },
+  {
+    "question": "Bu evangelistlerden hangisi rockçı Jerry Lee Lewis'in kuzenidir?",
+    "A": "Billy Graham",
+    "B": "Oral Roberts",
+    "C": "Jerry Falwell",
+    "D": "Jimmy Swaggart",
+    "answer": "D"
+  },
+  {
+    "question": "Bu ünlü beyzbol isimlerinden hangisi bir zamanlar emre itaatsizlik suçlamasıyla askerî mahkemede beraat etmiştir?",
+    "A": "Abner Doubleday",
+    "B": "Ty Cobb",
+    "C": "Jackie Robinson",
+    "D": "Billy Martin",
+    "answer": "C"
+  },
+  {
+    "question": "Bu moda tasarımcılarından hangisi Amerika Birleşik Devletleri'nde doğmuştur?",
+    "A": "Laura Ashley",
+    "B": "Helmut Lang",
+    "C": "Donna Karan",
+    "D": "Christian Dior",
+    "answer": "C"
+  },
+  {
+    "question": "Bu yiyeceklerden hangisi doğal olarak oluşan az miktarda afyon içerebilir?",
+    "A": "çikolatalı trüfler",
+    "B": "haşhaşlı bageller",
+    "C": "gazlı içecek",
+    "D": "susamlı tavuk",
+    "answer": "B"
+  },
+  {
+    "question": "Bu yiyeceklerden hangisini denizden yakalayabilirsiniz?",
+    "A": "arpacık soğanı",
+    "B": "stollen",
+    "C": "deniz tarağı",
+    "D": "scone",
+    "answer": "C"
+  },
+  {
+    "question": "Bu yiyeceklerden hangisi köpekler için zehirlidir?",
+    "A": "fıstık ezmesi",
+    "B": "muz",
+    "C": "çikolata",
+    "D": "zeytin",
+    "answer": "C"
+  },
+  {
+    "question": "Bu oyunlardan hangisi kartlarla oynanmaz?",
+    "A": "bakara",
+    "B": "remi",
+    "C": "craps",
+    "D": "solitaire",
+    "answer": "C"
+  },
+  {
+    "question": "Bu yiyeceklerden hangisi geleneksel olarak koşer kabul edilmez?",
+    "A": "turunçgiller",
+    "B": "arpa",
+    "C": "tavuk",
+    "D": "kabuklu deniz ürünleri",
+    "answer": "D"
+  }
+]

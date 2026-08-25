@@ -1,0 +1,74 @@
+[
+  {
+    "question": "Francis Scott Key, 'The Star-Spangled Banner'ın sözlerini hangi savaş sırasında yazdı?",
+    "A": "Amerikan Devrimi",
+    "B": "1812 Savaşı",
+    "C": "Amerikan İç Savaşı",
+    "D": "I. Dünya Savaşı",
+    "answer": "B"
+  },
+  {
+    "question": "ABD birlikleri New Orleans Muharebesi'nde hangi savaş sırasında savaştı?",
+    "A": "Amerikan Devrimi",
+    "B": "Amerikan İç Savaşı",
+    "C": "Meksika Savaşı",
+    "D": "1812 Savaşı",
+    "answer": "D"
+  },
+  {
+    "question": "Profesyonel beyzbolda her yıl pozisyonunun en iyi savunmacısı seçilen oyuncu hangi ödülü kazanır?",
+    "A": "sıfır kilometre bir araba",
+    "B": "Altın Eldiven",
+    "C": "Gümüş Sopa",
+    "D": "Pirinç Beyzbol Topu",
+    "answer": "B"
+  },
+  {
+    "question": "Fil dişleri hangi maddeden oluşur?",
+    "A": "mercan",
+    "B": "fildişi",
+    "C": "kemik",
+    "D": "kalsiyum",
+    "answer": "B"
+  },
+  {
+    "question": "Yirmi yaş dişleri hariç, yetişkin bir insanda kaç diş bulunur?",
+    "A": "28",
+    "B": "32",
+    "C": "35",
+    "D": "40",
+    "answer": "A"
+  },
+  {
+    "question": "Bir kadın ve erkeğin randevusunda 'dutch treat' ne anlama gelir?",
+    "A": "erkek öder",
+    "B": "kadın öder",
+    "C": "Hollandalılar öder",
+    "D": "herkes kendi hesabını öder",
+    "answer": "D"
+  },
+  {
+    "question": "Bir biz (awl) hangi amaçla kullanılır?",
+    "A": "ördek vurmak için",
+    "B": "zeminleri parlatmak için",
+    "C": "delik açmak için",
+    "D": "meyve tartmak için",
+    "answer": "C"
+  },
+  {
+    "question": "1971'den 1997'ye kadar Kongo Demokratik Cumhuriyeti hangi adla biliniyordu?",
+    "A": "Zaire",
+    "B": "Angola",
+    "C": "Rodezya",
+    "D": "Belçika Kongosu",
+    "answer": "A"
+  },
+  {
+    "question": "'R.S.V.P.' ifadesi hangi dilden gelir?",
+    "A": "Rusça",
+    "B": "İtalyanca",
+    "C": "Portekizce",
+    "D": "Fransızca",
+    "answer": "D"
+  }
+]

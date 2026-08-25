@@ -1,0 +1,74 @@
+[
+  {
+    "question": "Yaygın deyişe göre 'Roma'dayken' ne yapmalısınız?",
+    "A": "cüzdanınıza dikkat etmek",
+    "B": "Kolezyum'u görmek",
+    "C": "Romalılar gibi davranmak",
+    "D": "suyu içmemek",
+    "answer": "C"
+  },
+  {
+    "question": "Atasözüne göre ihtiyaç neyin anasıdır?",
+    "A": "icadın",
+    "B": "şansın",
+    "C": "sorunların",
+    "D": "ertelemenin",
+    "answer": "A"
+  },
+  {
+    "question": "Popüler bir çocuk TV programının adına göre Ayı'nın büyük evi ne renktir?",
+    "A": "kırmızı",
+    "B": "yeşil",
+    "C": "mor",
+    "D": "mavi",
+    "answer": "D"
+  },
+  {
+    "question": "USDA'ya göre günde en fazla porsiyon tüketmeniz gereken besin grubu hangisidir?",
+    "A": "sebzeler",
+    "B": "süt ürünleri",
+    "C": "etler",
+    "D": "ekmekler",
+    "answer": "D"
+  },
+  {
+    "question": "Ada Lovelace neyi yapan ilk kişi olarak kabul edilir?",
+    "A": "bir bilgisayar programı",
+    "B": "bir sufle",
+    "C": "bir sütyen",
+    "D": "bir polisiye roman",
+    "answer": "A"
+  },
+  {
+    "question": "Prens Charles'tan sonra İngiltere kralı olma sırasındaki kişi kimdir?",
+    "A": "Prens William",
+    "B": "Prens Andrew",
+    "C": "Prens Edward",
+    "D": "Fresh Prince",
+    "answer": "A"
+  },
+  {
+    "question": "Bir uçağın kara kutusu genellikle ne renktir?",
+    "A": "siyah",
+    "B": "beyaz",
+    "C": "turuncu",
+    "D": "mor",
+    "answer": "C"
+  },
+  {
+    "question": "1999 itibarıyla en fazla Girl Scout hangi eyalette bulunmaktadır?",
+    "A": "Kaliforniya",
+    "B": "Illinois",
+    "C": "New York",
+    "D": "Pensilvanya",
+    "answer": "A"
+  },
+  {
+    "question": "Astronot John Glenn ordunun hangi kolunda pilot olarak görev yaptı?",
+    "A": "Kara Kuvvetleri",
+    "B": "Hava Kuvvetleri",
+    "C": "Deniz Piyadeleri",
+    "D": "Deniz Kuvvetleri",
+    "answer": "C"
+  }
+]

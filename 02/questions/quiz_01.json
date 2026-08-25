@@ -1,0 +1,74 @@
+[
+  {
+    "question": "Yanıp sönen kırmızı trafik ışığı, sürücünün ne yapması gerektiğini belirtir?",
+    "A": "durmak",
+    "B": "hızlanmak",
+    "C": "dikkatli bir şekilde ilerlemek",
+    "D": "korna çalmak",
+    "answer": "A"
+  },
+  {
+    "question": "Knish geleneksel olarak hangi iç malzemeyle doldurulur?",
+    "A": "patates",
+    "B": "kremalı mısır",
+    "C": "limonlu krema",
+    "D": "ahududu jölesi",
+    "answer": "A"
+  },
+  {
+    "question": "Pita ne tür bir yiyecektir?",
+    "A": "taze meyve",
+    "B": "yassı ekmek",
+    "C": "Fransız tartı",
+    "D": "fasulye ezmesi",
+    "answer": "B"
+  },
+  {
+    "question": "Bir kişinin fiziksel özelliklerini komik biçimde abartan portreye ne ad verilir?",
+    "A": "manzara",
+    "B": "karikatür",
+    "C": "natürmort",
+    "D": "Empresyonizm",
+    "answer": "B"
+  },
+  {
+    "question": "Üniversitenin ikinci sınıfındaki bir öğrenciye genellikle ne denir?",
+    "A": "ikinci sınıf öğrencisi (sophomore)",
+    "B": "son sınıf öğrencisi (senior)",
+    "C": "birinci sınıf öğrencisi (freshman)",
+    "D": "üçüncü sınıf öğrencisi (junior)",
+    "answer": "A"
+  },
+  {
+    "question": "J.D. derecesi alan bir öğrenci kariyerine hangi meslekle başlayabilir?",
+    "A": "avukat",
+    "B": "duvar ustası",
+    "C": "doktor",
+    "D": "muhasebeci",
+    "answer": "A"
+  },
+  {
+    "question": "Triptiğin resmedildiği sanat eseri kaç panelden oluşur?",
+    "A": "iki",
+    "B": "üç",
+    "C": "beş",
+    "D": "sekiz",
+    "answer": "B"
+  },
+  {
+    "question": "Varoluşçu 'Çıkış Yok' oyunundaki ünlü bir söze göre cehennem nedir?",
+    "A": "insanın kendisi",
+    "B": "diğer insanlar",
+    "C": "küçüğün büyütülmüş hâli",
+    "D": "yeşil ve mavi tonlara boyanmış şey",
+    "answer": "B"
+  },
+  {
+    "question": "Popüler bir slogana göre insanlar hangi eyaletle 'uğraşmamalıdır'?",
+    "A": "New York",
+    "B": "Teksas",
+    "C": "Montana",
+    "D": "Rhode Island",
+    "answer": "B"
+  }
+]

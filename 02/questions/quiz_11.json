@@ -1,0 +1,122 @@
+[
+  {
+    "question": "'Austin Powers: The Spy Who Shagged Me' filminde Dr. Evil'ın küçültülmüş klonunun adı nedir?",
+    "A": "Little Buddy",
+    "B": "Mini-Me",
+    "C": "Small Fry",
+    "D": "Dr. Evil Jr",
+    "answer": "B"
+  },
+  {
+    "question": "'Star Wars' filminde Chewbacca ne tür bir yaratıktır?",
+    "A": "Woolie",
+    "B": "Boobie",
+    "C": "Wookie",
+    "D": "Klingon",
+    "answer": "C"
+  },
+  {
+    "question": "'Seksen Günde Devriâlem' romanında Phileas Fogg'un sadık uşağının adı nedir?",
+    "A": "Sancho Panza",
+    "B": "Passepartout",
+    "C": "Renfield",
+    "D": "Savoir Faire",
+    "answer": "B"
+  },
+  {
+    "question": "'Tom Sawyer'ın Maceraları' romanında Tom'un sevgilisinin adı nedir?",
+    "A": "Polly Finn",
+    "B": "Becky Thatcher",
+    "C": "Nancy Drew",
+    "D": "Emma Bovary",
+    "answer": "B"
+  },
+  {
+    "question": "Orijinal 'Get Smart' TV dizisinde ajan Maxwell Smart'ın kod adı nedir?",
+    "A": "Ajan 86",
+    "B": "Ajan 99",
+    "C": "Larrabee",
+    "D": "Şef",
+    "answer": "A"
+  },
+  {
+    "question": "Bilim kurgu filmi 'Fantastic Voyage'da yolcular nereye seyahat eder?",
+    "A": "uzayda",
+    "B": "bir insan vücudunun içinde",
+    "C": "okyanusun dibine",
+    "D": "Dünya'nın merkezine",
+    "answer": "B"
+  },
+  {
+    "question": "'Jack ve Fasulye Sırığı' hikâyesinde Jack sihirli fasulyeleri almak için neyi takas eder?",
+    "A": "bir inek",
+    "B": "bir şapka",
+    "C": "bir arp",
+    "D": "bir kaz",
+    "answer": "A"
+  },
+  {
+    "question": "Televizyon ağı kısaltması 'ABC'de 'A' neyi ifade eder?",
+    "A": "Sanatsal",
+    "B": "Ses",
+    "C": "Amerikan",
+    "D": "Yetişkin",
+    "answer": "C"
+  },
+  {
+    "question": "'Y2K' ifadesindeki 'K' neyi ifade eder?",
+    "A": "milenyum",
+    "B": "bilgisayar kodu",
+    "C": "felaket",
+    "D": "bin",
+    "answer": "D"
+  },
+  {
+    "question": "Amerika Birleşik Devletleri'nde baharın ilk günü hangisidir?",
+    "A": "21 Şubat",
+    "B": "21 Mart",
+    "C": "21 Nisan",
+    "D": "21 Mayıs",
+    "answer": "B"
+  },
+  {
+    "question": "Geleneksel İngiliz kukla gösterilerinde Punch karakteri kiminle evlidir?",
+    "A": "Debbie",
+    "B": "Victoria",
+    "C": "Judy",
+    "D": "Barbara",
+    "answer": "C"
+  },
+  {
+    "question": "'The Mary Tyler Moore Show' dizisi hangi şehirde geçer?",
+    "A": "Dallas",
+    "B": "Chicago",
+    "C": "New York",
+    "D": "Minneapolis",
+    "answer": "D"
+  },
+  {
+    "question": "Fashion Institute of Technology'de sanat ve tasarım eğitimi alan insanları hangi şehirde bulabilirsiniz?",
+    "A": "Paris",
+    "B": "New York",
+    "C": "Los Angeles",
+    "D": "Melbourne",
+    "answer": "B"
+  },
+  {
+    "question": "Hangi ülkede polis memurlarına 'bobbies' denir?",
+    "A": "İsrail",
+    "B": "Yunanistan",
+    "C": "İngiltere",
+    "D": "Fransa",
+    "answer": "C"
+  },
+  {
+    "question": "Magic Johnson 1999 sezonunda hangi ülkede profesyonel basketbol oynadı?",
+    "A": "Amerika Birleşik Devletleri",
+    "B": "İsveç",
+    "C": "İsrail",
+    "D": "Türkiye",
+    "answer": "B"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Beatles'ın asıl memleket olarak gördüğü şehir hangisidir?",
+    "A": "Londra",
+    "B": "Leeds",
+    "C": "Liverpool",
+    "D": "Manchester",
+    "answer": "C"
+  },
+  {
+    "question": "Hangi şehir 'dünyanın kauçuk başkenti' olarak bilinir?",
+    "A": "Omaha, Nebraska",
+    "B": "Rockford, Illinois",
+    "C": "Grand Rapids, Michigan",
+    "D": "Akron, Ohio",
+    "answer": "D"
+  },
+  {
+    "question": "ORD havaalanı kodu hangi şehre aittir?",
+    "A": "Chicago",
+    "B": "Orlando",
+    "C": "New York",
+    "D": "Portland",
+    "answer": "A"
+  },
+  {
+    "question": "Hangi şehrin sakinleri 'Knickerbockers' olarak bilinir?",
+    "A": "Boston",
+    "B": "Philadelphia",
+    "C": "New York",
+    "D": "Londra",
+    "answer": "C"
+  },
+  {
+    "question": "Yakut ne renktir?",
+    "A": "kırmızı",
+    "B": "siyah",
+    "C": "sarı",
+    "D": "mavi",
+    "answer": "A"
+  },
+  {
+    "question": "Çizgi film karakteri Marge Simpson'ın saçları ne renktir?",
+    "A": "sarı",
+    "B": "mor",
+    "C": "mavi",
+    "D": "kahverengi",
+    "answer": "C"
+  },
+  {
+    "question": "USA Today gazetesinin 'Life' bölümünün başlık şeridi ne renktir?",
+    "A": "yeşil",
+    "B": "mor",
+    "C": "kırmızı",
+    "D": "mavi",
+    "answer": "B"
+  },
+  {
+    "question": "Sam Amca'nın keçi sakalı ne renktir?",
+    "A": "kahverengi",
+    "B": "siyah",
+    "C": "beyaz",
+    "D": "kirli sarı",
+    "answer": "C"
+  },
+  {
+    "question": "MasterCard logosundaki iki daire hangi renklerdedir?",
+    "A": "pembe ve turuncu",
+    "B": "mavi ve yeşil",
+    "C": "siyah ve beyaz",
+    "D": "kırmızı ve sarı",
+    "answer": "D"
+  },
+  {
+    "question": "Pepto-Bismol sıvısı ne renktir?",
+    "A": "pembe",
+    "B": "mavi",
+    "C": "şeffaf",
+    "D": "yeşil",
+    "answer": "A"
+  },
+  {
+    "question": "Oreo kurabiyelerini hangi şirket üretir?",
+    "A": "General Mills",
+    "B": "Nabisco",
+    "C": "Keebler",
+    "D": "Kraft",
+    "answer": "B"
+  },
+  {
+    "question": "'Beautiful' ve 'Pleasures' adlı parfümleri hangi şirket üretir?",
+    "A": "Estée Lauder",
+    "B": "Ralph Lauren",
+    "C": "Elizabeth Arden",
+    "D": "Calvin Klein",
+    "answer": "A"
+  },
+  {
+    "question": "Yağ bezlerinin düzgün çalışmaması hangi rahatsızlığa neden olur?",
+    "A": "ağız kokusu",
+    "B": "zona",
+    "C": "akne",
+    "D": "karpal tünel sendromu",
+    "answer": "C"
+  },
+  {
+    "question": "Hangi şirket bir mum üreticisi ile bir sabun üreticisi tarafından kurulmuştur?",
+    "A": "Simon & Schuster",
+    "B": "Procter & Gamble",
+    "C": "Johnson & Johnson",
+    "D": "Smith & Wesson",
+    "answer": "B"
+  },
+  {
+    "question": "Bordeaux şarabı hangi ülkeden gelir?",
+    "A": "Fransa",
+    "B": "İspanya",
+    "C": "Avustralya",
+    "D": "Amerika Birleşik Devletleri",
+    "answer": "A"
+  }
+]

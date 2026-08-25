@@ -1,0 +1,122 @@
+[
+  {
+    "question": "'Hallux' vücudun hangi bölümüdür?",
+    "A": "kulak memesi",
+    "B": "dil",
+    "C": "göz kapağı",
+    "D": "ayak başparmağı",
+    "answer": "D"
+  },
+  {
+    "question": "İki dik doğru kesiştiğinde hangi tür açı oluşur?",
+    "A": "geniş açı",
+    "B": "dar açı",
+    "C": "dik açı",
+    "D": "görünmez açı",
+    "answer": "C"
+  },
+  {
+    "question": "Peregrine ne tür bir hayvandır?",
+    "A": "sığın",
+    "B": "kedi",
+    "C": "kuş",
+    "D": "balık",
+    "answer": "C"
+  },
+  {
+    "question": "Çizgi film karakteri Tennessee Tuxedo ne tür bir hayvandır?",
+    "A": "kedi",
+    "B": "kokarca",
+    "C": "mors",
+    "D": "penguen",
+    "answer": "D"
+  },
+  {
+    "question": "Burt Reynolds 'Smokey and the Bandit' filminde ne tür bir araba kullanıyordu?",
+    "A": "Lamborghini",
+    "B": "Camaro",
+    "C": "Corvette",
+    "D": "Trans Am",
+    "answer": "D"
+  },
+  {
+    "question": "'Chitty Chitty Bang Bang' filminde hangi tür uçan araç yer alır?",
+    "A": "tekne",
+    "B": "araba",
+    "C": "kamyon",
+    "D": "bisiklet",
+    "answer": "B"
+  },
+  {
+    "question": "Ginsu ne tür bir eşyadır?",
+    "A": "radyo",
+    "B": "bıçak",
+    "C": "diş fırçası",
+    "D": "dövüş sanatı silahı",
+    "answer": "B"
+  },
+  {
+    "question": "'Paddy wagon' kullanan kişi genellikle hangi meslektendir?",
+    "A": "limuzin şoförü",
+    "B": "polis memuru",
+    "C": "pirinç çiftçisi",
+    "D": "paramedik",
+    "answer": "B"
+  },
+  {
+    "question": "Tuşlu bir telefonda '3' tuşunda hangi harfler bulunur?",
+    "A": "ABC",
+    "B": "DEF",
+    "C": "GHI",
+    "D": "WXY",
+    "answer": "B"
+  },
+  {
+    "question": "Pink Lady kokteylini pembe yapan hangi likördür?",
+    "A": "grenadin",
+    "B": "schnapps",
+    "C": "triple sec",
+    "D": "Pernod",
+    "answer": "A"
+  },
+  {
+    "question": "'Buraya girenler, bütün umutlarınızı terk edin' sözünün kaynağı olan edebî eser hangisidir?",
+    "A": "'Kayıp Cennet'",
+    "B": "'İlahi Komedya'",
+    "C": "'Beowulf'",
+    "D": "'Alacakaranlık'",
+    "answer": "B"
+  },
+  {
+    "question": "Bir sayı dizisinin ortalamasını tanımlamak için hangi matematiksel terim kullanılır?",
+    "A": "medyan",
+    "B": "mod",
+    "C": "çoğunluk",
+    "D": "aritmetik ortalama",
+    "answer": "D"
+  },
+  {
+    "question": "Polisin tekrar tekrar hatalı park edenlerin araç tekerleklerini kilitlemek için kullandığı metal aygıt hangisidir?",
+    "A": "Brooklyn kelepçesi",
+    "B": "Denver boot",
+    "C": "LoJack",
+    "D": "The Club",
+    "answer": "B"
+  },
+  {
+    "question": "5 Mayıs'ta kutlanan Meksika bayramı hangisidir?",
+    "A": "Meksika Bağımsızlık Günü",
+    "B": "Santa Anna'nın Doğum Günü",
+    "C": "Cinco de Mayo",
+    "D": "Noel",
+    "answer": "C"
+  },
+  {
+    "question": "Karl Marx'ın milliyeti neydi?",
+    "A": "Rus",
+    "B": "Alman",
+    "C": "Danimarkalı",
+    "D": "İngiliz",
+    "answer": "B"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Pokémon hangi ülkede ortaya çıktı?",
+    "A": "Fransa",
+    "B": "Macaristan",
+    "C": "Japonya",
+    "D": "Kanada",
+    "answer": "C"
+  },
+  {
+    "question": "İsrail hangi on yılda bağımsız bir devlet oldu?",
+    "A": "1920'ler",
+    "B": "1940'lar",
+    "C": "1950'ler",
+    "D": "1960'lar",
+    "answer": "B"
+  },
+  {
+    "question": "Hula-Hoop hangi on yılda icat edildi?",
+    "A": "1890'lar",
+    "B": "1920'ler",
+    "C": "1950'ler",
+    "D": "1970'ler",
+    "answer": "C"
+  },
+  {
+    "question": "Robin Hood hangi ormanda yaşadı?",
+    "A": "Kara Orman",
+    "B": "Taşlaşmış Orman",
+    "C": "Nottingham Ormanı",
+    "D": "Sherwood Ormanı",
+    "answer": "D"
+  },
+  {
+    "question": "Grand Slam kahvaltısını hangi restoranda sipariş edebilirsiniz?",
+    "A": "Denny's",
+    "B": "McDonald's",
+    "C": "Burger King",
+    "D": "Hardee's",
+    "answer": "A"
+  },
+  {
+    "question": "Sporcular Walker Cup için hangi spor dalında yarışır?",
+    "A": "kriket",
+    "B": "tenis",
+    "C": "squash",
+    "D": "golf",
+    "answer": "D"
+  },
+  {
+    "question": "'Çelik kafes' maçları hangi sporda görülür?",
+    "A": "boks",
+    "B": "eskrim",
+    "C": "profesyonel güreş",
+    "D": "üniversite basketbolu",
+    "answer": "C"
+  },
+  {
+    "question": "1999 yapımı 'Magnolia' filmi hangi eyalette geçer?",
+    "A": "Kaliforniya",
+    "B": "Güney Carolina",
+    "C": "Georgia",
+    "D": "Teksas",
+    "answer": "A"
+  },
+  {
+    "question": "Basketball Hall of Fame ABD'nin hangi şehrindedir?",
+    "A": "Canton, Ohio",
+    "B": "Cooperstown, New York",
+    "C": "Springfield, Massachusetts",
+    "D": "Lawrence, Kansas",
+    "answer": "C"
+  },
+  {
+    "question": "Büyük Buhran hangi yıl başladı?",
+    "A": "1884",
+    "B": "1929",
+    "C": "1953",
+    "D": "1975",
+    "answer": "B"
+  },
+  {
+    "question": "Amerika Birleşik Devletleri erkekler buz hokeyinde Olimpiyat altın madalyasını en son hangi yıl kazandı?",
+    "A": "1976",
+    "B": "1980",
+    "C": "1984",
+    "D": "1988",
+    "answer": "B"
+  },
+  {
+    "question": "Jimmy Page aşağıdaki gruplardan hangisinde gitar çalmadı?",
+    "A": "Bad Company",
+    "B": "The Firm",
+    "C": "Led Zeppelin",
+    "D": "The Yardbirds",
+    "answer": "A"
+  },
+  {
+    "question": "Yarışmacılar 'funny car' adı verilen araçları hangi spor dalında kullanır?",
+    "A": "supercross",
+    "B": "köpekli kızak yarışı",
+    "C": "jimnastik",
+    "D": "drag yarışı",
+    "answer": "D"
+  },
+  {
+    "question": "Jeanne d'Arc hangi savaşta savaştı?",
+    "A": "Yüz Yıl Savaşı",
+    "B": "Fransa-Prusya Savaşı",
+    "C": "Fransız Devrimi",
+    "D": "Fransız ve Kızılderili Savaşı",
+    "answer": "A"
+  },
+  {
+    "question": "Tabanı da dahil olmak üzere kare tabanlı bir piramidin kaç yüzü vardır?",
+    "A": "üç",
+    "B": "dört",
+    "C": "beş",
+    "D": "altı",
+    "answer": "C"
+  }
+]

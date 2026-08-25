@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Rhone Nehri hangi su kütlesine dökülür?",
+    "A": "Atlas Okyanusu",
+    "B": "Hazar Denizi",
+    "C": "Kuzey Denizi",
+    "D": "Akdeniz",
+    "answer": "D"
+  },
+  {
+    "question": "John D. Rockefeller servetini hangi sektörde kazandı?",
+    "A": "otomobil",
+    "B": "petrol",
+    "C": "çelik",
+    "D": "demiryolu",
+    "answer": "B"
+  },
+  {
+    "question": "Modern bilgisayar mikroçipleri esas olarak hangi elementten yapılır?",
+    "A": "Sodyum",
+    "B": "Silisyum",
+    "C": "Alüminyum",
+    "D": "Gümüş",
+    "answer": "B"
+  },
+  {
+    "question": "Tiftik, hangi hayvanın yününden elde edilir?",
+    "A": "deve",
+    "B": "lama",
+    "C": "keçi",
+    "D": "köstebek",
+    "answer": "C"
+  },
+  {
+    "question": "'Doğa, Bay Allnut, bu dünyaya onun üzerine çıkmamız için konduğumuz şeydir' sözü hangi filmden alınmıştır?",
+    "A": "'Citizen Kane'",
+    "B": "'The African Queen'",
+    "C": "'The Deer Hunter'",
+    "D": "'Adam's Rib'",
+    "answer": "B"
+  },
+  {
+    "question": "Takviye kablolarında negatif bağlantıyı hangi renk belirtir?",
+    "A": "siyah",
+    "B": "kırmızı",
+    "C": "turuncu",
+    "D": "mavi",
+    "answer": "A"
+  },
+  {
+    "question": "Ortalama olarak iki yüksek gelgit arasında ne kadar süre geçer?",
+    "A": "3 saat 25 dakika",
+    "B": "6 saat 25 dakika",
+    "C": "12 saat 25 dakika",
+    "D": "24 saat 25 dakika",
+    "answer": "C"
+  },
+  {
+    "question": "'CHiPs' TV dizisinde Memur Frank Poncherello'nun lakabı neydi?",
+    "A": "Franky",
+    "B": "Ponch",
+    "C": "Chipper",
+    "D": "Hot Dog",
+    "answer": "B"
+  },
+  {
+    "question": "'Hill Street Blues' TV dizisinde Joyce Davenport, Kaptan Frank Furillo'ya hangi lakapla hitap eder?",
+    "A": "Furry Monster",
+    "B": "Pizza Man",
+    "C": "Snookums",
+    "D": "Baby Cakes",
+    "answer": "B"
+  },
+  {
+    "question": "'Seinfeld' dizisinde Bay Costanza 'fusilli Jerry'nin üzerine oturduğunda hangi tür doktora gitti?",
+    "A": "göz doktoru",
+    "B": "kardiyolog",
+    "C": "nörolog",
+    "D": "proktolog",
+    "answer": "D"
+  },
+  {
+    "question": "2000 Sevgililer Günü'nde NASA'nın NEAR uzay aracı hangi asteroidin çevresinde bir yıl sürecek yörünge görevine başladı?",
+    "A": "Eros",
+    "B": "Cupid",
+    "C": "Afrodit",
+    "D": "Venüs",
+    "answer": "A"
+  },
+  {
+    "question": "Vahşi doğada kaplanları hangi kıtada bulabilirsiniz?",
+    "A": "Afrika",
+    "B": "Asya",
+    "C": "Avrupa",
+    "D": "Güney Amerika",
+    "answer": "B"
+  },
+  {
+    "question": "Bir babushka vücudun hangi bölümüne takılır?",
+    "A": "baş",
+    "B": "eller",
+    "C": "ayak",
+    "D": "bacaklar",
+    "answer": "A"
+  },
+  {
+    "question": "Bir otomobilin hangi bölümünde 'kaliper' bulunur?",
+    "A": "akü",
+    "B": "motor",
+    "C": "radyatör",
+    "D": "frenler",
+    "answer": "D"
+  },
+  {
+    "question": "Kâğıt yaklaşık kaç Fahrenheit derecede yanar?",
+    "A": "98,6 derece",
+    "B": "212,5 derece",
+    "C": "398,5 derece",
+    "D": "451 derece",
+    "answer": "D"
+  }
+]

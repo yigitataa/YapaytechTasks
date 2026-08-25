@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Bere adı verilen moda başlığını dünyaya hangi ülke kazandırmıştır?",
+    "A": "İsviçre",
+    "B": "Çin",
+    "C": "Meksika",
+    "D": "Fransa",
+    "answer": "D"
+  },
+  {
+    "question": "Hangi ülke tahta ayakkabılarıyla ünlüdür?",
+    "A": "Rusya",
+    "B": "Tayland",
+    "C": "Hollanda",
+    "D": "Avustralya",
+    "answer": "C"
+  },
+  {
+    "question": "U2 rock grubu hangi ülkedendir?",
+    "A": "İngiltere",
+    "B": "İrlanda",
+    "C": "Belçika",
+    "D": "Almanya",
+    "answer": "B"
+  },
+  {
+    "question": "Bir zamanlar şogunlar tarafından yönetilen ülke hangisidir?",
+    "A": "Çin",
+    "B": "Japonya",
+    "C": "Kuzey Kore",
+    "D": "Tayvan",
+    "answer": "B"
+  },
+  {
+    "question": "Haftanın hangi günü bazen 'hump day' olarak adlandırılır?",
+    "A": "Çarşamba",
+    "B": "Perşembe",
+    "C": "Cuma",
+    "D": "Cumartesi",
+    "answer": "A"
+  },
+  {
+    "question": "Kanserojen bir madde hangi hastalığa neden olur?",
+    "A": "kanser",
+    "B": "grip",
+    "C": "amfizem",
+    "D": "kalp hastalığı",
+    "answer": "A"
+  },
+  {
+    "question": "Vücudun glikozu düzgün şekilde metabolize edememesiyle karakterize edilen hastalık hangisidir?",
+    "A": "Grip",
+    "B": "Septisemi",
+    "C": "Diyabet",
+    "D": "Artrit",
+    "answer": "C"
+  },
+  {
+    "question": "Hangi hastalık bazen 'kraliyet hastalığı' olarak anılır?",
+    "A": "raşitizm",
+    "B": "kızamık",
+    "C": "hemofili",
+    "D": "tüberküloz",
+    "answer": "C"
+  },
+  {
+    "question": "Şair E. E. Cummings'in adındaki 'E. E.' harfleri neyin kısaltmasıdır?",
+    "A": "Edward Estlin",
+    "B": "Edmund Earl",
+    "C": "Ernest Eakins",
+    "D": "Eugene Evan",
+    "answer": "A"
+  },
+  {
+    "question": "Genç bir ineğe ne denir?",
+    "A": "kısrak",
+    "B": "kuzu",
+    "C": "oğlak",
+    "D": "buzağı",
+    "answer": "D"
+  },
+  {
+    "question": "Bowlingde art arda üç strike yapmaya ne denir?",
+    "A": "yahtzee",
+    "B": "mulligan",
+    "C": "turkey",
+    "D": "ace",
+    "answer": "C"
+  },
+  {
+    "question": "pH seviyesi neyi ölçer?",
+    "A": "asitlik",
+    "B": "yoğunluk",
+    "C": "dalga boyu",
+    "D": "nem",
+    "answer": "A"
+  },
+  {
+    "question": "Bir hayvan laktasyon yaptığında ne üretir?",
+    "A": "ter",
+    "B": "yün",
+    "C": "süt",
+    "D": "metan",
+    "answer": "C"
+  },
+  {
+    "question": "'Pro bono' çalışmak ne anlama gelir?",
+    "A": "fazla mesai yapmak",
+    "B": "ücret almadan çalışmak",
+    "C": "kendi patronu olarak çalışmak",
+    "D": "hiç çalışmamak",
+    "answer": "B"
+  },
+  {
+    "question": "'REM' kısaltmasının açılımı nedir?",
+    "A": "rastgele enerji modülü",
+    "B": "hızlı göz hareketi",
+    "C": "kırmızı eğlence makinesi",
+    "D": "gerçekten enerjik müzik",
+    "answer": "B"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "question": "'Mystery Science Theater 3000' TV programının hayranları ne olarak bilinir?",
+    "A": "Mysterians",
+    "B": "MiSTies",
+    "C": "'Bot Brigade",
+    "D": "Gizmonics",
+    "answer": "B"
+  },
+  {
+    "question": "'Letter size' bir kâğıdın ölçüleri nedir?",
+    "A": "3 1/2 x 5 inç",
+    "B": "5 x 10 inç",
+    "C": "8 1/2 x 11 inç",
+    "D": "11 x 17 inç",
+    "answer": "C"
+  },
+  {
+    "question": "Donald Duck'ın üç yeğeninin adları nelerdir?",
+    "A": "Quick, Quack, Quock",
+    "B": "Alvin, Simon, Theodore",
+    "C": "Robbie, Chip, Ernie",
+    "D": "Huey, Dewey, Louie",
+    "answer": "D"
+  },
+  {
+    "question": "M&M's'in iki ana reklam karakterinin adları nelerdir?",
+    "A": "Peanut ve Plain",
+    "B": "Red ve Yellow",
+    "C": "Mort ve Marty",
+    "D": "Adları yoktur",
+    "answer": "B"
+  },
+  {
+    "question": "Kompakt diskleri tutan plastik kutulara ne denir?",
+    "A": "çerçeve kutuları",
+    "B": "jewel case",
+    "C": "kılıf kutuları",
+    "D": "wafer kutuları",
+    "answer": "B"
+  },
+  {
+    "question": "Smothers Brothers'ın adları nedir?",
+    "A": "Frank ve Bill",
+    "B": "Tom ve Dick",
+    "C": "Dave ve George",
+    "D": "Ed ve Pete",
+    "answer": "B"
+  },
+  {
+    "question": "'Pashmina'yı en iyi hangi giyim eşyası tanımlar?",
+    "A": "ayakkabı",
+    "B": "pantolon",
+    "C": "atkı/şal",
+    "D": "iç çamaşırı",
+    "answer": "C"
+  },
+  {
+    "question": "Sonata modelini hangi otomobil şirketi üretir?",
+    "A": "Toyota",
+    "B": "Honda",
+    "C": "Subaru",
+    "D": "Hyundai",
+    "answer": "D"
+  },
+  {
+    "question": "DNA'yı hangi biyolojik süreç çoğaltır?",
+    "A": "deri değiştirme",
+    "B": "mitoz",
+    "C": "difüzyon",
+    "D": "peristaltizm",
+    "answer": "B"
+  },
+  {
+    "question": "Bir zamanlar 'Datsun' otomobil serisini hangi otomobil şirketi üretip satıyordu?",
+    "A": "Nissan",
+    "B": "Mazda",
+    "C": "Toyota",
+    "D": "Daihatsu",
+    "answer": "A"
+  },
+  {
+    "question": "Mr. Peabody ile zaman makinesinde seyahat eden çizgi film karakteri hangisidir?",
+    "A": "Rocky",
+    "B": "Jonny Quest",
+    "C": "Underdog",
+    "D": "Sherman",
+    "answer": "D"
+  },
+  {
+    "question": "'Cheers' TV dizisinde Woody hangi karakterin yerini aldı?",
+    "A": "Coach",
+    "B": "Diane",
+    "C": "Norm",
+    "D": "Frasier",
+    "answer": "A"
+  },
+  {
+    "question": "İnsanlar saçlarını açmak için sıkça hangi kimyasalı kullanır?",
+    "A": "folik asit",
+    "B": "hidrojen peroksit",
+    "C": "sodyum klorür",
+    "D": "diazot monoksit",
+    "answer": "B"
+  },
+  {
+    "question": "Hangi çocuk kitabı karakteri gökyüzünün düştüğüne inanır?",
+    "A": "Chicken Little",
+    "B": "Curious George",
+    "C": "Jack Sprat",
+    "D": "Tom Thumb",
+    "answer": "A"
+  },
+  {
+    "question": "Çin'de hangi çocuk TV karakteri 'Da Niao' olarak bilinir?",
+    "A": "Barney",
+    "B": "Big Bird",
+    "C": "Mickey Mouse",
+    "D": "Tinky Winky",
+    "answer": "B"
+  }
+]

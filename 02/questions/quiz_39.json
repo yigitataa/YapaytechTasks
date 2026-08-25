@@ -1,0 +1,58 @@
+[
+  {
+    "question": "Know-Nothings kimlerdi?",
+    "A": "60'ların komedi topluluğu",
+    "B": "bilgisayar tasarımcıları",
+    "C": "bir siyasi parti",
+    "D": "bir casusluk ağı",
+    "answer": "C"
+  },
+  {
+    "question": "'İki Şehrin Hikâyesi'ni kim yazdı?",
+    "A": "Charles Dickens",
+    "B": "Nathaniel Hawthorne",
+    "C": "Washington Irving",
+    "D": "Mark Twain",
+    "answer": "A"
+  },
+  {
+    "question": "Oscar Hammerstein II ile birlikte müzikaller yazan kişi kimdi?",
+    "A": "Richard Rodgers",
+    "B": "Rogers Hornsby",
+    "C": "Gilbert O' Sullivan",
+    "D": "George Rogers Clark",
+    "answer": "A"
+  },
+  {
+    "question": "Frank Sinatra'nın marşı hâline gelen 'My Way'in sözlerini kim yazdı?",
+    "A": "Frank Sinatra",
+    "B": "Kris Kristofferson",
+    "C": "Carole King",
+    "D": "Paul Anka",
+    "answer": "D"
+  },
+  {
+    "question": "Billie Jean King ünlü 'Battle of the Sexes' tenis maçında kimi yendi?",
+    "A": "Jimmy Connors",
+    "B": "Pete Sampras",
+    "C": "John McEnroe",
+    "D": "Bobby Riggs",
+    "answer": "D"
+  },
+  {
+    "question": "Günümüzde dolaşımda olan 10 sentlik madeni paraların ön yüzünde kimin profili bulunur?",
+    "A": "George Washington",
+    "B": "Thomas Jefferson",
+    "C": "Benjamin Franklin",
+    "D": "Franklin Roosevelt",
+    "answer": "D"
+  },
+  {
+    "question": "Bir wah-wah pedalını neyle birlikte kullanırsınız?",
+    "A": "bisiklet",
+    "B": "yarış arabası",
+    "C": "elektro gitar",
+    "D": "bebek",
+    "answer": "C"
+  }
+]

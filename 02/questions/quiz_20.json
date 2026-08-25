@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Balalayka nedir?",
+    "A": "müzik aleti",
+    "B": "Rus köylüsü",
+    "C": "bir şapka türü",
+    "D": "bir köpekbalığı türü",
+    "answer": "A"
+  },
+  {
+    "question": "Dutch oven nedir?",
+    "A": "mini fırın",
+    "B": "mikrodalga fırın",
+    "C": "kapaklı tencere",
+    "D": "sauna",
+    "answer": "C"
+  },
+  {
+    "question": "Oyuncu Antonio Banderas'ın ana dili nedir?",
+    "A": "İspanyolca",
+    "B": "Rusça",
+    "C": "Almanca",
+    "D": "Fransızca",
+    "answer": "A"
+  },
+  {
+    "question": "'Beijing duck' yemeğinin diğer adı nedir?",
+    "A": "Şanghay ördeği",
+    "B": "Pekin ördeği",
+    "C": "Hong Kong ördeği",
+    "D": "Brooklyn ördeği",
+    "answer": "B"
+  },
+  {
+    "question": "'Camelopard' hangi hayvanın diğer adıdır?",
+    "A": "sirk",
+    "B": "zürafa",
+    "C": "kavun",
+    "D": "vaha",
+    "answer": "B"
+  },
+  {
+    "question": "'Altı fit'i yazmanın başka bir yolu hangisidir?",
+    "A": "6'",
+    "B": "6",
+    "C": "6''",
+    "D": "6#",
+    "answer": "A"
+  },
+  {
+    "question": "Britanya'da 'lorry' denilen şey nedir?",
+    "A": "ekmek kızartma makinesi",
+    "B": "kamyon",
+    "C": "bebek bakıcısı",
+    "D": "asansör",
+    "answer": "B"
+  },
+  {
+    "question": "Bir dük'e uygun hitap şekli hangisidir?",
+    "A": "'Majesteleri'",
+    "B": "'Ekselansları' (dinî)",
+    "C": "'Ekselansları'",
+    "D": "'Grace' unvanıyla",
+    "answer": "D"
+  },
+  {
+    "question": "'Designing Women' sitcomunda Delta Burke'ün karakterinin mesleği nedir?",
+    "A": "moda tasarımcısı",
+    "B": "grafik tasarımcı",
+    "C": "iç mimar",
+    "D": "web sitesi tasarımcısı",
+    "answer": "C"
+  },
+  {
+    "question": "New Mexico'nun lakabı nedir?",
+    "A": "'Çöl Eyaleti'",
+    "B": "'Cennete Açılan Kapı'",
+    "C": "'Büyüler Diyarı'",
+    "D": "'Bahçe Eyaleti'",
+    "answer": "C"
+  },
+  {
+    "question": "Fotosentez sırasında ne üretilir?",
+    "A": "hidrojen",
+    "B": "naylon",
+    "C": "oksijen",
+    "D": "ışık",
+    "answer": "C"
+  },
+  {
+    "question": "7-Eleven şirketinin çok büyük gazlı içecekleri için tescilli adı nedir?",
+    "A": "Big Slurp",
+    "B": "Big Gulp",
+    "C": "Big Drink",
+    "D": "Big Sip",
+    "answer": "B"
+  },
+  {
+    "question": "Işığın yaklaşık hızı nedir?",
+    "A": "saatte 165 mil",
+    "B": "saatte 122.000 mil",
+    "C": "saniyede 186.000 mil",
+    "D": "saniyede 293.000 mil",
+    "answer": "C"
+  },
+  {
+    "question": "Güzel ve özenli el yazısı sanatına ne denir?",
+    "A": "kaligrafi",
+    "B": "gravür",
+    "C": "dekupaj",
+    "D": "litografi",
+    "answer": "A"
+  },
+  {
+    "question": "Beyzbolda başka bir vurucunun yerine oyuna giren vurucuya ne denir?",
+    "A": "switch hitter",
+    "B": "shadow hitter",
+    "C": "clip hitter",
+    "D": "pinch hitter",
+    "answer": "D"
+  }
+]
