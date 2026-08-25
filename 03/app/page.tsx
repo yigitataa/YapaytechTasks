@@ -8,6 +8,7 @@ import {
   getWeatherCondition,
   searchCity,
   suggestCities,
+  type CityWeatherSummary,
   type WeatherData,
   type WeatherLocation,
 } from './weather-service';
@@ -25,6 +26,15 @@ function WeatherGlyph({ kind, small = false }: { kind: string; small?: boolean }
 
 function citySubtitle(location: WeatherLocation) {
   return [location.admin1, location.country].filter((part, index, all) => part && all.indexOf(part) === index).join(', ');
+}
+
+function isSameLocation(first: WeatherLocation, second: WeatherLocation) {
+  return first.id === second.id || (first.latitude === second.latitude && first.longitude === second.longitude);
+}
+
+function keepFavoritesAndRecentHistory(items: SavedSearch[]) {
+  let historyCount = 0;
+  return items.filter((item) => item.favorite || historyCount++ < 10);
 }
 
 function formatHour(value: string) {
@@ -54,7 +64,7 @@ function HighlightedText({ text, query }: { text: string; query: string }) {
 
 export default function Home() {
   const [query, setQuery] = useState('');
-  const [featured, setFeatured] = useState<WeatherData[]>([]);
+  const [featured, setFeatured] = useState<CityWeatherSummary[]>([]);
   const [selected, setSelected] = useState<WeatherData | null>(null);
   const [searches, setSearches] = useState<SavedSearch[]>([]);
   const [loading, setLoading] = useState(false);
@@ -80,7 +90,6 @@ export default function Home() {
       }
       setHydrated(true);
     });
-    fetchFeaturedWeather().then((data) => active && setFeatured(data)).catch(() => undefined);
     return () => { active = false; };
   }, []);
 
@@ -130,6 +139,18 @@ export default function Home() {
 
   const favorites = useMemo(() => searches.filter((item) => item.favorite), [searches]);
   const history = useMemo(() => searches.filter((item) => !item.favorite), [searches]);
+  const priorityLocations = useMemo(() => [
+    ...favorites,
+    ...featuredLocations.filter((location) => !favorites.some((favorite) => isSameLocation(favorite, location))),
+  ], [favorites]);
+
+  useEffect(() => {
+    let active = true;
+    fetchFeaturedWeather(priorityLocations)
+      .then((data) => active && setFeatured(data))
+      .catch(() => active && setFeatured([]));
+    return () => { active = false; };
+  }, [priorityLocations]);
 
   function persist(next: SavedSearch[]) {
     setSearches(next);
@@ -138,15 +159,20 @@ export default function Home() {
 
   function recordLocation(location: WeatherLocation) {
     const existing = searches.find((item) => item.id === location.id || (item.latitude === location.latitude && item.longitude === location.longitude));
-    const next: SavedSearch[] = [
+    const reordered: SavedSearch[] = [
       { ...location, favorite: existing?.favorite ?? false },
       ...searches.filter((item) => item.id !== existing?.id && item.id !== location.id),
-    ].slice(0, 10);
-    persist(next);
+    ];
+    persist(keepFavoritesAndRecentHistory(reordered));
   }
 
-  function toggleFavorite(id: string) {
-    persist(searches.map((item) => item.id === id ? { ...item, favorite: !item.favorite } : item));
+  function toggleFavorite(location: WeatherLocation) {
+    const existing = searches.find((item) => isSameLocation(item, location));
+    if (existing) {
+      persist(searches.map((item) => isSameLocation(item, existing) ? { ...item, favorite: !item.favorite } : item));
+      return;
+    }
+    persist(keepFavoritesAndRecentHistory([{ ...location, favorite: true }, ...searches]));
   }
 
   function showDetail(data: WeatherData) {
@@ -260,7 +286,7 @@ export default function Home() {
               <p className="detail-overline">CANLI DURUM · {formatHour(selected.current.time)}</p>
               <h1>{selected.location.name}</h1>
               <p>{citySubtitle(selected.location)}</p>
-              <button className={`detail-favorite${saved?.favorite ? ' is-favorite' : ''}`} type="button" onClick={() => saved && toggleFavorite(saved.id)} aria-label={saved?.favorite ? 'Favorilerden çıkar' : 'Favorilere ekle'}>
+              <button className={`detail-favorite${saved?.favorite ? ' is-favorite' : ''}`} type="button" onClick={() => toggleFavorite(selected.location)} aria-label={saved?.favorite ? 'Favorilerden çıkar' : 'Favorilere ekle'}>
                 <span aria-hidden="true">{saved?.favorite ? '★' : '☆'}</span> {saved?.favorite ? 'Favorilerde' : 'Favoriye ekle'}
               </button>
             </div>
@@ -406,38 +432,53 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="featured-section" aria-labelledby="featured-heading">
-        <div className="section-heading"><div><p className="section-kicker">ŞİMDİ TÜRKİYE</p><h2 id="featured-heading">Öne çıkan şehirler</h2></div><p>Bir şehre dokun, detaylı tahmini keşfet.</p></div>
-        <div className="city-grid">
-          {featuredLocations.map((location, index) => {
-            const weather = featured.find((item) => item.location.id === location.id);
-            const condition = weather ? getWeatherCondition(weather.current.code, weather.current.isDay) : null;
-            const tones = ['sunny', 'clear', 'warm'];
-            return (
-              <button className={`city-card city-card-${tones[index]}`} type="button" key={location.id} onClick={() => openLocation(location, weather)}>
-                <span className="card-number">0{index + 1}</span>
-                {condition ? <WeatherGlyph kind={condition.icon} /> : <span className="card-loader" aria-hidden="true" />}
-                <span className="city-content"><strong>{location.name}</strong><small>{condition?.label ?? 'Hava verisi alınıyor'}</small></span>
-                <span className="city-temp weather-value">{weather ? `${weather.current.temperature}°` : '—'}</span>
-                <span className="card-arrow" aria-hidden="true">↗</span>
-              </button>
-            );
-          })}
-        </div>
-      </section>
-
       <section className="collections" aria-label="Kayıtlı şehirler">
         <div className="collection-card favorite-card" id="favorites">
-          <div className="collection-heading"><div><p>★ FAVORİLER</p><h2>Öncelikli şehirler</h2></div><span>{favorites.length}</span></div>
+          <div className="collection-heading"><div><p>★ FAVORİLER</p><h2>Favori aramalar</h2></div><span>{favorites.length}</span></div>
           {hydrated && favorites.length > 0 ? (
-            <div className="saved-list">{favorites.map((item) => <SavedCity key={item.id} item={item} onOpen={() => openLocation(item)} onStar={() => toggleFavorite(item.id)} />)}</div>
+            <div className="saved-list">{favorites.map((item) => <SavedCity key={item.id} item={item} onOpen={() => openLocation(item)} onStar={() => toggleFavorite(item)} />)}</div>
           ) : <EmptyCollection symbol="☆" text="Geçmiş aramalardaki yıldıza dokun; favorilerin burada öne çıksın." />}
         </div>
         <div className="collection-card history-card" id="history">
           <div className="collection-heading"><div><p>SON ARAMALAR</p><h2>Arama geçmişi</h2></div><span>{history.length}</span></div>
           {hydrated && history.length > 0 ? (
-            <div className="saved-list">{history.map((item) => <SavedCity key={item.id} item={item} onOpen={() => openLocation(item)} onStar={() => toggleFavorite(item.id)} />)}</div>
+            <div className="saved-list">{history.map((item) => <SavedCity key={item.id} item={item} onOpen={() => openLocation(item)} onStar={() => toggleFavorite(item)} />)}</div>
           ) : <EmptyCollection symbol="⌕" text="Aradığın şehirler burada, en yenisi en üstte görünecek." />}
+        </div>
+      </section>
+
+      <section className="featured-section" aria-labelledby="featured-heading">
+        <div className="section-heading"><div><p className="section-kicker">TÜRKİYE &amp; DÜNYA</p><h2 id="featured-heading">Öncelikli şehirler</h2></div><p>{priorityLocations.length} şehirden canlı veriler. Favorilerin her zaman en başta.</p></div>
+        <div className="city-grid">
+          {priorityLocations.map((location, index) => {
+            const weather = featured.find((item) => isSameLocation(item.location, location));
+            const condition = weather ? getWeatherCondition(weather.current.code, weather.current.isDay) : null;
+            const tones = ['sunny', 'clear', 'warm'];
+            const isFavorite = favorites.some((favorite) => isSameLocation(favorite, location));
+            return (
+              <article className={`city-card city-card-${tones[index % tones.length]}${isFavorite ? ' is-priority' : ''}`} key={`${location.id}-${location.latitude}`}>
+                <button className="city-card-main" type="button" onClick={() => openLocation(location)} aria-label={`${location.name} ayrıntılı hava durumunu aç`}>
+                  <span className="city-card-top">
+                    <span className="city-content"><strong>{location.name}</strong><small>{citySubtitle(location)}</small></span>
+                    {condition ? <WeatherGlyph kind={condition.icon} small /> : <span className="card-loader" aria-hidden="true" />}
+                  </span>
+                  <span className="city-card-reading">
+                    <span className="city-temp weather-value">{weather ? `${weather.current.temperature}°` : '—'}</span>
+                    <span><strong>{condition?.label ?? 'Veri alınıyor'}</strong><small>{weather ? `En yüksek ${weather.today.max}° · En düşük ${weather.today.min}°` : 'Güncel koşullar hazırlanıyor'}</small></span>
+                  </span>
+                  <span className="city-card-metrics">
+                    <span><small>Hissedilen</small><strong>{weather ? `${weather.current.feelsLike}°` : '—'}</strong></span>
+                    <span><small>Nem</small><strong>{weather ? `%${weather.current.humidity}` : '—'}</strong></span>
+                    <span><small>Rüzgâr</small><strong>{weather ? `${weather.current.windSpeed} km/sa` : '—'}</strong></span>
+                    <span><small>Yağış</small><strong>{weather ? `%${weather.today.precipitationChance}` : '—'}</strong></span>
+                  </span>
+                </button>
+                <button className={`city-card-star${isFavorite ? ' is-favorite' : ''}`} type="button" onClick={() => toggleFavorite(location)} aria-pressed={isFavorite} aria-label={isFavorite ? `${location.name} şehrini favorilerden çıkar` : `${location.name} şehrini favorilere ekle`}>
+                  <span aria-hidden="true">{isFavorite ? '★' : '☆'}</span>
+                </button>
+              </article>
+            );
+          })}
         </div>
       </section>
 
