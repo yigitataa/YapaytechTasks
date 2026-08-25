@@ -15,32 +15,35 @@ Bu dosya teslim için zorunlu bir özellik değildir. Her aşamada ne yaptığı
 ## Aşama 1 - Kapsam ve teknik kararlar
 
 - **Bu aşamada hangi kullanıcı/proje ihtiyacını çözdüm?**
-  - _Doldurulacak._
+  - Projenin genel gidişatına ve geliştirme aşamaları çözüldü. Teknik mimari açısından önemli bir durum ve ne geliştireceğimizi nasıl değerlendirmemiz gerektiği böylelikle daha açık olacak.
 - **Ne öğrendim?**
-  - _Doldurulacak._
+  - Mern mimarisinin kurulumunu ve genel hatları ve oluşumunu deneyimledim.
 - **Veri akışı nasıldı?**
-  - _Bu aşamada uygulama veri akışı yok; gereksinim kaynaklarının belgelere nasıl dönüştüğünü kendi cümlelerinle yaz._
+  - Henüz bu aşamada bir veri akışı yok. Veri akışını REST API ile endpoint ile sağlayacağız
 - **En önemli state veya veri yapısı neydi?**
-  - _Bu aşamada uygulama state'i yok; gereksinim kimliklerinin nasıl düzenlendiğini yazabilirsin._
+  - Henüz bu aşamada bir state ve bir veri yapısı yok. Ancak temel hatlarıyla state yapıları belli bunu ilerleyen aşamada testlerle birlikte daha da optimize edeceğim.
 - **Hangi hata veya sınır senaryosunu ele aldım?**
-  - _Doldurulacak._
+  - Manuel Test Checklist'te hata ve test senaryolarına detaylıca yer verdim. Bu aşamadan sonraki gelişimlerde her bir aşama için yapılan testleri not alacağım.
 - **Hangi teknik kararı neden verdim?**
-  - _Doldurulacak._
+  - Genel yapıyı şirketin çalışma modeli olan MERN yapısı üzerine geliştirmeye çalıştım. Detay teknik planlar henüz taslak olduğu için değişebilir. bu değişen kararları ilerleyen aşamalarda not alacağım
 - **Hangi testi yaptım ve çalıştığını hangi kanıtla gördüm?**
-  - _Doldurulacak._
+  - Bu aşamada bir test uygulamadım.
 - **Anlamadığım konular / sorularım:**
-  - _Doldurulacak._
+  - Henüz anlamadığım bir konu veya sorum yok.
 
 ## Aşama 2 - Proje iskeleti ve çalıştırma
 
-- **Hangi ihtiyacı çözdüm?** _Doldurulacak._
-- **Ne öğrendim?** _Doldurulacak._
-- **Veri hangi dosyalar/uygulamalar arasında hareket etti?** _Doldurulacak._
-- **En önemli state veya veri yapısı neydi?** _Doldurulacak._
+- **Hangi ihtiyacı çözdüm?** 
+  - Frontend ve backend iskeletini kurduk. Buradan sonraki eklemeleri bu iskeletler üzerinden gerçekleştireceğiz.
+- **Ne öğrendim?**
+  - Temel Frontend ve Backend mimarisini kurgulamayı öğrendim.
 - **Hangi hata veya sınır senaryosunu ele aldım?** _Doldurulacak._
-- **Hangi teknik kararı neden verdim?** _Doldurulacak._
-- **Hangi testi yaptım; kanıtım neydi?** _Doldurulacak._
-- **Anlamadığım konular / sorularım:** _Doldurulacak._
+- **Hangi teknik kararı neden verdim?**
+  - Ayrı json dosyalarıyla frontend ve backendi ayırdım. Böylelikle ikisinden birinde oluşabilecek sıkıntıyı daha rahat tespit edip çözebileceğimizi düşündüm
+- **Hangi testi yaptım; kanıtım neydi?**
+  - npm ile hem frontendi hem de backendi çalıştırdım ve çalıştığını gördüm. İkisinin arasındaki bağlantıları daha sonraki aşamalarda değerlendireceğim.
+- **Anlamadığım konular / sorularım:**
+  - Henüz anlamadığım bir konu veya sorum yok.
 
 ## Aşama 3 - Backend ürün okuma API'si
 

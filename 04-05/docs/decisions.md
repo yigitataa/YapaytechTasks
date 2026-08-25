@@ -22,7 +22,7 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 
 ## ADR-001 - Proje klasörlerinin ayrılması
 
-- **Durum:** Öneri
+- **Durum:** Kabul edildi (Aşama 2)
 - **Karar:** Çalışma klasörü içinde `frontend/`, `backend/` ve `docs/` klasörleri kullanılacak.
 - **Neden:** Frontend-backend ayrımını görünür kılar ve başlangıç seviyesindeki bir geliştiricinin sorumlulukları takip etmesini kolaylaştırır.
 - **Alternatif:** İki ayrı repository veya tek kökte karışık kaynak dosyaları.
@@ -30,7 +30,7 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 
 ## ADR-002 - Paket yönetimi
 
-- **Durum:** Öneri
+- **Durum:** Kabul edildi (Aşama 2)
 - **Karar:** Frontend ve backend için ayrı `package.json` dosyaları ve npm kullanılacak.
 - **Neden:** npm, Node.js ile birlikte gelir; ayrı dosyalar iki uygulamanın bağımlılık sınırını açık tutar.
 - **Alternatif:** pnpm/yarn veya kök workspace yapısı.
@@ -38,7 +38,7 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 
 ## ADR-003 - Frontend başlangıç aracı ve dil
 
-- **Durum:** Öneri
+- **Durum:** Kabul edildi (Aşama 2)
 - **Karar:** React uygulaması Vite ve JavaScript ile kurulacak.
 - **Neden:** Vite küçük bir React uygulaması için hızlı ve az yapılandırmalı; JavaScript ise kaynakta TypeScript zorunluluğu olmadığı için başlangıç kapsamını sade tutar.
 - **Alternatif:** Başka bir React build aracı veya TypeScript.
@@ -46,11 +46,11 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 
 ## ADR-004 - Backend yapısı ve dil
 
-- **Durum:** Öneri
+- **Durum:** Kısmen kabul edildi (Aşama 2)
 - **Karar:** Backend Express ve JavaScript ile; route, controller/service, validation/middleware ve data sorumlulukları ayrılarak kurulacak.
 - **Neden:** Kaynak Express'i zorunlu kılar; küçük sorumluluk ayrımı REST tasarımını ve hata yollarını okunabilir tutar.
 - **Alternatif:** Bütün sunucu mantığını tek dosyada tutmak veya TypeScript kullanmak.
-- **Sonuç/Sınırlama:** Çok küçük proje için birkaç ek dosya oluşur; yalnızca gerçek sorumluluklar ayrılmalı, gereksiz katman eklenmemelidir.
+- **Sonuç/Sınırlama:** Aşama 2'de yalnızca Express yapılandırması için `app.js` ve port dinleme için `server.js` ayrılmıştır. Route, controller, service ve validation klasörleri, içlerine gerçek kod ekleneceği aşamaya kadar oluşturulmayacaktır.
 
 ## ADR-005 - Veritabanı olmadan ürün verisi
 
@@ -118,7 +118,7 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 
 ## ADR-013 - Stil ve responsive yaklaşım
 
-- **Durum:** Öneri
+- **Durum:** Kabul edildi (Aşama 2)
 - **Karar:** Tek ve tutarlı bir düz CSS yaklaşımı kullanılacak; düzen önce küçük ekranlarda kullanılabilir olacak, sonra içerik tabanlı breakpoint'lerle genişletilecek.
 - **Neden:** Kaynak belirli bir CSS kütüphanesi istemez. Düz CSS başlangıç seviyesinde ek soyutlama olmadan responsive davranışı görünür kılar.
 - **Alternatif:** CSS Modules, Tailwind veya bir component kütüphanesi.
@@ -126,16 +126,25 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 
 ## ADR-014 - Test yaklaşımı
 
-- **Durum:** Öneri
+- **Durum:** Kabul edildi (Aşama 2)
 - **Karar:** Her aşamada [manuel test kontrol listesi](./manual-test-checklist.md) güncellenecek; kritik hesaplama ve API davranışları oluştuğunda küçük, hedefli otomatik testler değerlendirilecek.
 - **Neden:** PDF çalışan davranışı ve kaliteyi değerlendirir ancak belirli bir otomatik test aracı veya kapsam yüzdesi zorunlu kılmaz.
 - **Alternatif:** Baştan geniş bir uçtan uca test paketi kurmak veya yalnızca manuel test yapmak.
 - **Sonuç/Sınırlama:** Otomatik testler kaynak zorunluluğu gibi sunulmaz; seçilecek araç ve test kapsamı uygulama yapısı görüldükten sonra kayda eklenmelidir.
 
+## Aşama 2 uygulama kaydı
+
+- Hedef klasör, mevcut `.../quiz-sinav-react/02` Git repository'sinin içinde tutulmuştur; iç içe yeni bir repository oluşturulmamıştır.
+- Frontend ve backend ayrı npm paketleri olarak kurulmuş, kesin bağımlılık sürümleri iki `package-lock.json` dosyasına kaydedilmiştir.
+- Desteklenen Node.js aralığı Vite gereksinimiyle uyumlu olarak `^20.19.0 || >=22.12.0` seçilmiştir.
+- Varsayılan frontend adresi `http://localhost:5173`, backend adresi `http://localhost:3000` olarak belirlenmiştir.
+- CORS yalnızca `CORS_ORIGIN` değişkenindeki origin'e; değişken yoksa `http://localhost:5173` adresine izin verecek şekilde yapılandırılmıştır.
+- `.env` isteğe bağlı yerel ayar dosyasıdır ve Git tarafından yok sayılır; hassas bilgi içermeyen `.env.example` izlenebilir.
+
 ## Açık kararlar ve riskler
 
-- Hedef `04-05` klasörü boştur fakat kendi `.git` klasörüne sahip değildir; `.../quiz-sinav-react/02` adlı üst repository'nin içindedir. Üst repository'de bu görevle ilgisiz kullanıcı değişiklikleri vardır. Aşama 1 yalnızca hedef klasöre yazmıştır. Aşama 2'den önce projenin üst repository içinde mi kalacağı, yoksa ayrı bir Git repository mi olacağı kullanıcıyla netleştirilmelidir.
-- Kesin Node.js sürümü, React/Express sürümleri ve tarayıcı destek hedefleri kaynakta belirtilmemiştir; iskelet kurulurken mevcut kararlı sürümler ve oluşturulan lockfile kaydedilmelidir.
+- Hedef `04-05` klasörü kendi `.git` klasörüne sahip değildir; commit'ler üstteki `.../quiz-sinav-react/02` repository'sine ait olacaktır. Üst repository'deki ilgisiz kullanıcı değişiklikleri bu aşamada korunmuştur.
+- Kesin tarayıcı destek matrisi kaynakta belirtilmemiştir; uygulama geliştikçe kullanılan web özelliklerine göre kaydedilmelidir.
 - Görsel tasarım, marka dili ve ürün görsellerinin kaynağı belirtilmemiştir; erişilebilir ve sade bir başlangıç arayüzü önerilir.
 - Para birimi belirtilmemiştir; veri ve sunum kararı uygulama başlamadan önce kesinleştirilmelidir.
 

@@ -110,3 +110,24 @@ Yalnızca ilgili bonus bilinçli olarak seçilip geliştirildiyse doldur:
 | Tarih | Aşama/sürüm | Geçti | Kaldı | Bekliyor | Testi yapan | Not |
 |---|---|---:|---:|---:|---|---|
 | - | Aşama 1 - yalnızca dokümantasyon | 0 | 0 | Tümü | - | Uygulama henüz oluşturulmadı. |
+| 2026-08-25 | Aşama 2 - otomatik kontroller | 13 | 0 | Kullanıcı manuel testleri | Codex | Kurulum, lint, build, syntax, iki dev server, health/CORS, yeniden başlatma ve tarayıcı konsolu doğrulandı. |
+
+## Aşama 2 otomatik doğrulama kaydı
+
+Bu sonuçlar kullanıcının yukarıdaki manuel test kutularının yerine geçmez; Aşama 2 sırasında Codex'in gerçekten çalıştırdığı kontrolleri kaydeder.
+
+| Kontrol | Sonuç | Kanıt özeti |
+|---|---|---|
+| Frontend bağımlılık kurulumu | Geçti | `npm install` tamamlandı; lockfile ve React/Vite paketleri doğrulandı. |
+| Backend bağımlılık kurulumu | Geçti | `npm install` tamamlandı; lockfile, Express ve CORS paketleri doğrulandı. |
+| Frontend lint | Geçti | `npm run lint` çıkış kodu `0`. |
+| Frontend production build | Geçti | `npm run build` çıkış kodu `0`; Vite production çıktısı üretildi. |
+| Backend syntax kontrolü | Geçti | `npm run check` çıkış kodu `0`. |
+| Backend başlangıcı | Geçti | `npm start` ve README'deki `npm run dev` ayrı ayrı sunucuyu başlattı. |
+| Frontend başlangıcı | Geçti | README'deki `npm run dev`, `http://localhost:5173` adresini açtı. |
+| Health durum kodu | Geçti | Gerçek HTTP isteği `200` döndürdü. |
+| Health JSON cevabı | Geçti | Cevap tam olarak `{"status":"ok"}` olarak ayrıştırıldı. |
+| CORS başlığı | Geçti | İzin verilen origin `http://localhost:5173` olarak döndü. |
+| Yeniden başlatma | Geçti | Backend durdurulup `npm run dev` ile yeniden açıldı; health kontrolü tekrar geçti. |
+| React ekranı | Geçti | Proje başlığı ve “Frontend çalışıyor” durumu tarayıcı DOM'unda görünür bulundu. |
+| Tarayıcı konsolu | Geçti | Yeni sayfa yüklemesinde error veya warning kaydı bulunmadı. |
