@@ -80,3 +80,13 @@ Dosyanın kökünde doğrudan bir soru dizisi bulunabilir:
 Alternatif olarak seçenekler `options` dizisiyle verilebilir ve soru dizisi `{ "questions": [...] }` nesnesinin içine alınabilir. Bu biçimde `answer`, doğru seçeneğin sıfırdan başlayan indeksi, seçenek metni veya seçenek harfi olabilir. `category` ve `explanation` alanları isteğe bağlıdır.
 
 Türkçe karşılıklar olarak `soru`, `secenekler`, `dogruCevap`, `kategori` ve `aciklama` alanları da desteklenir.
+
+### Quiz dosyalarının dağılımı
+
+Bu projede kullanılan quiz dosyaları belirli sayıda soru içerecek şekilde bölünmüştür.
+
+- `quiz_01.json` ile `quiz_05.json` arasındaki ilk 5 dosyanın her biri **9 soru** içerir.
+- `quiz_06.json` dosyasından itibaren dosyalar **15'er soru** içerecek şekilde düzenlenmiştir.
+- Son dosyada, toplam soru sayısına bağlı olarak 15'ten daha az soru bulunabilir.
+
+Soruların `question`, `A`, `B`, `C`, `D` ve `answer` yapısı korunmuştur. Soru ve seçenek metinleri Türkçeye çevrilmiş, doğru cevabı belirten `answer` alanı değiştirilmemiştir.
