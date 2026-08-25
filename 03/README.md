@@ -29,10 +29,12 @@ npm run build
 ## Test edilebilir senaryolar
 
 - Başarılı arama: `Eskişehir`, `Çanakkale` veya başka bir şehir arayın.
+- Akıllı öneriler: Arama alanına en az iki harf yazın; eşleşen şehirleri fareyle veya `↑`, `↓`, `Enter` tuşlarıyla seçin.
 - Yüklenme: Arama gönderildiğinde “Gökyüzü okunuyor” durumu görünür.
 - Kullanıcı hatası: Tek harf girerek veya bulunamayacak bir ad yazarak anlaşılır hata mesajını kontrol edin.
 - Servis hatası: Tarayıcıyı çevrimdışı moda alıp yeni bir şehir arayın; teknik detay içermeyen hata mesajı gösterilir.
 - Şehir detayı: Ana sayfadaki üç şehir kartından birine tıklayın.
+- Tarayıcı geçmişi: Bir şehir detayındayken tarayıcının geri düğmesine basın; uygulamanın ana sayfasına döndüğünü doğrulayın.
 - Geçmiş ve favori: Birkaç şehir arayın, geçmişteki boş yıldızlara tıklayın; favorilerin üst bölümde öne çıktığını doğrulayın.
 - Kalıcılık: Sayfayı yenileyin; geçmiş ve favorilerin korunduğunu doğrulayın.
 - Responsive görünüm: 760 px altındaki genişliklerde şehir kartlarının tek sütuna geçtiğini kontrol edin.

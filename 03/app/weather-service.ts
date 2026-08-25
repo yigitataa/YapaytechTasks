@@ -48,6 +48,52 @@ export type WeatherData = {
   }>;
 };
 
+type ForecastApiResponse = {
+  timezone?: string;
+  current?: {
+    time: string;
+    temperature_2m: number;
+    apparent_temperature: number;
+    relative_humidity_2m: number;
+    precipitation: number;
+    weather_code: number;
+    cloud_cover: number;
+    surface_pressure: number;
+    wind_speed_10m: number;
+    wind_direction_10m: number;
+    is_day: number;
+  };
+  hourly?: {
+    time: string[];
+    temperature_2m: number[];
+    precipitation_probability: number[];
+    weather_code: number[];
+    relative_humidity_2m: number[];
+  };
+  daily?: {
+    time: string[];
+    weather_code: number[];
+    temperature_2m_max: number[];
+    temperature_2m_min: number[];
+    precipitation_probability_max: number[];
+    sunrise: string[];
+    sunset: string[];
+    uv_index_max: number[];
+  };
+};
+
+type GeocodingResult = {
+  id?: number;
+  name: string;
+  admin1?: string;
+  country: string;
+  latitude: number;
+  longitude: number;
+  timezone?: string;
+};
+
+type GeocodingApiResponse = { results?: GeocodingResult[] };
+
 export const featuredLocations: WeatherLocation[] = [
   { id: 'istanbul', name: 'İstanbul', country: 'Türkiye', latitude: 41.0082, longitude: 28.9784 },
   { id: 'ankara', name: 'Ankara', country: 'Türkiye', latitude: 39.9334, longitude: 32.8597 },
@@ -56,7 +102,9 @@ export const featuredLocations: WeatherLocation[] = [
 
 const resultCache = new Map<string, { expiresAt: number; data: WeatherData }>();
 const pendingRequests = new Map<string, Promise<WeatherData>>();
+const suggestionCache = new Map<string, { expiresAt: number; data: WeatherLocation[] }>();
 const CACHE_DURATION = 10 * 60 * 1000;
+const SUGGESTION_CACHE_DURATION = 30 * 60 * 1000;
 
 const round = (value: number | undefined) => Math.round(value ?? 0);
 
@@ -94,7 +142,7 @@ export async function fetchWeather(location: WeatherLocation): Promise<WeatherDa
   const request = (async () => {
     const response = await fetch(weatherUrl(location));
     if (!response.ok) throw new Error('Hava servisine şu anda ulaşılamıyor. Lütfen biraz sonra tekrar deneyin.');
-    const raw = await response.json();
+    const raw = await response.json() as ForecastApiResponse;
     if (!raw.current || !raw.hourly || !raw.daily) throw new Error('Bu konum için yeterli hava verisi bulunamadı.');
 
     const data: WeatherData = {
@@ -143,22 +191,23 @@ export async function fetchWeather(location: WeatherLocation): Promise<WeatherDa
   }
 }
 
-export async function searchCity(query: string): Promise<WeatherData> {
+export async function suggestCities(query: string, signal?: AbortSignal): Promise<WeatherLocation[]> {
   const value = query.trim();
-  if (value.length < 2) throw new Error('Lütfen en az iki harf içeren bir şehir adı yazın.');
+  if (value.length < 2) return [];
+
+  const cacheKey = value.toLocaleLowerCase('tr-TR');
+  const cached = suggestionCache.get(cacheKey);
+  if (cached && cached.expiresAt > Date.now()) return cached.data;
 
   const url = new URL('https://geocoding-api.open-meteo.com/v1/search');
   url.searchParams.set('name', value);
-  url.searchParams.set('count', '1');
+  url.searchParams.set('count', '7');
   url.searchParams.set('language', 'tr');
   url.searchParams.set('format', 'json');
-  const response = await fetch(url);
+  const response = await fetch(url, { signal });
   if (!response.ok) throw new Error('Şehir araması şu anda yapılamıyor. Lütfen tekrar deneyin.');
-  const raw = await response.json();
-  const result = raw.results?.[0];
-  if (!result) throw new Error(`“${value}” için bir şehir bulamadık. Yazımı kontrol edip tekrar deneyin.`);
-
-  return fetchWeather({
+  const raw = await response.json() as GeocodingApiResponse;
+  const locations: WeatherLocation[] = (raw.results ?? []).map((result) => ({
     id: String(result.id ?? `${result.latitude},${result.longitude}`),
     name: result.name,
     admin1: result.admin1,
@@ -166,7 +215,19 @@ export async function searchCity(query: string): Promise<WeatherData> {
     latitude: result.latitude,
     longitude: result.longitude,
     timezone: result.timezone,
-  });
+  }));
+
+  suggestionCache.set(cacheKey, { expiresAt: Date.now() + SUGGESTION_CACHE_DURATION, data: locations });
+  return locations;
+}
+
+export async function searchCity(query: string): Promise<WeatherData> {
+  const value = query.trim();
+  if (value.length < 2) throw new Error('Lütfen en az iki harf içeren bir şehir adı yazın.');
+  const result = (await suggestCities(value))[0];
+  if (!result) throw new Error(`“${value}” için bir şehir bulamadık. Yazımı kontrol edip tekrar deneyin.`);
+
+  return fetchWeather(result);
 }
 
 export async function fetchFeaturedWeather() {

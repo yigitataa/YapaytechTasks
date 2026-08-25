@@ -1,12 +1,13 @@
 'use client';
 
-import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react';
 import {
   fetchFeaturedWeather,
   fetchWeather,
   featuredLocations,
   getWeatherCondition,
   searchCity,
+  suggestCities,
   type WeatherData,
   type WeatherLocation,
 } from './weather-service';
@@ -42,6 +43,15 @@ function weatherAnalysis(weather: WeatherData) {
   return notes.slice(0, 2).join(' ') || 'Koşullar dengeli; gün içinde belirgin bir hava riski beklenmiyor.';
 }
 
+function HighlightedText({ text, query }: { text: string; query: string }) {
+  const normalizedText = text.toLocaleLowerCase('tr-TR');
+  const normalizedQuery = query.trim().toLocaleLowerCase('tr-TR');
+  const matchIndex = normalizedText.indexOf(normalizedQuery);
+  if (!normalizedQuery || matchIndex < 0) return text;
+  const matchEnd = matchIndex + normalizedQuery.length;
+  return <>{text.slice(0, matchIndex)}<mark>{text.slice(matchIndex, matchEnd)}</mark>{text.slice(matchEnd)}</>;
+}
+
 export default function Home() {
   const [query, setQuery] = useState('');
   const [featured, setFeatured] = useState<WeatherData[]>([]);
@@ -50,7 +60,13 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [hydrated, setHydrated] = useState(false);
+  const [suggestions, setSuggestions] = useState<WeatherLocation[]>([]);
+  const [suggestionsOpen, setSuggestionsOpen] = useState(false);
+  const [suggestionsLoading, setSuggestionsLoading] = useState(false);
+  const [suggestionsLoaded, setSuggestionsLoaded] = useState(false);
+  const [activeSuggestion, setActiveSuggestion] = useState(-1);
   const requestNumber = useRef(0);
+  const detailData = useRef<WeatherData | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -66,6 +82,50 @@ export default function Home() {
     });
     fetchFeaturedWeather().then((data) => active && setFeatured(data)).catch(() => undefined);
     return () => { active = false; };
+  }, []);
+
+  useEffect(() => {
+    const value = query.trim();
+    if (value.length < 2) return;
+
+    const controller = new AbortController();
+    const timer = window.setTimeout(async () => {
+      setSuggestionsLoading(true);
+      setSuggestionsLoaded(false);
+      try {
+        const matches = await suggestCities(value, controller.signal);
+        if (controller.signal.aborted) return;
+        setSuggestions(matches);
+        setSuggestionsOpen(true);
+        setSuggestionsLoaded(true);
+        setActiveSuggestion(-1);
+      } catch (caught) {
+        if (controller.signal.aborted || (caught instanceof DOMException && caught.name === 'AbortError')) return;
+        setSuggestions([]);
+        setSuggestionsLoaded(true);
+      } finally {
+        if (!controller.signal.aborted) setSuggestionsLoading(false);
+      }
+    }, 320);
+
+    return () => {
+      window.clearTimeout(timer);
+      controller.abort();
+    };
+  }, [query]);
+
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      requestNumber.current += 1;
+      setLoading(false);
+      setError('');
+      setSuggestionsOpen(false);
+      if (event.state?.yataclimateDetail && detailData.current) setSelected(detailData.current);
+      else setSelected(null);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   const favorites = useMemo(() => searches.filter((item) => item.favorite), [searches]);
@@ -89,6 +149,57 @@ export default function Home() {
     persist(searches.map((item) => item.id === id ? { ...item, favorite: !item.favorite } : item));
   }
 
+  function showDetail(data: WeatherData) {
+    detailData.current = data;
+    if (!window.history.state?.yataclimateDetail) {
+      window.history.pushState({ ...(window.history.state ?? {}), yataclimateDetail: true }, '');
+    }
+    setSelected(data);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function closeDetail() {
+    if (window.history.state?.yataclimateDetail) window.history.back();
+    else setSelected(null);
+  }
+
+  function handleQueryChange(value: string) {
+    setQuery(value);
+    setError('');
+    setActiveSuggestion(-1);
+    setSuggestions([]);
+    const canSuggest = value.trim().length >= 2;
+    setSuggestionsOpen(canSuggest);
+    setSuggestionsLoading(canSuggest);
+    setSuggestionsLoaded(false);
+  }
+
+  function handleSearchKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    if (!suggestionsOpen) return;
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      setActiveSuggestion((current) => Math.min(current + 1, suggestions.length - 1));
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      setActiveSuggestion((current) => Math.max(current - 1, 0));
+    } else if (event.key === 'Enter' && activeSuggestion >= 0 && suggestions[activeSuggestion]) {
+      event.preventDefault();
+      void chooseSuggestion(suggestions[activeSuggestion]);
+    } else if (event.key === 'Escape') {
+      setSuggestionsOpen(false);
+      setActiveSuggestion(-1);
+    }
+  }
+
+  async function chooseSuggestion(location: WeatherLocation) {
+    setQuery('');
+    setSuggestions([]);
+    setSuggestionsOpen(false);
+    setSuggestionsLoading(false);
+    setSuggestionsLoaded(false);
+    await openLocation(location);
+  }
+
   async function openLocation(location: WeatherLocation, readyData?: WeatherData) {
     const currentRequest = ++requestNumber.current;
     setError('');
@@ -97,8 +208,7 @@ export default function Home() {
       const data = readyData ?? await fetchWeather(location);
       if (currentRequest !== requestNumber.current) return;
       recordLocation(data.location);
-      setSelected(data);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showDetail(data);
     } catch (caught) {
       if (currentRequest === requestNumber.current) setError(caught instanceof Error ? caught.message : 'Beklenmeyen bir sorun oluştu.');
     } finally {
@@ -108,16 +218,20 @@ export default function Home() {
 
   async function handleSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (suggestionsOpen && activeSuggestion >= 0 && suggestions[activeSuggestion]) {
+      await chooseSuggestion(suggestions[activeSuggestion]);
+      return;
+    }
     const currentRequest = ++requestNumber.current;
     setError('');
+    setSuggestionsOpen(false);
     setLoading(true);
     try {
       const data = await searchCity(query);
       if (currentRequest !== requestNumber.current) return;
       recordLocation(data.location);
-      setSelected(data);
+      showDetail(data);
       setQuery('');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (caught) {
       if (currentRequest === requestNumber.current) setError(caught instanceof Error ? caught.message : 'Beklenmeyen bir sorun oluştu.');
     } finally {
@@ -133,11 +247,11 @@ export default function Home() {
     return (
       <main className={`detail-page detail-theme-${condition.theme}`}>
         <header className="site-header detail-header">
-          <button className="brand-mark brand-button" type="button" onClick={() => setSelected(null)}>
+          <button className="brand-mark brand-button" type="button" onClick={closeDetail}>
             <span className="brand-symbol" aria-hidden="true"><i /></span>
             <span>YataClimate</span>
           </button>
-          <button className="back-button" type="button" onClick={() => setSelected(null)}><span aria-hidden="true">←</span> Şehirlere dön</button>
+          <button className="back-button" type="button" onClick={closeDetail}><span aria-hidden="true">←</span> Şehirlere dön</button>
         </header>
 
         <section className="detail-wrap">
@@ -238,13 +352,61 @@ export default function Home() {
         <p className="eyebrow">HAVANI KEŞFET</p>
         <h1>Bugünün havası,<br /><em>tek bakışta.</em></h1>
         <p className="hero-copy">Şehrini ara, atmosferi hisset ve gününü daha iyi planla.</p>
-        <form className="search-box" onSubmit={handleSearch}>
-          <span className="search-icon" aria-hidden="true" />
-          <label className="sr-only" htmlFor="city-search">Şehir ara</label>
-          <input id="city-search" name="city" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Şehir ara — örn. Eskişehir" autoComplete="off" />
-          <button type="submit" disabled={loading}>Havayı gör <span aria-hidden="true">↗</span></button>
-        </form>
-        {error && <div className="error-message" role="alert"><span aria-hidden="true">!</span>{error}<button type="button" onClick={() => setError('')} aria-label="Hata mesajını kapat">×</button></div>}
+        <div className="search-area">
+          <form className={`search-box${suggestionsOpen ? ' has-suggestions' : ''}`} onSubmit={handleSearch}>
+            <span className="search-icon" aria-hidden="true" />
+            <label className="sr-only" htmlFor="city-search">Şehir ara</label>
+            <input
+              id="city-search"
+              name="city"
+              value={query}
+              onChange={(event) => handleQueryChange(event.target.value)}
+              onKeyDown={handleSearchKeyDown}
+              onFocus={() => query.trim().length >= 2 && setSuggestionsOpen(true)}
+              onBlur={() => window.setTimeout(() => setSuggestionsOpen(false), 120)}
+              placeholder="Şehir ara — örn. Eskişehir"
+              autoComplete="off"
+              role="combobox"
+              aria-autocomplete="list"
+              aria-expanded={suggestionsOpen}
+              aria-controls="city-suggestions"
+              aria-activedescendant={activeSuggestion >= 0 ? `city-suggestion-${activeSuggestion}` : undefined}
+            />
+            <button type="submit" disabled={loading}>Havayı gör <span aria-hidden="true">↗</span></button>
+          </form>
+
+          {suggestionsOpen && query.trim().length >= 2 && (
+            <div className="suggestion-menu" id="city-suggestions" role="listbox" aria-label="Şehir önerileri">
+              <div className="suggestion-heading"><span>ŞEHİR ÖNERİLERİ</span>{suggestionsLoading && <i>aranıyor…</i>}</div>
+              {suggestionsLoading && suggestions.length === 0 && (
+                <div className="suggestion-skeleton" aria-hidden="true"><span /><span /><span /></div>
+              )}
+              {!suggestionsLoading && suggestionsLoaded && suggestions.length === 0 && (
+                <div className="suggestion-empty"><span aria-hidden="true">⌕</span><p>Bu aramayla eşleşen bir şehir bulamadık.</p></div>
+              )}
+              {suggestions.map((location, index) => (
+                <button
+                  id={`city-suggestion-${index}`}
+                  className={`suggestion-item${activeSuggestion === index ? ' is-active' : ''}`}
+                  type="button"
+                  role="option"
+                  aria-selected={activeSuggestion === index}
+                  key={`${location.id}-${location.latitude}`}
+                  onMouseDown={(event) => event.preventDefault()}
+                  onMouseEnter={() => setActiveSuggestion(index)}
+                  onClick={() => void chooseSuggestion(location)}
+                >
+                  <span className="suggestion-pin" aria-hidden="true"><i /></span>
+                  <span className="suggestion-copy"><strong><HighlightedText text={location.name} query={query} /></strong><small>{citySubtitle(location)}</small></span>
+                  <span className="suggestion-arrow" aria-hidden="true">↗</span>
+                </button>
+              ))}
+              {suggestions.length > 0 && <p className="suggestion-tip">↑ ↓ ile seç · Enter ile aç</p>}
+            </div>
+          )}
+
+          {error && <div className="error-message" role="alert"><span aria-hidden="true">!</span>{error}<button type="button" onClick={() => setError('')} aria-label="Hata mesajını kapat">×</button></div>}
+        </div>
       </section>
 
       <section className="featured-section" aria-labelledby="featured-heading">
