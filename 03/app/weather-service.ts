@@ -144,38 +144,39 @@ export async function fetchWeather(location: WeatherLocation): Promise<WeatherDa
     if (!response.ok) throw new Error('Hava servisine şu anda ulaşılamıyor. Lütfen biraz sonra tekrar deneyin.');
     const raw = await response.json() as ForecastApiResponse;
     if (!raw.current || !raw.hourly || !raw.daily) throw new Error('Bu konum için yeterli hava verisi bulunamadı.');
+    const { current, hourly, daily } = raw;
 
     const data: WeatherData = {
       location: { ...location, timezone: raw.timezone },
       current: {
-        time: raw.current.time,
-        temperature: round(raw.current.temperature_2m),
-        feelsLike: round(raw.current.apparent_temperature),
-        humidity: round(raw.current.relative_humidity_2m),
-        precipitation: raw.current.precipitation ?? 0,
-        code: raw.current.weather_code ?? 0,
-        cloudCover: round(raw.current.cloud_cover),
-        pressure: round(raw.current.surface_pressure),
-        windSpeed: round(raw.current.wind_speed_10m),
-        windDirection: round(raw.current.wind_direction_10m),
-        isDay: raw.current.is_day === 1,
+        time: current.time,
+        temperature: round(current.temperature_2m),
+        feelsLike: round(current.apparent_temperature),
+        humidity: round(current.relative_humidity_2m),
+        precipitation: current.precipitation ?? 0,
+        code: current.weather_code ?? 0,
+        cloudCover: round(current.cloud_cover),
+        pressure: round(current.surface_pressure),
+        windSpeed: round(current.wind_speed_10m),
+        windDirection: round(current.wind_direction_10m),
+        isDay: current.is_day === 1,
       },
-      hourly: raw.hourly.time.map((time: string, index: number) => ({
+      hourly: hourly.time.map((time: string, index: number) => ({
         time,
-        temperature: round(raw.hourly.temperature_2m[index]),
-        precipitationChance: round(raw.hourly.precipitation_probability[index]),
-        humidity: round(raw.hourly.relative_humidity_2m[index]),
-        code: raw.hourly.weather_code[index] ?? 0,
+        temperature: round(hourly.temperature_2m[index]),
+        precipitationChance: round(hourly.precipitation_probability[index]),
+        humidity: round(hourly.relative_humidity_2m[index]),
+        code: hourly.weather_code[index] ?? 0,
       })),
-      daily: raw.daily.time.map((date: string, index: number) => ({
+      daily: daily.time.map((date: string, index: number) => ({
         date,
-        code: raw.daily.weather_code[index] ?? 0,
-        max: round(raw.daily.temperature_2m_max[index]),
-        min: round(raw.daily.temperature_2m_min[index]),
-        precipitationChance: round(raw.daily.precipitation_probability_max[index]),
-        sunrise: raw.daily.sunrise[index],
-        sunset: raw.daily.sunset[index],
-        uvIndex: Math.round((raw.daily.uv_index_max[index] ?? 0) * 10) / 10,
+        code: daily.weather_code[index] ?? 0,
+        max: round(daily.temperature_2m_max[index]),
+        min: round(daily.temperature_2m_min[index]),
+        precipitationChance: round(daily.precipitation_probability_max[index]),
+        sunrise: daily.sunrise[index],
+        sunset: daily.sunset[index],
+        uvIndex: Math.round((daily.uv_index_max[index] ?? 0) * 10) / 10,
       })),
     };
 

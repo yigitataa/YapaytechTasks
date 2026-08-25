@@ -60,11 +60,8 @@ button { color: inherit; }
 .live-pill { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 999px; background: oklch(1 0 0 / 42%); padding: 9px 13px; color: var(--muted); font-size: 12px; font-weight: 600; }
 .live-pill span { width: 7px; height: 7px; border-radius: 50%; background: oklch(0.66 0.17 150); box-shadow: 0 0 0 4px oklch(0.75 0.13 150 / 18%); }
 
-.hero { width: min(900px, calc(100% - 48px)); margin: 76px auto 74px; text-align: center; }
-.eyebrow, .section-kicker { color: var(--accent-dark); font-family: var(--font-jakarta), sans-serif; font-size: 11px; font-weight: 800; letter-spacing: .2em; }
-.hero h1 { margin: 17px 0 18px; font-family: var(--font-jakarta), sans-serif; font-size: clamp(48px, 7vw, 86px); line-height: .97; letter-spacing: -.075em; font-weight: 600; }
-.hero h1 em { color: var(--accent-dark); font-style: normal; font-weight: 400; }
-.hero-copy { color: var(--muted); font-size: 16px; margin: 0 auto 34px; }
+.hero { width: min(900px, calc(100% - 48px)); margin: 54px auto 62px; text-align: center; }
+.section-kicker { color: var(--accent-dark); font-family: var(--font-jakarta), sans-serif; font-size: 11px; font-weight: 800; letter-spacing: .2em; }
 .search-area { width: min(690px, 100%); margin: 0 auto; position: relative; z-index: 20; }
 .search-box { width: 100%; margin: 0; position: relative; z-index: 2; display: grid; grid-template-columns: 24px 1fr auto; gap: 13px; align-items: center; padding: 9px 9px 9px 19px; background: oklch(1 0 0 / 76%); border: 1px solid oklch(0.84 0.04 215 / 85%); border-radius: 18px; box-shadow: 0 24px 60px oklch(0.31 0.06 235 / 12%), inset 0 1px 0 white; backdrop-filter: blur(16px) saturate(140%); transition: border-color .2s ease, box-shadow .2s ease; }
 .search-box.has-suggestions { border-color: oklch(0.7 0.085 215 / 72%); box-shadow: 0 18px 50px oklch(0.31 0.06 235 / 16%), inset 0 1px 0 white; }
@@ -127,9 +124,8 @@ button { color: inherit; }
 
 @media (max-width: 760px) {
   .site-header, .featured-section, .activity-strip { width: min(100% - 28px, 1180px); }
-  .hero { width: min(100% - 28px, 900px); margin-top: 58px; }
+  .hero { width: min(100% - 28px, 900px); margin: 38px auto 48px; }
   .live-pill { display: none; }
-  .hero h1 { font-size: clamp(46px, 15vw, 72px); }
   .search-box { grid-template-columns: 22px 1fr; padding: 10px 14px; }
   .search-box button { grid-column: 1 / -1; }
   .suggestion-menu { max-height: 320px; }

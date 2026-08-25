@@ -349,9 +349,6 @@ export default function Home() {
       </header>
 
       <section className="hero" id="top">
-        <p className="eyebrow">HAVANI KEŞFET</p>
-        <h1>Bugünün havası,<br /><em>tek bakışta.</em></h1>
-        <p className="hero-copy">Şehrini ara, atmosferi hisset ve gününü daha iyi planla.</p>
         <div className="search-area">
           <form className={`search-box${suggestionsOpen ? ' has-suggestions' : ''}`} onSubmit={handleSearch}>
             <span className="search-icon" aria-hidden="true" />
