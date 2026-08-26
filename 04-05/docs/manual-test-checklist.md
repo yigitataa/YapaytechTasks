@@ -29,7 +29,7 @@ Notlar:
 
 - [ ] **MT-SET-001 - Temiz kurulum** (`REQ-022`, `REQ-023`): README adımları temiz bir ortamda izlenir; frontend ve backend bağımlılıkları hatasız kurulur.
 - [ ] **MT-SET-002 - Backend'i başlatma** (`REQ-002`, `REQ-022`): Belgelenen komut Express sunucusunu beklenen portta başlatır.
-- [ ] **MT-SET-003 - Frontend'i başlatma** (`REQ-001`, `REQ-022`): Belgelenen komut React uygulamasını açar ve başlangıç ekranı görünür.
+- [ ] **MT-SET-003 - Frontend'i başlatma** (`REQ-001`, `REQ-022`): Belgelenen komut React uygulamasını açar ve ürün katalog ekranı görünür.
 - [ ] **MT-SET-004 - Uçtan uca bağlantı** (`REQ-020`, `REQ-022`): İki uygulama çalışırken frontend ürünleri backend API'sinden alır.
 - [ ] **MT-SET-005 - Veritabanı bağımsızlığı** (`REQ-003`): Kurulum veya çalıştırma için veritabanı servisi, bağlantı bilgisi ya da ORM migration'ı gerekmez.
 
@@ -87,6 +87,34 @@ Bu testleri çalıştırmadan önce README'deki komutla backend'i başlat. Windo
 - [ ] **MT-PRD-003 - Geçersiz detay kimliği** (`REQ-019`, `REQ-021`): Olmayan ürün yolu boş/kırık sayfa yerine anlaşılır geri bildirim verir.
 - [ ] **MT-PRD-004 - Veri kaynağı** (`REQ-020`): Backend'deki görünür bir ürün değişikliği yeniden veri alındığında frontend'e yansır; ana ürün verisi frontend'e gömülü değildir.
 
+### Aşama 5 - Frontend API iletişimi, ürün listesi ve detay
+
+Bu testlerde backend `http://localhost:3000`, frontend `http://localhost:5173` adresinde birlikte çalışmalıdır.
+
+- [ ] **MT-A5-001 - Gerçek API listesi** (`REQ-004`, `REQ-020`): `/api/products` cevabındaki ürün sayısı ile `/` sayfasındaki kart sayısı aynıdır.
+- [ ] **MT-A5-002 - Kart içeriği** (`REQ-004`): Her kartta ürün görseli/fallback, ad, kategori ve TRY biçimli fiyat okunur; bütün kart tek bir detay bağlantısıdır.
+- [ ] **MT-A5-003 - Karttan detaya geçiş** (`REQ-005`): İlk karta tıklama `/products/{id}` adresine gider ve karttaki ürün adı detay başlığıyla eşleşir.
+- [ ] **MT-A5-004 - Doğrudan detay ve yenileme** (`REQ-005`, `REQ-022`): Geçerli detay URL'si doğrudan açılır ve sayfa yenilenince aynı ürün yeniden API'den gelir.
+- [ ] **MT-A5-005 - Bilinmeyen ürün** (`REQ-019`, `REQ-021`): `/products/bilinmeyen-id` “Ürün bulunamadı” ve çalışan “Ürünlere dön” bağlantısını gösterir; uygulama çökmez.
+- [ ] **MT-A5-006 - Bilinmeyen frontend yolu** (`REQ-019`): `/bilinmeyen-sayfa` kontrollü “Sayfa bulunamadı” görünümü verir.
+- [ ] **MT-A5-007 - Liste loading** (`REQ-021`): Ağ yavaşlatıldığında ürünler gelmeden önce skeleton kartlar görünür ve başarı/hata sonucunda kaybolur.
+- [ ] **MT-A5-008 - Detay loading** (`REQ-021`): Ağ yavaşlatıldığında tek ürün gelmeden önce detay skeleton'ı görünür ve sonuçla yer değiştirir.
+- [ ] **MT-A5-009 - Backend kapalı** (`REQ-021`, `QLT-010`): Backend'e ulaşılamadığında sonsuz loading yerine güvenli açıklama ve “Tekrar dene” düğmesi görünür.
+- [ ] **MT-A5-010 - Yeniden deneme** (`REQ-021`): Backend açıldıktan sonra “Tekrar dene” ürün listesini yeniden getirir.
+- [ ] **MT-A5-011 - Boş API listesi** (`REQ-021`): API `[]` döndürürse kart yerine “Henüz ürün bulunmuyor” görünür.
+- [ ] **MT-A5-012 - Görsel fallback** (`REQ-004`, `QLT-008`): Bozuk/erişilemeyen `imageUrl` uygulamayı bozmaz ve “Görsel yok” fallback'i gösterir.
+- [ ] **MT-A5-013 - 320 px responsive** (`REQ-025`, `QLT-003`): 320 px genişlikte iki kart sütunu vardır, metinler okunur ve yatay sayfa taşması oluşmaz.
+- [ ] **MT-A5-014 - Geniş ekran responsive** (`REQ-025`): Geniş ekranda liste dört sütuna, detay görsel ve bilgi için iki sütuna geçer.
+- [ ] **MT-A5-015 - Klavye ve focus** (`QLT-003`): Tab tuşuyla marka, ürünler ve kart bağlantılarına ulaşılır; focus görünür ve Enter doğru detayı açar.
+- [ ] **MT-A5-016 - Tarayıcı konsolu** (`QLT-008`, `QLT-010`): Normal liste ve detay kullanımında açıklanamayan error kaydı yoktur.
+- [ ] **MT-A5-017 - Kapsam sınırı**: Arama, filtre, sıralama, sepet, favori ve frontend CRUD yönetim arayüzü Aşama 5'te bulunmaz.
+- [ ] **MT-A5-018 - Yata Market kimliği**: Header, ilk açılış yükleyicisi ve footer “Yata Market” adını; marka işareti `Y` harfini gösterir.
+- [ ] **MT-A5-019 - Renkli tema** (`QLT-003`): Hero, marka, buton, kart vurgusu ve fiyatlarda mavi-mor-pembe gradient görünür; metin kontrastı okunabilir kalır.
+- [ ] **MT-A5-020 - İlk açılış animasyonu** (`REQ-021`): Yeni sekmede kısa Yata Market yükleme perdesi ve ilerleme çubuğu görünür; yaklaşık 720 ms sonra içerik kullanıma açılır.
+- [ ] **MT-A5-021 - Bileşen animasyonları** (`QLT-003`): Başlıklar, bölüm başlığı, kartlar, görseller, fiyatlar, durum panelleri ve detay parçaları kademeli giriş yapar; kart gecikmeleri sırayla artar.
+- [ ] **MT-A5-022 - Route animasyonu** (`REQ-005`): Karttan detaya geçişte yeni sayfa üstten başlar ve detay görseli ile metni ayrı giriş animasyonu kullanır.
+- [ ] **MT-A5-023 - Azaltılmış hareket** (`QLT-003`): İşletim sisteminde “hareketi azalt” açıkken dekoratif animasyonlar yaklaşık sıfır süreye iner ve içerik hemen kullanılabilir olur.
+
 ## 4. Arama, filtre ve sıralama
 
 - [ ] **MT-FND-001 - Arama eşleşmesi** (`REQ-006`): Eşleşen arama değeri yalnızca ilgili ürünleri gösterir.
@@ -95,6 +123,27 @@ Bu testleri çalıştırmadan önce README'deki komutla backend'i başlat. Windo
 - [ ] **MT-FND-004 - Birinci sıralama** (`REQ-008`): İlk sıralama seçeneğinin görünen ürün sırası beklenen ölçüte uyar.
 - [ ] **MT-FND-005 - İkinci sıralama** (`REQ-008`): İkinci ve farklı sıralama seçeneğinin ürün sırası beklenen ölçüte uyar.
 - [ ] **MT-FND-006 - Birleşik kullanım** (`REQ-006` - `REQ-008`): Arama, filtre ve sıralama birlikte kullanıldığında görünen sonuçların tamamı üç seçime de uyar.
+
+### Aşama 6 - Ürün arama, kategori filtresi ve fiyat sıralaması
+
+Bu testlerde backend `http://localhost:3000`, frontend `http://localhost:5173` adresinde birlikte çalışmalıdır. Başlangıçta `10 / 10 ürün` görünür.
+
+- [ ] **MT-A6-001 - Tam ad araması** (`REQ-006`): “Kablosuz Kulaklık” yazıldığında yalnız bu kart kalır ve sayaç `1 / 10 ürün` olur.
+- [ ] **MT-A6-002 - Büyük/küçük harf ve Türkçe karakter** (`REQ-006`): “KULAKLIK” ve “kulaklık” aynı ürünü gösterir.
+- [ ] **MT-A6-003 - Kısmi ad araması** (`REQ-006`): “kulak” yazıldığında “Kablosuz Kulaklık” bulunur.
+- [ ] **MT-A6-004 - Boş arama** (`REQ-006`): Arama alanı temizlendiğinde diğer kontroller izin verdiği ölçüde ürünler geri gelir.
+- [ ] **MT-A6-005 - Sonuç bulunamadı** (`REQ-006`, `REQ-021`): “olmayan ürün” yazıldığında kart görünmez; hata yerine “Aramana uygun ürün bulunamadı” ve “Tüm ürünleri göster” görünür.
+- [ ] **MT-A6-006 - Dinamik kategori seçenekleri** (`REQ-007`, `REQ-020`): Kategori listesinde API verisindeki 6 benzersiz kategori ve “Tüm kategoriler” vardır.
+- [ ] **MT-A6-007 - Kategori filtresi** (`REQ-007`): “Spor” seçildiğinde yalnız “Paslanmaz Çelik Matara” ve “Kaymaz Yoga Matı” kalır.
+- [ ] **MT-A6-008 - Artan fiyat** (`REQ-008`): “Fiyat: düşükten yükseğe” seçildiğinde ilk fiyat `₺479`, son fiyat `₺3.299` olur.
+- [ ] **MT-A6-009 - Azalan fiyat** (`REQ-008`): “Fiyat: yüksekten düşüğe” seçildiğinde ilk fiyat `₺3.299`, son fiyat `₺479` olur.
+- [ ] **MT-A6-010 - Birleşik kullanım** (`REQ-006` - `REQ-008`): “mat” araması + “Spor” kategorisi + azalan fiyat seçildiğinde önce “Kaymaz Yoga Matı”, sonra “Paslanmaz Çelik Matara” görünür; üç seçim de korunur.
+- [ ] **MT-A6-011 - Toplu temizleme** (`REQ-006` - `REQ-008`): “Seçimleri temizle” bütün kontrolleri başlangıç değerlerine ve listeyi `10 / 10 ürün` durumuna döndürür.
+- [ ] **MT-A6-012 - Ham sıra korunumu** (`QLT-005`): Bir fiyat sırası seçilip “Seçimleri temizle” denince başlangıç API sırası geri gelir.
+- [ ] **MT-A6-013 - Responsive kontroller** (`REQ-025`): 320 px genişlikte kontroller tek sütun, ürünler iki sütundur; yatay taşma yoktur.
+- [ ] **MT-A6-014 - Klavye ve etiketler** (`QLT-003`, `QLT-010`): Arama, kategori, sıralama ve temizleme kontrolüne Tab ile ulaşılır; her alanın görünür etiketi ve focus halkası vardır.
+- [ ] **MT-A6-015 - Route sonrası state sınırı**: Ürün detayına gidip listeye dönüldüğünde arama, kategori ve sıralama başlangıç değerlerine döner; bu davranış README ile uyumludur.
+- [ ] **MT-A6-016 - Kapsam sınırı**: Fiyat aralığı, sayfalama, backend query parametreleri, sepet ve favori eklenmemiştir.
 
 ## 5. Sepet
 
@@ -148,6 +197,9 @@ Yalnızca ilgili bonus bilinçli olarak seçilip geliştirildiyse doldur:
 | 2026-08-25 | Aşama 2 - otomatik kontroller | 13 | 0 | Kullanıcı manuel testleri | Codex | Kurulum, lint, build, syntax, iki dev server, health/CORS, yeniden başlatma ve tarayıcı konsolu doğrulandı. |
 | 2026-08-25 | Aşama 3 - otomatik kontroller | 19 | 0 | Kullanıcı manuel testleri | Codex | Health, ürün liste/detay, veri kalitesi, JSON 404, kapsam sınırı, yeniden başlatma ve süreç temizliği doğrulandı. |
 | 2026-08-26 | Aşama 4 - otomatik kontroller | 48 | 0 | Kullanıcı manuel testleri | Codex | 38 gerçek süreç/API doğrulaması, 7 validator sınır kontrolü, backend syntax, frontend lint ve son süreç/port temizliği geçti. |
+| 2026-08-26 | Aşama 5 - otomatik kontroller | 23 | 0 | Kullanıcı manuel testleri | Codex | Frontend lint/build, gerçek API ön kontrolleri, görünür liste/detay/404, loading, 320 px responsive, backend-kapalı, boş liste, konsol ve süreç temizliği geçti. |
+| 2026-08-26 | Aşama 5 - Yata Market görsel revizyonu | 10 | 0 | Kullanıcı manuel testleri | Codex | Marka, gradient tema, ilk yükleyici, 10 kademeli kart, detay/route animasyonları, mobil taşma, lint ve build geçti. |
+| 2026-08-26 | Aşama 6 - otomatik kontroller | 18 | 0 | Kullanıcı manuel testleri | Codex | Saf türetme fonksiyonu, lint/build, gerçek API, arama/kategori/iki sıra/birleşik kullanım, boş sonuç, temizleme, erişilebilir etiketler, 320 px responsive ve konsol doğrulandı. |
 
 ## Aşama 2 otomatik doğrulama kaydı
 
@@ -218,3 +270,69 @@ Bu sonuçlar kullanıcının Aşama 4 manuel test kutularının yerine geçmez. 
 | Hata sonrası gerileme kontrolü | Geçti | Tüm hata isteklerinden sonra health tekrar `200`, ürün listesi tekrar `200` ve 10 ürün döndürdü. |
 | Yeniden başlatma/kalıcılık sınırı | Geçti | Geçici ürünle liste 11 oldu; süreç durdurulup başlatılınca ürün kayboldu ve liste 10 başlangıç ürününe döndü. |
 | Süreç temizliği | Geçti | İki geçici backend süreci güvenli biçimde kapatıldı; son kontrolde port `3000` boştu. |
+
+## Aşama 5 otomatik doğrulama kaydı
+
+Bu sonuçlar kullanıcının Aşama 5 manuel test kutularının yerine geçmez. Mevcut kullanıcı backend'i salt okunur isteklerle kontrol edilmiş; Codex'in başlattığı frontend ve sahte API süreçleri test sonunda kapatılmıştır.
+
+| Kontrol | Sonuç | Kanıt özeti |
+|---|---|---|
+| Değişiklik öncesi backend | Geçti | `npm run check`; health `200`; liste 10 ürün; `p-001` detay listeyle eşleşti; bilinmeyen ürün JSON `404`. |
+| Değişiklik öncesi frontend | Geçti | Mevcut Aşama 2 ekranında `npm run lint` ve `npm run build` çıkış kodu `0`. |
+| React Router kurulumu | Geçti | Resmî `react-router` paketi kuruldu, `package-lock.json` güncellendi ve npm denetimi 0 güvenlik açığı bildirdi. |
+| Güncel frontend lint | Geçti | `npm run lint` çıkış kodu `0`. |
+| Güncel production build | Geçti | `npm run build` 87 modülü dönüştürdü ve `dist/` çıktısını başarıyla üretti. |
+| API-kart sayısı | Geçti | Gerçek `/api/products` 10 ürün, görünür katalog 10 `.product-card__link` üretti. |
+| Karttan detay | Geçti | “Kablosuz Kulaklık” kartı `/products/p-001` adresine gitti; başlık ve ürün kodu eşleşti. |
+| Doğrudan detay yenilemesi | Geçti | `/products/p-001` yenilendi; aynı başlık ve çalışan “Ürünlere dön” bağlantısı yeniden göründü. |
+| Bilinmeyen ürün | Geçti | `/products/bilinmeyen-id` “Ürün bulunamadı” ve katalog geri dönüşü gösterdi. |
+| Bilinmeyen frontend route'u | Geçti | `/bilinmeyen-sayfa` “Sayfa bulunamadı” gösterdi. |
+| 320 px responsive | Geçti | Grid `143px 143px` iki sütun; `innerWidth` ve `scrollWidth` 320 px; yatay sayfa taşması yok. |
+| Geniş ekran responsive | Geçti | 1280 px görünümde grid dört sütun; detay görsel ve bilgi olarak iki sütun görsel denetimden geçti. |
+| Yavaş API/loading | Geçti | 1,5 saniye gecikmeli geçici API sırasında 8 skeleton kart ve `aria-busy="true"` görüldü; cevap sonrası skeleton sayısı 0 oldu. |
+| Backend kapalı | Geçti | Ayrı frontend ulaşılamayan `3999` portuna yönlendirildi; güvenli mesaj ve “Tekrar dene” göründü, skeleton sayısı 0'a indi. |
+| Yeniden deneme | Geçti | Düğme yeni isteği tetikledi; backend hâlâ kapalıyken kontrollü hata görünümü yeniden oluştu. |
+| Boş liste | Geçti | Geçici API `[]` döndürdü; “Henüz ürün bulunmuyor” göründü ve kart sayısı 0 kaldı. |
+| Tarayıcı konsolu | Geçti | Gerçek backend'e bağlı temiz liste sayfasında error kaydı bulunmadı. |
+| Kapsam sınırı | Geçti | Frontend ürün sabiti, arama, filtre, sıralama, sepet, favori, yönetim CRUD'u ve kalıcılık eklenmedi; backend kaynakları değiştirilmedi. |
+| Süreç temizliği | Geçti | Codex'in açtığı `5173`, `5174`, `5175` frontend ve `3998` sahte API portları kapatıldı; kullanıcı backend'i `3000` portunda korunarak açık bırakıldı. |
+
+## Aşama 5 Yata Market görsel revizyon doğrulama kaydı
+
+| Kontrol | Sonuç | Kanıt özeti |
+|---|---|---|
+| Marka metni | Geçti | Header, yükleme perdesi ve footer “Yata Market”; marka işareti `Y` gösterdi. |
+| İlk sayfa yükleyicisi | Geçti | Yeni sekmede `.page-loader` sayısı 1 ve yükleyici marka metni “Yata Market” bulundu; 720 ms sonunda bileşen DOM'dan kalktı. |
+| Renkli hero | Geçti | Hesaplanan hero arka planı mavi, mor ve pembe radial/linear gradient katmanlarını içerdi. |
+| Ortam ışıkları | Geçti | Arka planda üç hareketli `.theme-orb` bileşeni bulundu. |
+| Kart animasyonları | Geçti | 10/10 kart `component-enter--card` kullandı; ilk dört gecikme `330`, `385`, `440`, `495` ms olarak kademeli arttı. |
+| Detay animasyonları | Geçti | Route `pageEnter`, detay `componentRise`, medya `detailMediaEnter` ve içerik `componentRise` animasyonunu kullandı. |
+| Route scroll başlangıcı | Geçti | `/products/p-001` geçişinden sonra detay sayfası `scrollY = 0` ile başladı. |
+| 320 px responsive | Geçti | Marka okunur, grid iki adet `143px` sütun; `innerWidth = scrollWidth = 320` ve 10 animasyonlu kart bulundu. |
+| Erişilebilir hareket sınırı | Geçti | `prefers-reduced-motion` media query'si animasyon ve geçiş sürelerini `0.01ms`, tekrar sayısını `1` yapıyor. |
+| Lint/build | Geçti | Görsel revizyon sonrası ESLint ve Vite production build çıkış kodu `0`; 88 modül dönüştürüldü. |
+
+## Aşama 6 otomatik doğrulama kaydı
+
+Bu sonuçlar kullanıcının Aşama 6 manuel test kutularının yerine geçmez. Saf fonksiyonlar Node.js ile, kullanıcı arayüzü gerçek backend'e bağlı in-app tarayıcıda doğrulanmıştır.
+
+| Kontrol | Sonuç | Kanıt özeti |
+|---|---|---|
+| Değişiklik öncesi frontend | Geçti | `npm run lint` ve `npm run build` çıkış kodu `0`; Aşama 5 kaynakları 88 modülle derlendi. |
+| Değişiklik öncesi backend | Geçti | `npm run check` çıkış kodu `0`; health `ok`, `p-001` detayı doğru ve API kategorileri kullanılabilir durumdaydı. |
+| Güncel frontend lint | Geçti | `npm run lint` çıkış kodu `0`. |
+| Güncel production build | Geçti | Vite 91 modülü başarıyla dönüştürdü; build çıkış kodu `0`. |
+| Dinamik kategoriler | Geçti | Saf fonksiyon API'nin 6 benzersiz kategorisini Türkçe sıralı üretti; tarayıcıda aynı 6 seçenek göründü. |
+| Büyük/küçük harf araması | Geçti | `KULAKLIK` ve `kulaklik` aynı `p-001` ürününü verdi; tarayıcıda 1 kart ve `1 / 10 ürün` görüldü. |
+| Kısmi arama | Geçti | `kulak` yalnız “Kablosuz Kulaklık” kartını bıraktı. |
+| Sonuç bulunamadı | Geçti | `olmayan ürün` için kart sayısı `0`; ayrı boş sonuç başlığı ve “Tüm ürünleri göster” düğmesi görünürdü. |
+| Kategori filtresi | Geçti | “Spor” yalnız `p-006` ve `p-007` ürünlerini bıraktı. |
+| Artan fiyat | Geçti | İlk/son fiyat `479 / 3299`; tarayıcıda `₺479 / ₺3.299`. |
+| Azalan fiyat | Geçti | İlk/son fiyat `3299 / 479`; tarayıcıda `₺3.299 / ₺479`. |
+| Birleşik kullanım | Geçti | `mat` + `Spor` + azalan fiyat, `p-007` ardından `p-006` sonucunu ve `2 / 10 ürün` sayacını verdi. |
+| Seçimleri temizleme | Geçti | Arama, kategori ve sıra başlangıç değerlerine; görünür kartlar 10'a döndü. |
+| Ham dizi korunumu | Geçti | Saf fonksiyon doğrulamasında fiyat sıralamaları sonrasında kaynak ürün kimliği sırası değişmedi. |
+| Erişilebilir adlar | Geçti | DOM snapshot'ta “Ürün ara” searchbox, “Kategori” ve “Sırala” combobox olarak etiketli bulundu; focus CSS'i form elemanlarını kapsıyor. |
+| 320 px responsive | Geçti | Kontrol paneli tek `254.4px` sütun, ürün grid'i `143px 143px`; `innerWidth = scrollWidth = 320`, form kontrolleri 48 px. |
+| Geniş ekran düzeni | Geçti | 1280 px'de kontrol paneli beş sütun ve ürün grid'i dört sütun görünümünde; görsel inceleme geçti. |
+| Tarayıcı konsolu | Geçti | Uygulama kullanımında `warn` veya `error` kaydı bulunmadı; yalnız Vite debug ve React DevTools bilgi kaydı vardı. |

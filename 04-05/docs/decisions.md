@@ -86,11 +86,11 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 
 ## ADR-009 - Frontend HTTP istemcisi
 
-- **Durum:** Öneri
+- **Durum:** Kabul edildi (Aşama 5)
 - **Karar:** Frontend-backend iletişiminde tarayıcının yerleşik `fetch` API'si kullanılacak ve ortak istek/hata davranışı küçük bir API modülünde toplanacak.
 - **Neden:** Zorunlu akışlar için ek bağımlılık gerekmez; ortak modül tekrarlanan hata kontrolünü azaltır.
 - **Alternatif:** Axios veya her component içinde doğrudan `fetch` çağrısı.
-- **Sonuç/Sınırlama:** `fetch` HTTP hata kodlarında kendiliğinden hata fırlatmadığı için `response.ok` açıkça kontrol edilmelidir.
+- **Sonuç/Sınırlama:** `frontend/src/api/productsApi.js`, `response.ok` ve JSON biçimini açıkça kontrol eder; HTTP durumu ile kullanıcıya güvenli mesajı `ApiError` içinde taşır. Ağ hatası ile istek iptali birbirinden ayrılır.
 
 ## ADR-010 - Sepet state yönetimi
 
@@ -110,19 +110,19 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 
 ## ADR-012 - Arama, filtre ve sıralamanın yeri
 
-- **Durum:** Öneri
-- **Karar:** İlk sürümde backend'den alınan ürün kümesi frontend'de aranacak, filtrelenecek ve sıralanacak. Arama `name` ve `description` üzerinde büyük/küçük harf duyarsız; zorunlu filtre `category`; iki sıralama seçeneği fiyat artan ve fiyat azalan olacak.
-- **Neden:** Küçük bellek içi veri kümesinde API sözleşmesini gereksiz karmaşıklaştırmadan üç zorunlu UI davranışını açıkça gösterir. Kategori filtresi kullanılarak bonus olan fiyat aralığı filtresi temel kapsama karıştırılmaz.
+- **Durum:** Kabul edildi ve uygulandı (Aşama 6)
+- **Karar:** Backend'den alınan ham ürün kümesi frontend'de `arama → kategori filtresi → sıralama` sırasıyla işlenecek. Kullanıcının Aşama 6 isteğine uygun olarak arama yalnız `name` alanında, Türkçe karakterleri ve büyük/küçük harfi normalleştirerek yapılır. Filtre seçenekleri API verisindeki benzersiz `category` değerlerinden üretilir. Zorunlu iki sıralama fiyat artan ve fiyat azalandır; “Önerilen sıra” API sırasını koruyan başlangıç seçeneğidir. Gösterilen ürünler `useMemo` ile ham ürünler ve kontrol state'lerinden türetilir; sıralamadan önce dizi kopyalanır.
+- **Neden:** 10 ürünlük bellek içi katalogda yeni backend sorgu sözleşmesi gerekmeden üç zorunlu davranışı birlikte ve okunabilir biçimde sağlar. Ham API dizisi tek source of truth kalır, türetilmiş sonuç ayrıca state'e kopyalanmaz ve JavaScript `sort` mutasyonu kaynak sıraya sızmaz. Kategori filtresi seçilerek bonus fiyat aralığı temel kapsama karıştırılmaz.
 - **Alternatif:** Arama, filtre ve sıralama query parametreleriyle backend'de yapmak.
-- **Sonuç/Sınırlama:** Çok büyük veri kümeleri için verimli değildir; sayfalama veya sunucu tarafı sorgulama daha sonra seçilirse bu karar gözden geçirilmelidir.
+- **Sonuç/Sınırlama:** Çok büyük veya sayfalanmış veri kümeleri için verimli değildir; sunucu tarafı sorgulama seçilirse bu karar gözden geçirilmelidir. Liste sayfasından ayrılıp geri dönüldüğünde component yeniden kurulduğu için kontrol seçimleri başlangıç değerlerine döner; URL veya kalıcı state kullanımı bu aşamada eklenmemiştir.
 
 ## ADR-013 - Stil ve responsive yaklaşım
 
-- **Durum:** Kabul edildi (Aşama 2)
+- **Durum:** Kabul edildi ve uygulandı (Aşama 5)
 - **Karar:** Tek ve tutarlı bir düz CSS yaklaşımı kullanılacak; düzen önce küçük ekranlarda kullanılabilir olacak, sonra içerik tabanlı breakpoint'lerle genişletilecek.
 - **Neden:** Kaynak belirli bir CSS kütüphanesi istemez. Düz CSS başlangıç seviyesinde ek soyutlama olmadan responsive davranışı görünür kılar.
 - **Alternatif:** CSS Modules, Tailwind veya bir component kütüphanesi.
-- **Sonuç/Sınırlama:** Sınıf isimleri ve dosya sorumlulukları disiplinli tutulmalıdır; belirli breakpoint değerleri arayüz oluşunca doğrulanacaktır.
+- **Sonuç/Sınırlama:** Ürün grid'i 320 px'de iki, 600 px'den sonra üç, 960 px'den sonra dört sütundur. Detay 800 px altında dikey, üstünde iki sütundur. 320 px görünümde yatay taşma olmadığı doğrulanmıştır.
 
 ## ADR-014 - Test yaklaşımı
 
@@ -231,6 +231,45 @@ Bu kararlar PDF'deki zorunlu beş REST işlemini ve kontrollü hata davranışı
 - **Seçim nedeni:** Veri erişimi service sınırında kalır, küçük görev için akış açıktır ve backend yeniden başlayınca modül başlangıç dizisini yeniden yükler.
 - **Diğerleri ne zaman uygun olur?:** Karmaşık state geçişlerinde immutable store; Aşama 9'da izole otomatik testler eklendiğinde açık reset/fixture mekanizması; kalıcılık gerektiğinde gerçek repository/veritabanı uygundur.
 
+## Aşama 5 frontend teknik kararları
+
+Bu kararlar ürün listesi ve detayının kaynak gereksinimlerine uygun, küçük ve anlaşılır bir React uygulaması olmasını sağlar. Route yolları, marka metni, TRY sunumu ve aşağıdaki bileşen ayrımı kaynak PDF'nin dayattığı ayrıntılar değil, bu proje için seçilen uygulama kararlarıdır.
+
+### F1 - Frontend yönlendirme
+
+- **Seçilen yaklaşım:** Resmî `react-router` paketiyle `BrowserRouter`, `Routes`, `Route`, `Link` ve `useParams` kullanmak.
+- **Değerlendirilen alternatifler:** `window.history` ve `popstate` ile elle SPA yönlendirmesi ek bağımlılık istemez ancak route/geri-ileri davranışını tekrar uygular; liste ve detayı tek URL'de koşullu göstermek daha kısa olsa da doğrudan detay URL'sini ve yenilemeyi karşılamaz.
+- **Seçim nedeni:** `/`, `/products/:productId` ve genel `*` yollarını açıkça ayırır; kartları gerçek bağlantı yapar ve URL parametresini standart yolla okur.
+- **Sınırlama:** Production sunucusu bilinmeyen dosya yollarını `index.html` dosyasına yönlendirmelidir. Vite geliştirme sunucusunda doğrudan detay yenilemesi doğrulanmıştır.
+
+### F2 - API base URL ve ortak istek modülü
+
+- **Seçilen yaklaşım:** Varsayılan `http://localhost:3000` adresini `VITE_API_BASE_URL` ile değiştirilebilir tutmak; bütün ürün isteklerini `productsApi.js` içinde toplamak.
+- **Değerlendirilen alternatifler:** Adresi her componentte yazmak tekrara ve ortam değişikliğinde hataya açıktır; Vite proxy yapılandırması kısa URL sağlar ancak gerçek frontend-backend origin ayrımını ve mevcut CORS kararını gizler.
+- **Seçim nedeni:** Componentler yalnız `getProducts` ve `getProductById` fonksiyonlarını bilir; ortam adresi tek noktadan değişir.
+- **Sınırlama:** `VITE_` değişkenleri frontend build'ine gömülür ve gizli bilgi için kullanılmamalıdır. Değişiklikten sonra Vite yeniden başlatılmalıdır.
+
+### F3 - Asenkron UI state'i ve istek yaşam döngüsü
+
+- **Seçilen yaklaşım:** Liste ve detay sayfalarında `useState` + `useEffect`; açık `loading`, `success`, `error` ve gerektiğinde `not-found` state'leri; cleanup için `AbortController`; hatada kullanıcı tetiklemeli yeniden deneme.
+- **Değerlendirilen alternatifler:** React Router loader'ları route verisini merkezileştirir fakat bu küçük aşamada yeni veri-router yapısı gerektirir; TanStack Query önbellek/retry sağlar fakat tek liste ve detay isteği için ek bağımlılık ve kavram maliyeti oluşturur.
+- **Seçim nedeni:** Veri akışını başlangıç seviyesinde görünür tutar, unmount sonrası gereksiz isteği iptal eder ve backend kapalıyken sonsuz loading yerine kontrollü hata gösterir.
+- **Sınırlama:** Önbellek, otomatik arka plan yenileme ve karmaşık retry politikası yoktur.
+
+### F4 - Ürün görseli, fiyat ve görsel sistem
+
+- **Seçilen yaklaşım:** Kullanıcının önceki projesindeki mavi (`#3B82F6`) ve mor (`#8B5CF6`) görsel dili, bu projede `#2563EB → #7C3AED → #EC4899` marka gradient'iyle **Yata Market** adına uyarlanmıştır. Tasarım araştırması raporundan 8 px tabanlı boşluk, sistem fontu, açık yüzey, 1:1 `object-fit: contain` ürün görseli, görünür focus, skeleton ve mobil-first grid kararları korunur. İlk açılışta 720 ms yükleme perdesi; route/sayfa, başlık, bölüm, kart, görsel, fiyat, durum ve detay bileşenlerinde kademeli giriş animasyonu bulunur. `prefers-reduced-motion` bütün dekoratif hareketleri devre dışı bırakır. Fiyatlar `Intl.NumberFormat('tr-TR', { currency: 'TRY' })` ile biçimlendirilir; yüklenemeyen görsel yerel fallback gösterir.
+- **Değerlendirilen alternatifler:** Harici UI/CSS kütüphanesi hızlı bileşen sağlar fakat mevcut küçük projeye bağımlılık ve tasarım soyutlaması ekler; ham sayı ve para simgesi birleştirmek kısa olsa da yerel binlik/ondalık kurallarını güvenilir uygulamaz.
+- **Seçim nedeni:** Kullanıcının istediği daha renkli ve önceki projeyle tutarlı kimliği verir; animasyonlar içerik hiyerarşisini görünür kılarken ürün verisini ve Aşama 5 işlevsel kapsamını değiştirmez.
+- **Sınırlama:** Kaynak PDF para birimini veya marka adını belirlemez. `TRY` teknik sunum kararı, “Yata Market” kullanıcı tarafından verilen marka kararıdır; gerçek ürün görselleri harici URL'lere bağlıdır.
+
+### F5 - Başarılı, boş, hata ve 404 görünümleri
+
+- **Seçilen yaklaşım:** Başarıda ürün/detayı doğrudan göstermek; boş dizi için ayrı `EmptyState`; ağ/API hatası için mesaj + “Tekrar dene”; API `404` için “Ürün bulunamadı”; bilinmeyen frontend route'u için “Sayfa bulunamadı”.
+- **Değerlendirilen alternatifler:** Tüm başarısızlıkları tek mesajda birleştirmek daha az kod üretir fakat kullanıcıya doğru geri dönüş yolunu vermez; redirect ile otomatik ana sayfaya dönmek hatayı saklar ve yanlış URL'yi anlaşılmaz kılar.
+- **Seçim nedeni:** Kaynaktaki kontrollü geçersiz/bulunamayan durumları ve temel loading/error/empty zorunluluğunu açık, test edilebilir state'lere dönüştürür.
+- **Sınırlama:** Bu aşamada toast sistemi, hata telemetrisi veya otomatik çoklu retry eklenmemiştir.
+
 ## Aşama 2 uygulama kaydı
 
 - Hedef klasör, mevcut `.../quiz-sinav-react/02` Git repository'sinin içinde tutulmuştur; iç içe yeni bir repository oluşturulmamıştır.
@@ -258,12 +297,34 @@ Bu kararlar PDF'deki zorunlu beş REST işlemini ve kontrollü hata davranışı
 - Bellek dizisi çalışma sırasında değişir; süreç yeniden başladığında kaynak dosyadaki 10 başlangıç ürünü geri gelir. Dosyaya kalıcı yazma eklenmemiştir.
 - Frontend, arama/filtre/sıralama, veritabanı, authentication, yönetim ekranı ve bonuslar Aşama 4 kapsamında değiştirilmemiştir.
 
+## Aşama 5 uygulama kaydı
+
+- Frontend ürünleri yalnız `GET /api/products` üzerinden alır; kaynak kodda sabit ürün dizisi yoktur.
+- `/` responsive ürün kartlarını, `/products/:productId` tek ürün detayını, `*` bilinmeyen frontend yolunu gösterir. Bilinmeyen API ürün kimliği ayrı “Ürün bulunamadı” görünümüne çevrilir.
+- API iletişimi `productsApi.js`; sayfa state'i `pages`; tekrar kullanılabilir kart/görsel/fiyat/durum parçaları `components` sorumluluğundadır.
+- Liste ve detay isteklerinde skeleton loading, ağ/API hatasında güvenli mesaj ve yeniden deneme, boş dizide ayrı empty görünümü vardır. İstek cleanup'ında `AbortController` kullanılır.
+- Tasarım araştırması raporunun temel tipografi, boşluk, görsel oranı, kart, responsive grid, detay düzeni, focus ve reduced-motion önerileri; kullanıcının istediği Yata Market mavi-mor-pembe gradient kimliğiyle uygulandı. İlk açılış yükleyicisi ve kademeli bileşen/route animasyonları eklendi. Rapordaki arama, filtre, sepet ve diğer sonraki aşama özellikleri eklenmedi.
+- Gerçek backend ile 10 ürün/kart eşleşmesi, karttan `p-001` detayına geçiş, detay yenilemesi, ürün ve route 404'leri, 320 px yatay taşmama, backend-kapalı hata/retry, boş liste ve hatasız tarayıcı konsolu doğrulandı.
+
+## Aşama 6 uygulama kaydı
+
+- Arama, kategori filtresi ve fiyat sıralaması yalnız frontend'de uygulanır; backend endpoint'leri ve ürün verisi değiştirilmemiştir.
+- `searchTerm`, `selectedCategory` ve `sortBy` kullanıcı seçimlerini tutan state'lerdir. Ekrandaki liste ayrı bir state değildir; ham API ürünleriyle bu üç seçimden `deriveProducts` üzerinden türetilir.
+- Arama yalnız ürün adında çalışır; baş/son boşlukları, büyük/küçük harfi ve Türkçe karakter farklarını normalleştirir. Boş arama bütün ürünleri bırakır.
+- Kategori seçenekleri API ürünlerinden benzersiz ve Türkçe sıralı üretilir. “Tüm kategoriler” filtreyi kaldırır.
+- “Fiyat: düşükten yükseğe” ve “Fiyat: yüksekten düşüğe” gerçek iki sıralama seçeneğidir. “Önerilen sıra” API'nin başlangıç sırasını korur.
+- Hiçbir ürün eşleşmezse API hatası yerine ayrı “Aramana uygun ürün bulunamadı” paneli ve bütün seçimleri temizleyen kurtarma eylemi görünür.
+- Kontrol paneli mavi-mor-pembe Yata Market görsel sistemini, görünür `label` etiketlerini, 48 px form kontrollerini, focus halkalarını ve responsive tek/iki/beş sütun düzenini kullanır.
+- Saf veri fonksiyonu, frontend lint/build ve gerçek tarayıcı akışları doğrulandı. 320 px'de kontrol paneli tek sütun, ürün grid'i iki sütun ve yatay taşmasızdır.
+
 ## Açık kararlar ve riskler
 
 - Hedef `04-05` klasörü kendi `.git` klasörüne sahip değildir; commit'ler üstteki `.../quiz-sinav-react/02` repository'sine ait olacaktır. Üst repository'deki ilgisiz kullanıcı değişiklikleri bu aşamada korunmuştur.
 - Kesin tarayıcı destek matrisi kaynakta belirtilmemiştir; uygulama geliştikçe kullanılan web özelliklerine göre kaydedilmelidir.
-- Görsel tasarım, marka dili ve ürün görsellerinin kaynağı belirtilmemiştir; erişilebilir ve sade bir başlangıç arayüzü önerilir.
-- Para birimi belirtilmemiştir; veri ve sunum kararı uygulama başlamadan önce kesinleştirilmelidir.
+- Kaynak PDF görsel tasarım ve marka adı belirlemez. “Yata Market” adı ve mavi-mor-pembe renkli tema kullanıcının açık görsel tercihidir; kaynak zorunluluğu değildir.
+- Para birimi kaynakta belirtilmez. Türkçe içerik ve tasarım raporundaki fiyat örnekleri nedeniyle Aşama 5'te TRY seçilmiştir; gerçek iş gereksinimi farklıysa biçimlendirici tek noktadan değiştirilebilir.
+- Başlangıç ürün görselleri harici `placehold.co` adreslerine bağlıdır. Servis yüklenmezse fallback görünür; gerçek ürün varlıklarının sahipliği ve barındırılması hâlâ açık bir ürün kararıdır.
+- Aşama 6 kontrol seçimleri route veya yenileme boyunca kalıcı değildir. Liste componenti yeniden kurulduğunda arama, kategori ve sıralama başlangıç değerlerine döner; kaynak görev kalıcılık istemediği için URL parametresi veya global state eklenmemiştir.
 
 ## Karar değişikliği şablonu
 

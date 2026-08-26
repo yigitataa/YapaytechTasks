@@ -2,11 +2,11 @@
 
 Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışacağı küçük ölçekli bir e-ticaret uygulaması için hazırlanmıştır.
 
-Şu anda **Aşama 4 - Backend CRUD, Validasyon ve Hata Yönetimi** uygulanmıştır. React başlangıç ekranı korunur; Express backend sağlık kontrolü ile ürün listeleme, detay, oluşturma, kısmi güncelleme ve silme işlemlerini destekler. Frontend ürün ekranları, arama, filtre, sıralama ve sepet henüz uygulanmamıştır.
+Şu anda **Aşama 6 - Ürün Arama, Filtreleme ve Sıralama** uygulanmıştır. **Yata Market** adlı React arayüzü ürünleri Express API'den kartlar halinde getirir; ürün adına göre arama, API verisinden üretilen kategori filtresi ve iki fiyat sıralaması birlikte çalışır. Kart seçimi ürün detayına gider. Mavi-mor geçişli tema, ilk açılış yükleyicisi, route/sayfa girişleri ve kademeli bileşen animasyonları korunur. Yüklenme, boş API listesi, eşleşmeyen arama, API hatası, bilinmeyen ürün ve bilinmeyen frontend yolu kontrollü görünümlere sahiptir. Aşama 4'te tamamlanan backend CRUD sözleşmesi değişmemiştir; sepet henüz uygulanmamıştır.
 
 ## Kullanılan teknolojiler
 
-- Frontend: React, Vite ve JavaScript.
+- Frontend: React, React Router, Vite ve JavaScript.
 - Backend: Node.js, Express ve JavaScript.
 - Paket yöneticisi: npm.
 - Veri tabanı: Kullanılmıyor.
@@ -15,7 +15,14 @@ Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışac
 
 ```text
 04-05/
-  frontend/        React uygulaması
+  frontend/
+    src/
+      api/          Express ürün API'siyle ortak iletişim
+      components/   Kart, görsel, fiyat ve UI durumları
+      pages/        Ürün listesi, detay ve 404 sayfaları
+      utils/        Para birimi biçimlendirme
+      App.jsx       Frontend route eşleştirmeleri
+    .env.example    İsteğe bağlı API taban adresi örneği
   backend/
     src/
       data/        Başlangıç ürün dizisi
@@ -67,6 +74,27 @@ Frontend için kullanılabilir npm script'leri:
 - `npm run lint`: JavaScript ve JSX dosyalarını ESLint ile kontrol eder.
 - `npm run build`: Yayına hazırlanmış production dosyalarını `dist/` içine üretir.
 - `npm run preview`: Oluşturulan production build'i yerel olarak önizler.
+
+Frontend route'ları:
+
+| Adres | Görünüm |
+|---|---|
+| `/` | Backend'den gelen ürünlerin responsive kart listesi |
+| `/products/:productId` | Kimliği URL'den alınan tek ürün detayı |
+| Diğer adresler | Kontrollü “Sayfa bulunamadı” görünümü |
+
+Liste isteği `GET /api/products`, detay isteği `GET /api/products/:id` endpoint'ini kullanır. Ürün dizisi frontend kaynak koduna kopyalanmamıştır.
+
+Katalog kontrolleri:
+
+- **Ürün ara:** Yalnız ürün adında, büyük/küçük harf ve Türkçe karakter farklarına duyarsız kısmi eşleşme yapar.
+- **Kategori:** Seçenekleri backend'den gelen ürünlerin benzersiz kategorilerinden üretir; “Tüm kategoriler” filtreyi kaldırır.
+- **Sırala:** “Fiyat: düşükten yükseğe” ve “Fiyat: yüksekten düşüğe” seçeneklerini sunar. “Önerilen sıra” API sırasını korur.
+- **Seçimleri temizle:** Arama, kategori ve sıralamayı birlikte başlangıç değerlerine döndürür.
+
+Kontroller anlık ve birlikte uygulanır. Sonuç yoksa bu durum API hatası sayılmaz; “Aramana uygun ürün bulunamadı” paneli ve “Tüm ürünleri göster” düğmesi görünür. Detay sayfasına gidip listeye dönüldüğünde veya sayfa yenilendiğinde seçimler sıfırlanır; Aşama 6'da URL ya da tarayıcı depolamasıyla kalıcılık eklenmemiştir.
+
+Arayüz hareketleri `prefers-reduced-motion` tercihini destekler. İşletim sisteminde azaltılmış hareket etkinse dekoratif giriş, gradient ışık ve yükleyici animasyonları yaklaşık sıfır süreye indirilir.
 
 ## Backend kurulumu ve çalıştırma
 
@@ -194,14 +222,15 @@ npm run dev
 
 Ardından tarayıcıda:
 
-1. `http://localhost:5173` adresini açarak React başlangıç ekranını kontrol et.
-2. `http://localhost:3000/api/health` adresini açarak backend cevabını kontrol et.
+1. `http://localhost:5173` adresini açarak ürün kartlarını kontrol et.
+2. Bir ürün kartına tıklayıp `/products/{id}` detayına gidildiğini kontrol et.
+3. `http://localhost:3000/api/health` adresini açarak backend cevabını kontrol et.
 
 İki terminalin açık kalması gerekir; frontend ve backend ayrı süreçlerdir.
 
 ## Environment variable kullanımı
 
-Backend portu ve izin verilen frontend adresi environment variable ile değiştirilebilir. Örnek değerler `backend/.env.example` dosyasındadır.
+Backend portu ve izin verilen frontend adresi environment variable ile değiştirilebilir. Örnek değerler `backend/.env.example` dosyasındadır. Frontend'in API taban adresi de `frontend/.env.example` ile belgelenmiştir.
 
 PowerShell'de isteğe bağlı yerel ayar dosyasını oluşturmak için:
 
@@ -223,6 +252,19 @@ CORS_ORIGIN=http://localhost:5173
 - `.env.example` yalnızca gereken değişkenleri gösterir; hassas bilgi içermez ve Git'e eklenebilir.
 
 `.env` oluşturmak zorunlu değildir. Dosya yoksa backend `3000` portunu ve `http://localhost:5173` CORS origin değerini kullanır.
+
+Frontend varsayılan olarak `http://localhost:3000` API adresini kullanır. Farklı bir backend adresi gerekiyorsa:
+
+```powershell
+cd frontend
+Copy-Item .env.example .env
+```
+
+```dotenv
+VITE_API_BASE_URL=http://localhost:3000
+```
+
+Vite environment variable'ı değiştirildikten sonra frontend geliştirme sunucusu yeniden başlatılmalıdır. Bu değişkende API yolu (`/api/products`) değil, yalnızca origin/taban adres yazılır.
 
 ## Hızlı doğrulama
 
@@ -262,10 +304,13 @@ PowerShell ile kopyalanabilir POST, PATCH ve DELETE örnekleri için [API doküm
 
 ## Bu aşamanın sınırı
 
-Aşama 4 yalnızca backend ürün CRUD, validasyon ve hata yönetimini tamamlar. Aşağıdakiler bilinçli olarak henüz eklenmemiştir:
+Aşama 6 frontend API iletişimine ürün adı araması, kategori filtresi ve fiyat sıralamasını ekler. Aşağıdakiler bilinçli olarak henüz eklenmemiştir:
 
-- React ürün sayfaları.
-- Arama, filtreleme, sıralama veya sepet.
+- Sepet ve sepet state yönetimi.
+- Favoriler ve kalıcı istemci state'i.
+- Bonus fiyat aralığı filtresi ve sayfalama.
+- Backend query parametreleriyle sunucu tarafı arama, filtreleme veya sıralama.
+- Frontend ürün oluşturma, düzenleme veya silme arayüzü.
 - Veritabanı ve authentication.
 - Ödeme, sipariş ve bonus özellikler.
 - Test framework'ü veya deployment yapılandırması.

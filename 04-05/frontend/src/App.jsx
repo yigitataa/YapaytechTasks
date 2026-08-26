@@ -1,30 +1,53 @@
+import { useEffect, useState } from 'react'
+import { Route, Routes, useLocation } from 'react-router'
+import PageLoader from './components/PageLoader.jsx'
+import SiteHeader from './components/SiteHeader.jsx'
+import NotFoundPage from './pages/NotFoundPage.jsx'
+import ProductDetailPage from './pages/ProductDetailPage.jsx'
+import ProductListPage from './pages/ProductListPage.jsx'
+
 function App() {
+  const [isPageLoading, setIsPageLoading] = useState(true)
+  const location = useLocation()
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsPageLoading(false), 720)
+
+    return () => window.clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [location.pathname])
+
   return (
-    <main className="app-shell">
-      <section className="welcome-card" aria-labelledby="page-title">
-        <p className="stage-label">Aşama 2 · Proje iskeleti</p>
+    <div className="app-shell">
+      {isPageLoading ? <PageLoader /> : null}
 
-        <div className="status" role="status">
-          <span className="status-dot" aria-hidden="true" />
-          Frontend çalışıyor
+      <div className="theme-orbs" aria-hidden="true">
+        <span className="theme-orb theme-orb--blue" />
+        <span className="theme-orb theme-orb--purple" />
+        <span className="theme-orb theme-orb--pink" />
+      </div>
+
+      <SiteHeader />
+
+      <main id="main-content" className="main-content">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<ProductListPage />} />
+          <Route path="/products/:productId" element={<ProductDetailPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </main>
+
+      <footer className="site-footer component-enter component-enter--footer">
+        <div className="container site-footer__inner">
+          <span>Yata Market</span>
+          <span>Ürün verileri Express API üzerinden gelir.</span>
         </div>
-
-        <h1 id="page-title">Full-Stack E-Ticaret Uygulaması</h1>
-
-        <p className="intro">
-          React kullanıcı arayüzü başarıyla hazırlandı. Ürün ve sepet
-          özellikleri sonraki geliştirme aşamalarında eklenecek.
-        </p>
-
-        <div className="technology-list" aria-label="Kullanılan teknolojiler">
-          <span>React</span>
-          <span>Vite</span>
-          <span>JavaScript</span>
-        </div>
-      </section>
-    </main>
+      </footer>
+    </div>
   )
 }
 
 export default App
-
