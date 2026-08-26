@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import QuickAddButton from '../features/cart/QuickAddButton.jsx'
 import Price from './Price.jsx'
 import ProductImage from './ProductImage.jsx'
 
@@ -23,15 +24,13 @@ function ProductCard({ product, eagerImage = false, revealIndex = 0 }) {
           <span className="product-card__category">{product.category}</span>
           <h2>{product.name}</h2>
           <p>{product.description || 'Bu ürün için henüz açıklama eklenmedi.'}</p>
-
-          <div className="product-card__footer">
-            <Price value={product.price} />
-            <span className="product-card__action" aria-hidden="true">
-              İncele <span>→</span>
-            </span>
-          </div>
         </div>
       </Link>
+
+      <div className="product-card__footer">
+        <Price value={product.price} />
+        <QuickAddButton product={product} />
+      </div>
     </article>
   )
 }

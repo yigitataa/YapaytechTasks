@@ -2,7 +2,7 @@
 
 Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışacağı küçük ölçekli bir e-ticaret uygulaması için hazırlanmıştır.
 
-Şu anda **Aşama 6 - Ürün Arama, Filtreleme ve Sıralama** uygulanmıştır. **Yata Market** adlı React arayüzü ürünleri Express API'den kartlar halinde getirir; ürün adına göre arama, API verisinden üretilen kategori filtresi ve iki fiyat sıralaması birlikte çalışır. Kart seçimi ürün detayına gider. Mavi-mor geçişli tema, ilk açılış yükleyicisi, route/sayfa girişleri ve kademeli bileşen animasyonları korunur. Yüklenme, boş API listesi, eşleşmeyen arama, API hatası, bilinmeyen ürün ve bilinmeyen frontend yolu kontrollü görünümlere sahiptir. Aşama 4'te tamamlanan backend CRUD sözleşmesi değişmemiştir; sepet henüz uygulanmamıştır.
+Şu anda **Aşama 7 - Sepet Yönetimi, Adetler ve Toplamlar** uygulanmıştır. **Yata Market** adlı React arayüzünde arama, kategori filtresi ve fiyat sıralaması birlikte çalışır. Ürünler katalog kartından veya detay sayfasından sepete eklenebilir; aynı ürün yeniden eklendiğinde mevcut adedi artar. Sepet sayfasında adet değiştirme, tek ürünü kaldırma, sepeti temizleme ve doğru toplamları görme işlemleri bulunur. Mavi-mor geçişli tema, responsive düzen ve erişilebilir hareket tercihleri korunur. Aşama 4'te tamamlanan backend CRUD sözleşmesi değişmemiştir. Son Aşama 7 değişiklikleri kullanıcının isteğiyle otomatik test edilmemiştir ve manuel kontrole bağlıdır.
 
 ## Kullanılan teknolojiler
 
@@ -19,7 +19,8 @@ Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışac
     src/
       api/          Express ürün API'siyle ortak iletişim
       components/   Kart, görsel, fiyat ve UI durumları
-      pages/        Ürün listesi, detay ve 404 sayfaları
+      features/cart/ Sepet Context, reducer, hesaplamalar ve bileşenler
+      pages/        Ürün listesi, detay, sepet ve 404 sayfaları
       utils/        Para birimi biçimlendirme
       App.jsx       Frontend route eşleştirmeleri
     .env.example    İsteğe bağlı API taban adresi örneği
@@ -81,6 +82,7 @@ Frontend route'ları:
 |---|---|
 | `/` | Backend'den gelen ürünlerin responsive kart listesi |
 | `/products/:productId` | Kimliği URL'den alınan tek ürün detayı |
+| `/cart` | Sepet ürünleri, adet kontrolleri ve toplam özeti |
 | Diğer adresler | Kontrollü “Sayfa bulunamadı” görünümü |
 
 Liste isteği `GET /api/products`, detay isteği `GET /api/products/:id` endpoint'ini kullanır. Ürün dizisi frontend kaynak koduna kopyalanmamıştır.
@@ -93,6 +95,15 @@ Katalog kontrolleri:
 - **Seçimleri temizle:** Arama, kategori ve sıralamayı birlikte başlangıç değerlerine döndürür.
 
 Kontroller anlık ve birlikte uygulanır. Sonuç yoksa bu durum API hatası sayılmaz; “Aramana uygun ürün bulunamadı” paneli ve “Tüm ürünleri göster” düğmesi görünür. Detay sayfasına gidip listeye dönüldüğünde veya sayfa yenilendiğinde seçimler sıfırlanır; Aşama 6'da URL ya da tarayıcı depolamasıyla kalıcılık eklenmemiştir.
+
+Sepet kullanımı:
+
+- Katalog kartındaki **Sepete ekle** düğmesi detay sayfasını açmadan ürün ekler.
+- Ürün sepete eklendikten sonra katalogda ve detay sayfasında düğmenin yerini **sil | adet | artır** kontrolü alır. Çöp kutusu ürünü sepetten kaldırır, ortadaki sayı mevcut adedi gösterir ve `+` adedi artırır.
+- Header'daki sepet rozeti bütün ürün adetlerinin toplamını gösterir.
+- Sepet sayfasındaki `+` adedi artırır. Adet `1` iken azaltma düğmesi çöp kutusuna dönüşür ve yalnız o ürün satırını kaldırır.
+- Her satırdaki **Kaldır** ürünü doğrudan siler; **Sepeti temizle** bütün satırları kaldırır.
+- Sepet yalnız React belleğinde tutulur. Sayfa yenilendiğinde sıfırlanması beklenen davranıştır; yenilemede kalıcılık bonusu uygulanmamıştır.
 
 Arayüz hareketleri `prefers-reduced-motion` tercihini destekler. İşletim sisteminde azaltılmış hareket etkinse dekoratif giriş, gradient ışık ve yükleyici animasyonları yaklaşık sıfır süreye indirilir.
 
@@ -304,9 +315,8 @@ PowerShell ile kopyalanabilir POST, PATCH ve DELETE örnekleri için [API doküm
 
 ## Bu aşamanın sınırı
 
-Aşama 6 frontend API iletişimine ürün adı araması, kategori filtresi ve fiyat sıralamasını ekler. Aşağıdakiler bilinçli olarak henüz eklenmemiştir:
+Aşama 7, ortak sepet state'ini, adet yönetimini ve toplam hesaplarını ekler. Aşağıdakiler bilinçli olarak henüz eklenmemiştir:
 
-- Sepet ve sepet state yönetimi.
 - Favoriler ve kalıcı istemci state'i.
 - Bonus fiyat aralığı filtresi ve sayfalama.
 - Backend query parametreleriyle sunucu tarafı arama, filtreleme veya sıralama.

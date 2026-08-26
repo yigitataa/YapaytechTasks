@@ -5,6 +5,7 @@ import ErrorState from '../components/ErrorState.jsx'
 import LoadingState from '../components/LoadingState.jsx'
 import Price from '../components/Price.jsx'
 import ProductImage from '../components/ProductImage.jsx'
+import AddToCartButton from '../features/cart/AddToCartButton.jsx'
 import NotFoundPage from './NotFoundPage.jsx'
 
 function ProductDetailPage() {
@@ -76,6 +77,7 @@ function ProductDetailPage() {
               <h2 id="description-heading">Ürün hakkında</h2>
               <p>{product.description || 'Bu ürün için henüz açıklama eklenmedi.'}</p>
             </section>
+            <AddToCartButton product={product} />
             <dl className="product-meta">
               <div>
                 <dt>Kategori</dt>

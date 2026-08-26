@@ -94,19 +94,19 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 
 ## ADR-010 - Sepet state yönetimi
 
-- **Durum:** Öneri
-- **Karar:** Sepet React Context ve `useReducer` ile yönetilecek.
+- **Durum:** Kabul edildi (Aşama 7)
+- **Karar:** Sepet React Context ve `useReducer` ile yönetilir.
 - **Neden:** Sepete ekleme, adet değiştirme, kaldırma ve temizleme gibi ilişkili geçişleri tek yerde toplar; harici state kütüphanesi gerektirmez.
 - **Alternatif:** Üst componentte `useState`, prop aktarımı veya Redux benzeri bir kütüphane.
 - **Sonuç/Sınırlama:** Bu yaklaşım yalnızca istemci belleğinde çalışır. Sayfa yenilemede sepeti korumak BON-004'tür ve temel kapsamda eklenmez.
 
 ## ADR-011 - Sepet yönetimi davranışları
 
-- **Durum:** Öneri
-- **Karar:** Aynı ürün yeniden eklendiğinde adedi artırılacak; kullanıcı adedi artırabilecek, azaltabilecek, ürünü kaldırabilecek ve sepeti temizleyebilecek. Adet sıfırın altına inemeyecek.
+- **Durum:** Kabul edildi (Aşama 7)
+- **Karar:** Ürün hem katalog kartından hem detay sayfasından sepete eklenebilir. Aynı ürün yeniden eklendiğinde yeni satır açılmaz, mevcut adet artar. Sepette adet artırılır veya azaltılır; adet `1` iken azaltma kontrolü kaldırma kontrolüne dönüşür. Ayrıca doğrudan ürün kaldırma ve tüm sepeti temizleme eylemleri bulunur.
 - **Neden:** Kaynaktaki “sepetteki ürünler yönetilebilmelidir” ifadesini kullanıcı açısından gözlemlenebilir ve test edilebilir hâle getirir.
 - **Alternatif:** Yalnızca kaldırma veya doğrudan adet girişi.
-- **Sonuç/Sınırlama:** Bu, kaynakta tek tek sayılmış bir işlem listesi değil, güvenli bir uygulama önerisidir. Stok kontrolü kapsam dışıdır.
+- **Sonuç/Sınırlama:** Adet hiçbir zaman sıfır veya negatif olarak gösterilmez; son adet kaldırılınca satır sepetten çıkar. Sepet tarayıcı belleğindedir, yenilemede sıfırlanır. Bu ayrıntılı etkileşimler kaynakta tek tek sayılmış değildir; sepet yönetimi gereksinimini somutlaştıran uygulama kararıdır. Stok kontrolü kapsam dışıdır.
 
 ## ADR-012 - Arama, filtre ve sıralamanın yeri
 
@@ -317,6 +317,16 @@ Bu kararlar ürün listesi ve detayının kaynak gereksinimlerine uygun, küçü
 - Kontrol paneli mavi-mor-pembe Yata Market görsel sistemini, görünür `label` etiketlerini, 48 px form kontrollerini, focus halkalarını ve responsive tek/iki/beş sütun düzenini kullanır.
 - Saf veri fonksiyonu, frontend lint/build ve gerçek tarayıcı akışları doğrulandı. 320 px'de kontrol paneli tek sütun, ürün grid'i iki sütun ve yatay taşmasızdır.
 
+## Aşama 7 uygulama kaydı
+
+- Sepet uygulama genelinde `CartProvider` ile paylaşılır; `useReducer` içindeki eylemler ekleme, artırma, azaltma, kaldırma ve temizleme geçişlerini tek yerde yönetir.
+- Katalog kartındaki hızlı ekleme düğmesi ürün detayına gitmeden ürünü sepete ekler. Eklemeden sonra hem katalogda hem detayda aynı **sil | adet | artır** kontrolü görünür; böylece iki sayfanın davranışı tutarlı kalır.
+- Bu üç parçalı kontrolde çöp kutusu ürünü doğrudan kaldırır, ortadaki değer mevcut adedi gösterir ve artı düğmesi yeni satır açmadan adedi artırır.
+- Sepet sayfasında artı ve eksi kontrolleri bulunur. Adet `1` olduğunda eksi yerine erişilebilir etiketli çöp kutusu görünür ve yalnız ilgili satırı kaldırır; ayrı “Kaldır” düğmesi de korunur.
+- Toplam ürün adedi, satır toplamı ve ara toplam saf selector fonksiyonlarıyla hesaplanır. Para hesaplarında kayan nokta sapmasını azaltmak için fiyatlar küçük para birimine çevrilip toplanır.
+- Sepet kalıcılığı bonus olduğu için `localStorage` eklenmemiştir; sayfa yenilenince sepet sıfırlanır.
+- Kullanıcının isteği üzerine son değişikliklerden sonra otomatik test çalıştırılmamıştır; Aşama 7 sonucu manuel kontrollere bağlıdır.
+
 ## Açık kararlar ve riskler
 
 - Hedef `04-05` klasörü kendi `.git` klasörüne sahip değildir; commit'ler üstteki `.../quiz-sinav-react/02` repository'sine ait olacaktır. Üst repository'deki ilgisiz kullanıcı değişiklikleri bu aşamada korunmuştur.
@@ -325,6 +335,7 @@ Bu kararlar ürün listesi ve detayının kaynak gereksinimlerine uygun, küçü
 - Para birimi kaynakta belirtilmez. Türkçe içerik ve tasarım raporundaki fiyat örnekleri nedeniyle Aşama 5'te TRY seçilmiştir; gerçek iş gereksinimi farklıysa biçimlendirici tek noktadan değiştirilebilir.
 - Başlangıç ürün görselleri harici `placehold.co` adreslerine bağlıdır. Servis yüklenmezse fallback görünür; gerçek ürün varlıklarının sahipliği ve barındırılması hâlâ açık bir ürün kararıdır.
 - Aşama 6 kontrol seçimleri route veya yenileme boyunca kalıcı değildir. Liste componenti yeniden kurulduğunda arama, kategori ve sıralama başlangıç değerlerine döner; kaynak görev kalıcılık istemediği için URL parametresi veya global state eklenmemiştir.
+- Aşama 7 sepeti yalnız React belleğinde tutulur. Sayfa yenilemede sepetin sıfırlanması, uygulanmayan `BON-004` kalıcılık bonusuyla uyumludur.
 
 ## Karar değişikliği şablonu
 

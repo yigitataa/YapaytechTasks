@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import CartLink from '../features/cart/CartLink.jsx'
 
 function SiteHeader() {
   return (
@@ -11,10 +12,11 @@ function SiteHeader() {
           <span>Yata Market</span>
         </Link>
 
-        <nav aria-label="Ana menü">
+        <nav className="site-navigation" aria-label="Ana menü">
           <Link className="nav-link" to="/">
             Ürünler
           </Link>
+          <CartLink />
         </nav>
       </div>
     </header>

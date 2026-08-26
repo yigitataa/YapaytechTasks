@@ -155,6 +155,25 @@ Bu testlerde backend `http://localhost:3000`, frontend `http://localhost:5173` a
 - [ ] **MT-CRT-006 - Boş sepet** (`REQ-012`): İlk açılışta ve son ürün kaldırıldığında açık boş sepet mesajı görülür; geçersiz toplam görünmez.
 - [ ] **MT-CRT-007 - Yenileme sınırı** (`BON-004`): Bonus seçilmediyse sayfa yenilemede sepetin sıfırlanmasının hata olmadığı dokümantasyonla uyumlu olduğu doğrulanır. Bonus seçildiyse kalıcılık ayrıca test edilir.
 
+### Aşama 7 - Uygulanacak kullanıcı testleri
+
+Bu kontroller kullanıcı tarafından yapılacaktır. Başlamadan önce backend `http://localhost:3000`, frontend `http://localhost:5173` adresinde çalışmalıdır.
+
+- [ ] **MT-A7-001 - Katalogdan hızlı ekleme** (`REQ-009`): Ana sayfada ürün detayına girmeden bir kartın “Sepete ekle” düğmesine basınca header rozeti `1` olur.
+- [ ] **MT-A7-002 - Katalog kontrolüne dönüşme** (`REQ-010`): Ürün eklenince karttaki düğmenin yerini **çöp kutusu | 1 | +** kontrolü alır. `+` tıklanınca orta değer ve header rozeti `2` olur; sepette iki satır oluşmaz.
+- [ ] **MT-A7-003 - Detayda ortak kontrol** (`REQ-009`, `REQ-010`): Ürün detayında ilk eklemeden sonra aynı **çöp kutusu | adet | +** kontrolü görünür. `+` mevcut adedi, çöp kutusu ise ürünü sepetten tamamen kaldırır.
+- [ ] **MT-A7-004 - Ortak state** (`REQ-009` - `REQ-011`): Liste, detay ve sepet sayfaları arasında geçiş yapıldığında yenileme yapılmadığı sürece aynı sepet adedi korunur.
+- [ ] **MT-A7-005 - Sepette artırma** (`REQ-010`, `REQ-011`): Sepet satırındaki `+` her tıklamada yalnız ilgili ürünün adedini, rozetini, satır toplamını ve genel toplamı artırır.
+- [ ] **MT-A7-006 - Sepette azaltma** (`REQ-010`, `REQ-011`): Adet `2` veya daha fazlayken eksi kontrolü adedi bir azaltır ve toplamları doğru günceller.
+- [ ] **MT-A7-007 - Son adette kaldırma** (`REQ-010`, `REQ-011`): Adet `1` olduğunda eksi yerine çöp kutusu görünür; tıklanınca yalnız o ürün satırı kaldırılır, diğer ürünler ve sepet korunur.
+- [ ] **MT-A7-008 - Doğrudan kaldırma** (`REQ-010`): Satırdaki “Kaldır” düğmesi hedef ürünü siler ve diğer satırlara dokunmaz.
+- [ ] **MT-A7-009 - Toplam hesabı** (`REQ-011`): En az iki farklı ürün ve farklı adetlerle satır toplamları `fiyat × adet`, ara toplam ise bütün satırların toplamına eşittir.
+- [ ] **MT-A7-010 - Sepeti temizleme** (`REQ-010`): “Sepeti temizle” bütün satırları kaldırır, rozeti sıfırlar ve boş sepet görünümünü açar.
+- [ ] **MT-A7-011 - Boş sepet** (`REQ-012`): Son ürün kaldırıldığında anlaşılır boş sepet mesajı ve kataloğa dönüş bağlantısı görünür.
+- [ ] **MT-A7-012 - Yenileme sınırı** (`BON-004`): Sepette ürün varken tarayıcı yenilenince sepet sıfırlanır; bu davranış uygulanmayan kalıcılık bonusuyla uyumludur.
+- [ ] **MT-A7-013 - Klavye erişimi** (`QLT-010`): Tab ile hızlı ekleme, sepet bağlantısı, adet, kaldırma ve temizleme kontrollerine ulaşılır; Enter/Space ile çalışırlar ve görünür odak vardır.
+- [ ] **MT-A7-014 - Dar ekran** (`REQ-025`): 320-375 px genişlikte kart hızlı ekleme düğmeleri, sepet satırları, adet kontrolleri ve özet yatay taşma olmadan kullanılabilir.
+
 ## 6. Loading, error ve empty durumları
 
 - [ ] **MT-UI-001 - Yüklenme** (`REQ-021`): Yavaşlatılmış API isteği sırasında kullanıcıya yüklenme geri bildirimi gösterilir.
@@ -200,6 +219,7 @@ Yalnızca ilgili bonus bilinçli olarak seçilip geliştirildiyse doldur:
 | 2026-08-26 | Aşama 5 - otomatik kontroller | 23 | 0 | Kullanıcı manuel testleri | Codex | Frontend lint/build, gerçek API ön kontrolleri, görünür liste/detay/404, loading, 320 px responsive, backend-kapalı, boş liste, konsol ve süreç temizliği geçti. |
 | 2026-08-26 | Aşama 5 - Yata Market görsel revizyonu | 10 | 0 | Kullanıcı manuel testleri | Codex | Marka, gradient tema, ilk yükleyici, 10 kademeli kart, detay/route animasyonları, mobil taşma, lint ve build geçti. |
 | 2026-08-26 | Aşama 6 - otomatik kontroller | 18 | 0 | Kullanıcı manuel testleri | Codex | Saf türetme fonksiyonu, lint/build, gerçek API, arama/kategori/iki sıra/birleşik kullanım, boş sonuç, temizleme, erişilebilir etiketler, 320 px responsive ve konsol doğrulandı. |
+| 2026-08-26 | Aşama 7 - manuel kontrole bağlı | 0 | 0 | 14 kullanıcı testi | Kullanıcı | Kullanıcının isteğiyle son Aşama 7 değişikliklerinden sonra otomatik test çalıştırılmadı. |
 
 ## Aşama 2 otomatik doğrulama kaydı
 

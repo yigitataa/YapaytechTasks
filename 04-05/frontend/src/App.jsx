@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router'
 import PageLoader from './components/PageLoader.jsx'
 import SiteHeader from './components/SiteHeader.jsx'
+import CartPage from './pages/CartPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import ProductDetailPage from './pages/ProductDetailPage.jsx'
 import ProductListPage from './pages/ProductListPage.jsx'
@@ -36,6 +37,7 @@ function App() {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<ProductListPage />} />
           <Route path="/products/:productId" element={<ProductDetailPage />} />
+          <Route path="/cart" element={<CartPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
