@@ -47,14 +47,20 @@ Bu dosya teslim için zorunlu bir özellik değildir. Her aşamada ne yaptığı
 
 ## Aşama 3 - Backend ürün okuma API'si
 
-- **Hangi ihtiyacı çözdüm?** _Doldurulacak._
-- **Ne öğrendim?** _Doldurulacak._
-- **Veri hangi dosyalar/katmanlar arasında hareket etti?** _Doldurulacak._
-- **En önemli state veya veri yapısı neydi?** _Doldurulacak._
-- **Hangi hata veya sınır senaryosunu ele aldım?** _Doldurulacak._
-- **Hangi teknik kararı neden verdim?** _Doldurulacak._
-- **Hangi testi yaptım; kanıtım neydi?** _Doldurulacak._
-- **Anlamadığım konular / sorularım:** _Doldurulacak._
+- **Hangi ihtiyacı çözdüm?** 
+  - Ürünlerin doğruca elde edilebilmesi için gerekli api endpointleri oluşturdum.
+- **Ne öğrendim?**
+  - Api üzerinden nasıl istek - cevap ilişkisi kurulur bunu öğrendim.
+- **Veri hangi dosyalar/katmanlar arasında hareket etti?**
+  - Veri anlık olarak backend/data/product.js dosyasından okunur. Bu daha sonra teknik revizelere göre değişiklik göstererebilir.
+- **En önemli state veya veri yapısı neydi?**
+  - Anlık olarak bu bölümde değişiklik gösterebilen bir state yoktu. Kullandığımız veri yapısı da json formatına uygundu.
+- **Hangi hata veya sınır senaryosunu ele aldım?**
+  - Bu aşamada işimiz sadece product'larla olduğu için product edinebilmek için id kullandık. Bu nedenle test edebileceğimiz tek alan doğru id'ye ulaşıp ulaşamadığımız olur.
+- **Hangi teknik kararı neden verdim?** 
+  - Teknik olarak bu aşamada sadece product verisi çekme kısmına odaklandık. Projemizin temel yapı taşı olduğu için ona odaklnmak gerekliydi.
+- **Anlamadığım konular / sorularım:**
+  - Neden direkt json dosyası kullanmadık kullansaydık ne olurdu merak ediyorum.
 
 ## Aşama 4 - Backend CRUD, validasyon ve hata yönetimi
 

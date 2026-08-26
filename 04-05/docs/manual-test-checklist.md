@@ -45,6 +45,16 @@ Notlar:
 - [ ] **MT-API-008 - Bulunamayan ürün** (`REQ-019`): Okuma, güncelleme ve silmede olmayan kimlik başarı yerine uygun bulunamadı cevabı üretir.
 - [ ] **MT-API-009 - Dokümanla uyum** (`REQ-024`): Belgelenen her endpoint örneği gerçek API davranışıyla aynı metot, yol, veri ve durum kodunu kullanır.
 
+### Aşama 3 - Ürün okuma API'si
+
+- [ ] **MT-A3-001 - Health gerileme kontrolü** (`REQ-002`, `REQ-022`): `GET /api/health` hâlâ `200` ve `{"status":"ok"}` döndürür.
+- [ ] **MT-A3-002 - Ürün dizisi** (`REQ-013`, `REQ-014`): `GET /api/products` `200` ve köşeli parantezli JSON dizisi döndürür.
+- [ ] **MT-A3-003 - Veri kalitesi** (`QLT-002`, `QLT-005`): Liste 10 ürün ve birden fazla kategori içerir; kimlikler benzersiz, fiyatlar pozitif sayıdır ve temel alanlar doludur.
+- [ ] **MT-A3-004 - Gerçek ürün detayı** (`REQ-015`): Listeden kopyalanan kimlikle detay isteği `200` döndürür ve cevap listedeki aynı ürünle eşleşir.
+- [ ] **MT-A3-005 - Bilinmeyen ürün** (`REQ-019`, `QLT-008`): `GET /api/products/bilinmeyen-id` `404` ve `{"message":"Ürün bulunamadı"}` döndürür; backend çalışmaya devam eder.
+- [ ] **MT-A3-006 - Yeniden başlatma** (`REQ-003`): Backend durdurulup açıldığında aynı 10 başlangıç ürünü yeniden gelir.
+- [ ] **MT-A3-007 - Yazma kapsamı sınırı**: `POST`, `PUT`, `PATCH` ve `DELETE` ürün endpoint'leri uygulanmış veya README'de çalışıyor gibi gösterilmiş değildir.
+
 ## 3. Ürün liste ve detay
 
 - [ ] **MT-PRD-001 - Liste görünümü** (`REQ-004`, `REQ-020`): Backend'den gelen ürünler okunabilir biçimde listelenir.
@@ -111,6 +121,7 @@ Yalnızca ilgili bonus bilinçli olarak seçilip geliştirildiyse doldur:
 |---|---|---:|---:|---:|---|---|
 | - | Aşama 1 - yalnızca dokümantasyon | 0 | 0 | Tümü | - | Uygulama henüz oluşturulmadı. |
 | 2026-08-25 | Aşama 2 - otomatik kontroller | 13 | 0 | Kullanıcı manuel testleri | Codex | Kurulum, lint, build, syntax, iki dev server, health/CORS, yeniden başlatma ve tarayıcı konsolu doğrulandı. |
+| 2026-08-25 | Aşama 3 - otomatik kontroller | 19 | 0 | Kullanıcı manuel testleri | Codex | Health, ürün liste/detay, veri kalitesi, JSON 404, kapsam sınırı, yeniden başlatma ve süreç temizliği doğrulandı. |
 
 ## Aşama 2 otomatik doğrulama kaydı
 
@@ -131,3 +142,24 @@ Bu sonuçlar kullanıcının yukarıdaki manuel test kutularının yerine geçme
 | Yeniden başlatma | Geçti | Backend durdurulup `npm run dev` ile yeniden açıldı; health kontrolü tekrar geçti. |
 | React ekranı | Geçti | Proje başlığı ve “Frontend çalışıyor” durumu tarayıcı DOM'unda görünür bulundu. |
 | Tarayıcı konsolu | Geçti | Yeni sayfa yüklemesinde error veya warning kaydı bulunmadı. |
+
+## Aşama 3 otomatik doğrulama kaydı
+
+Bu sonuçlar kullanıcının Aşama 3 manuel test kutularının yerine geçmez; gerçek backend süreci üzerinde çalıştırılan kontrolleri kaydeder.
+
+| Kontrol | Sonuç | Kanıt özeti |
+|---|---|---|
+| Değişiklik öncesi backend syntax | Geçti | Aşama 2 kodu `npm run check` ile hatasız doğrulandı. |
+| Değişiklik öncesi başlangıç/health | Geçti | Backend başladı; `/api/health` `200` ve `{"status":"ok"}` döndürdü. |
+| Yeni backend dosyalarının syntax kontrolü | Geçti | Güncellenen `npm run check` bütün data/service/controller/route/middleware dosyalarında çıkış kodu `0` verdi. |
+| Ürün liste durum kodu ve türü | Geçti | `/api/products` `200` ve `application/json` içerik türüyle dizi döndürdü. |
+| Ürün ve kategori sayısı | Geçti | 10 ürün ve 6 benzersiz kategori bulundu. |
+| Kimlik benzersizliği | Geçti | 10 ürünün 10 benzersiz kimliği vardı. |
+| Temel alanlar ve fiyatlar | Geçti | Her üründe altı temel alan, dolu metinler, HTTPS görsel adresi ve pozitif sayısal fiyat doğrulandı. |
+| Gerçek ürün detayı | Geçti | `p-001` isteği `200` döndürdü ve liste içindeki “Kablosuz Kulaklık” nesnesiyle eşleşti. |
+| Bilinmeyen ürün | Geçti | `/api/products/bilinmeyen-id` `404` ve `{"message":"Ürün bulunamadı"}` döndürdü. |
+| Hata sonrası sağlık | Geçti | 404 isteğinden sonra health endpoint'i tekrar `200` döndürdü. |
+| Yazma route'larının yokluğu | Geçti | Ürün koleksiyonuna POST, PUT, PATCH ve DELETE isteklerinin tamamı `404` döndürdü. |
+| Yeniden başlatma | Geçti | Backend durdurulup yeniden başlatıldı. |
+| Başlangıç verisinin geri yüklenmesi | Geçti | Yeniden başlatmadan önce ve sonra liste 10 üründü; SHA-256 özeti aynı kaldı. |
+| Süreç temizliği | Geçti | Geçici backend süreci kapatıldı ve port `3000` boş bırakıldı. |

@@ -1,5 +1,8 @@
 import cors from 'cors'
 import express from 'express'
+import { errorHandler } from './middleware/errorHandler.js'
+import { notFoundHandler } from './middleware/notFoundHandler.js'
+import productRouter from './routes/productRoutes.js'
 
 const app = express()
 const corsOrigin = process.env.CORS_ORIGIN ?? 'http://localhost:5173'
@@ -16,5 +19,9 @@ app.get('/api/health', (_request, response) => {
   response.status(200).json({ status: 'ok' })
 })
 
-export default app
+app.use('/api/products', productRouter)
 
+app.use(notFoundHandler)
+app.use(errorHandler)
+
+export default app

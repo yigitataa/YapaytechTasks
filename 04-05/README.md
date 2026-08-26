@@ -2,7 +2,7 @@
 
 Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışacağı küçük ölçekli bir e-ticaret uygulaması için hazırlanmıştır.
 
-Şu anda yalnızca **Aşama 2 - Proje İskeleti** tamamlanmaktadır. React başlangıç ekranı ve Express sağlık kontrolü vardır; ürün, arama, filtre, sıralama, sepet, veritabanı ve bonus özellikler henüz uygulanmamıştır.
+Şu anda **Aşama 3 - Backend Ürün Okuma API'si** uygulanmıştır. React başlangıç ekranı korunur; Express backend sağlık kontrolünün yanında ürün listeleme ve ürün detayı okuma işlemlerini destekler. Ürün oluşturma, güncelleme, silme, frontend ürün ekranları, arama, filtre, sıralama ve sepet henüz uygulanmamıştır.
 
 ## Kullanılan teknolojiler
 
@@ -16,7 +16,15 @@ Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışac
 ```text
 04-05/
   frontend/        React uygulaması
-  backend/         Express uygulaması
+  backend/
+    src/
+      data/        Başlangıç ürün dizisi
+      services/    Ürün verisini okuma işlemleri
+      controllers/ HTTP isteği ve cevap yönetimi
+      routes/      Endpoint-controller eşleştirmesi
+      middleware/  Ortak 404 ve hata cevapları
+      app.js        Express yapılandırması
+      server.js     Port dinleme işlemi
   docs/            Gereksinim, karar ve öğrenme belgeleri
   .gitignore       Git'e eklenmeyecek yerel dosyalar
   README.md        Kurulum ve çalıştırma rehberi
@@ -91,6 +99,55 @@ Beklenen cevap ve durum kodu:
   "status": "ok"
 }
 ```
+
+## Ürün okuma API'si
+
+Ürün verileri backend içindeki JavaScript dizisinde tutulur. Başlangıç veri kümesinde 10 ürün ve 6 kategori vardır.
+
+| Yöntem | Endpoint | Başarı | Bulunamadı | Açıklama |
+|---|---|---|---|---|
+| `GET` | `/api/products` | `200` ve JSON dizisi | - | Bütün başlangıç ürünlerini döndürür. |
+| `GET` | `/api/products/:id` | `200` ve JSON nesnesi | `404` ve JSON mesajı | Kimliği verilen tek ürünü döndürür. |
+
+Ürün modeli:
+
+```json
+{
+  "id": "p-001",
+  "name": "Kablosuz Kulaklık",
+  "description": "Günlük kullanım için kısa ürün açıklaması.",
+  "price": 2499,
+  "category": "Elektronik",
+  "imageUrl": "https://placehold.co/600x400/png?text=Kablosuz+Kulaklik"
+}
+```
+
+Bütün ürünleri listelemek için:
+
+```text
+GET http://localhost:3000/api/products
+```
+
+Tek ürün getirmek için:
+
+```text
+GET http://localhost:3000/api/products/p-001
+```
+
+Bilinmeyen ürün cevabı:
+
+```text
+GET http://localhost:3000/api/products/bilinmeyen-id
+404 Not Found
+```
+
+```json
+{
+  "message": "Ürün bulunamadı"
+}
+```
+
+Bu aşamada yalnızca `GET` ürün işlemleri vardır. `POST`, `PUT`, `PATCH` ve `DELETE` henüz desteklenmez.
 
 Backend için kullanılabilir npm script'leri:
 
@@ -175,15 +232,23 @@ $response.Content
 
 Beklenen sonuç `200` ve `{"status":"ok"}` cevabıdır.
 
+Ürün endpoint'lerini hızlıca kontrol etmek için:
+
+```powershell
+Invoke-RestMethod http://localhost:3000/api/products
+Invoke-RestMethod http://localhost:3000/api/products/p-001
+```
+
 ## Bu aşamanın sınırı
 
-Aşama 2 yalnızca çalışır proje iskeletini oluşturur. Aşağıdakiler bilinçli olarak henüz eklenmemiştir:
+Aşama 3 yalnızca backend ürün okuma işlemlerini ekler. Aşağıdakiler bilinçli olarak henüz eklenmemiştir:
 
-- Ürün veri modeli veya başlangıç ürünleri.
-- Ürün listeleme, detay veya CRUD endpoint'leri.
+- `POST`, `PUT`, `PATCH` veya `DELETE` ürün endpoint'leri.
+- Ürün oluşturma/güncelleme validasyonu.
 - React ürün sayfaları.
 - Arama, filtreleme, sıralama veya sepet.
 - Veritabanı ve authentication.
 - Ödeme, sipariş ve bonus özellikler.
 - Test framework'ü veya deployment yapılandırması.
 
+Ürün dizisi kalıcı değildir. Backend yeniden başladığında `backend/src/data/products.js` içindeki 10 başlangıç ürünü yeniden yüklenir; çalışma zamanındaki olası değişiklikler dosyaya veya veritabanına yazılmaz.

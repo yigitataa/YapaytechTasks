@@ -46,43 +46,43 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 
 ## ADR-004 - Backend yapısı ve dil
 
-- **Durum:** Kısmen kabul edildi (Aşama 2)
+- **Durum:** Kabul edildi (Aşama 3)
 - **Karar:** Backend Express ve JavaScript ile; route, controller/service, validation/middleware ve data sorumlulukları ayrılarak kurulacak.
 - **Neden:** Kaynak Express'i zorunlu kılar; küçük sorumluluk ayrımı REST tasarımını ve hata yollarını okunabilir tutar.
 - **Alternatif:** Bütün sunucu mantığını tek dosyada tutmak veya TypeScript kullanmak.
-- **Sonuç/Sınırlama:** Aşama 2'de yalnızca Express yapılandırması için `app.js` ve port dinleme için `server.js` ayrılmıştır. Route, controller, service ve validation klasörleri, içlerine gerçek kod ekleneceği aşamaya kadar oluşturulmayacaktır.
+- **Sonuç/Sınırlama:** Aşama 3'te gerçek ürün okuma sorumlulukları oluştuğu için `routes`, `controllers`, `services`, `data` ve `middleware` klasörleri eklenmiştir. Henüz ihtiyaç olmayan `validators` klasörü Aşama 4'e bırakılmıştır.
 
 ## ADR-005 - Veritabanı olmadan ürün verisi
 
-- **Durum:** Öneri
+- **Durum:** Kabul edildi (Aşama 3)
 - **Karar:** Başlangıç ürünleri backend içindeki bir JavaScript dizisinde tutulacak ve CRUD işlemleri çalışan süreçte bu diziyi değiştirecek.
 - **Neden:** PDF veritabanını yasaklar; bellek içi dizi beş CRUD işlemini en az ek teknolojiyle göstermeye yeterlidir.
 - **Alternatif:** Bir JSON dosyasını çalışma zamanında okuyup yazmak.
-- **Sonuç/Sınırlama:** Sunucu yeniden başlatıldığında oluşturma, güncelleme ve silme değişiklikleri başlangıç verisine döner. Bu davranış README'de belirtilmelidir; kalıcı veri sözü verilmez.
+- **Sonuç/Sınırlama:** Aşama 3 yalnızca bu diziyi okur. Sonraki aşamada eklenebilecek oluşturma, güncelleme ve silme değişiklikleri sunucu yeniden başladığında başlangıç verisine dönecektir. Kalıcı veri sözü verilmez.
 
 ## ADR-006 - Başlangıç ürün modeli
 
-- **Durum:** Öneri
-- **Karar:** Ürün için `id`, `name`, `description`, `price`, `category` ve isteğe bağlı `imageUrl` alanları kullanılacak; `id` backend tarafından üretilecek.
+- **Durum:** Kabul edildi (Aşama 3)
+- **Karar:** Ürün için benzersiz `id`, `name`, `description`, pozitif `price`, `category` ve metin `imageUrl` alanları kullanılacak. Başlangıç kimlikleri `p-001` biçimindedir; yeni ürün oluşturma eklendiğinde kimlik backend tarafından üretilecektir.
 - **Neden:** Bu alanlar liste, detay, arama, kategori filtresi, fiyat sıralaması ve sepet toplamını destekleyen küçük bir model oluşturur.
 - **Alternatif:** Marka, stok, puan veya çoklu görsel gibi daha geniş bir model.
-- **Sonuç/Sınırlama:** Kaynak bu alanları zorunlu kılmaz. Stok/envanter davranışı eklenmez; ihtiyaç değişirse model ve validasyon birlikte güncellenmelidir.
+- **Sonuç/Sınırlama:** Kaynak bu alanları zorunlu kılmaz. Aşama 3 veri kümesi 10 ürün ve 6 kategori içerir; stok/envanter davranışı eklenmez. Görseller harici placeholder URL'lerine bağlıdır ve frontend daha sonra yükleme hatasına karşı kendi placeholder'ını göstermelidir.
 
 ## ADR-007 - REST endpoint tasarımı
 
-- **Durum:** Öneri
+- **Durum:** Kısmen kabul edildi (Aşama 3)
 - **Karar:** API tabanı `/api/products` olacak: `GET /api/products`, `GET /api/products/:id`, `POST /api/products`, `PATCH /api/products/:id` ve `DELETE /api/products/:id` kullanılacak.
 - **Neden:** Kaynak odaklı yollar ile listeleme, tek kayıt ve CRUD işlemleri doğrudan eşleşir. `PATCH`, yalnızca gönderilen alanları güncelleyerek küçük arayüzler için daha kolay bir sözleşme sağlar.
 - **Alternatif:** Tam kayıt değişimi için `PUT` veya hem `PUT` hem `PATCH` desteği.
-- **Sonuç/Sınırlama:** Kısmi güncellemenin validasyon kuralları açıkça tanımlanmalı; endpoint ve cevap örnekleri API dokümanında gösterilmelidir.
+- **Sonuç/Sınırlama:** Aşama 3'te yalnızca `GET /api/products` ve `GET /api/products/:id` uygulanmıştır. `POST`, `PATCH` ve `DELETE` Aşama 4'e bırakılmıştır; henüz çalışıyor gibi belgelenmez.
 
 ## ADR-008 - Validasyon ve hata cevapları
 
-- **Durum:** Öneri
+- **Durum:** Kısmen kabul edildi (Aşama 3)
 - **Karar:** İstek verisi backend sınırında doğrulanacak; hata cevapları tutarlı JSON biçiminde en az `message` alanı içerecek. Bulunamayan ürün için `404`, geçersiz veri için `400`, oluşturma için `201`, başarılı silme için `204` önerilir.
 - **Neden:** Hatalı isteklerin kontrollü ele alınmasını ve frontend'in hata mesajlarını tek biçimde işlemesini sağlar.
 - **Alternatif:** Harici bir şema validasyon kütüphanesi veya her route içinde ayrı kontroller.
-- **Sonuç/Sınırlama:** İlk sürümde küçük, tekrar kullanılabilir yerel validasyon yeterlidir; yeni paket ancak belirgin bir ihtiyaç oluşursa eklenmelidir. `204` cevabının gövdesi olmaz.
+- **Sonuç/Sınırlama:** Aşama 3'te bilinmeyen ürün `404 {"message":"Ürün bulunamadı"}`, bilinmeyen route ise `404 {"message":"Endpoint bulunamadı"}` döndürür. İstek gövdesi validasyonu ve yazma durum kodları Aşama 4'e bırakılmıştır.
 
 ## ADR-009 - Frontend HTTP istemcisi
 
@@ -140,6 +140,15 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 - Varsayılan frontend adresi `http://localhost:5173`, backend adresi `http://localhost:3000` olarak belirlenmiştir.
 - CORS yalnızca `CORS_ORIGIN` değişkenindeki origin'e; değişken yoksa `http://localhost:5173` adresine izin verecek şekilde yapılandırılmıştır.
 - `.env` isteğe bağlı yerel ayar dosyasıdır ve Git tarafından yok sayılır; hassas bilgi içermeyen `.env.example` izlenebilir.
+
+## Aşama 3 uygulama kaydı
+
+- Ürün verisi yalnızca `backend/src/data/products.js` içindeki JavaScript dizisinde tutulur; veritabanı ve dosyaya çalışma zamanı yazımı yoktur.
+- Veri kümesi 10 ürün, 6 kategori, benzersiz `p-001` - `p-010` kimlikleri ve birbirinden farklı pozitif fiyatlar içerir.
+- `GET /api/products` listeyi, `GET /api/products/:id` tek ürünü döndürür.
+- Route, controller, service ve data sorumlulukları ayrı dosyalardadır; HTTP bilgisi data/service katmanına taşınmaz.
+- Ortak 404 ve hata middleware'leri route'lardan sonra bağlanmıştır. Health endpoint'i ürün route'larından bağımsız kalır.
+- Ürün görselleri harici placeholder URL'leri kullanır; görsel servisi kullanılamazsa ileride frontend fallback göstermelidir.
 
 ## Açık kararlar ve riskler
 
