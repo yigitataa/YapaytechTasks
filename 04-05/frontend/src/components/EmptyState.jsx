@@ -1,6 +1,10 @@
 function EmptyState() {
   return (
-    <section className="status-panel component-enter component-enter--status" aria-live="polite">
+    <section
+      className="status-panel component-enter component-enter--status"
+      role="status"
+      aria-live="polite"
+    >
       <span className="status-panel__icon" aria-hidden="true">
         0
       </span>

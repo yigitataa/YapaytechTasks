@@ -65,6 +65,7 @@ function InlineCartControl({ product, variant }) {
     <>
       <div
         className={`inline-cart-control inline-cart-control--${variant}`}
+        role="group"
         aria-label={`${product.name} sepet adedi`}
       >
         <button

@@ -132,6 +132,14 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 - **Alternatif:** Baştan geniş bir uçtan uca test paketi kurmak veya yalnızca manuel test yapmak.
 - **Sonuç/Sınırlama:** Otomatik testler kaynak zorunluluğu gibi sunulmaz; seçilecek araç ve test kapsamı uygulama yapısı görüldükten sonra kayda eklenmelidir.
 
+## ADR-015 - UI durumları ve temel erişilebilirlik
+
+- **Durum:** Uygulandı; manuel kontrol bekliyor (Aşama 8)
+- **Karar:** Liste ve detay sayfaları `loading`, `error`, `empty`/`not-found` ve `success` durumlarını açık state değerleriyle ayırır. Ağ ve API ayrıntıları kullanıcıya aktarılmaz; ortak `ErrorState` güvenli Türkçe mesaj ve yeni istek başlatan **Yeniden dene** eylemi gösterir. Skeleton, fallback, skip link, görünür focus, `aria-current`, `role="status"`/`role="alert"`, `aria-live` ve kontrol grubu etiketleri düz CSS ve semantik HTML ile uygulanır.
+- **Neden:** Kullanıcı her anda ne olduğunu ve sonraki eylemini anlayabilmeli; klavye ve ekran okuyucu kullanıcıları da aynı temel akışlara ulaşabilmelidir. Mevcut küçük projede yeni UI veya erişilebilirlik kütüphanesi eklemek gereksizdir.
+- **Alternatif:** Tek bir genel spinner/hata görünümü kullanmak veya kapsamlı bir component/UI kütüphanesi eklemek.
+- **Sonuç/Sınırlama:** Durumlar birbirinden ayrılır ve teknik hata metinleri sızmaz. Bu çalışma tam WCAG sertifikası veya otomatik erişilebilirlik denetimi değildir. Kullanıcının kararıyla lint, build ve viewport testleri Codex tarafından çalıştırılmadığı için son uygunluk manuel kontrollere bağlıdır.
+
 ## Aşama 4 teknik kararları (K1-K9)
 
 Bu kararlar PDF'deki zorunlu beş REST işlemini ve kontrollü hata davranışını somutlaştırır. Endpoint ayrıntıları, ürün alan kuralları ve aşağıdaki uygulama biçimleri kaynak PDF'nin dayattığı şema değil, bu proje için seçilen teknik çözümlerdir.
@@ -327,6 +335,17 @@ Bu kararlar ürün listesi ve detayının kaynak gereksinimlerine uygun, küçü
 - Sepet kalıcılığı bonus olduğu için `localStorage` eklenmemiştir; sayfa yenilenince sepet sıfırlanır.
 - Kullanıcının isteği üzerine son değişikliklerden sonra otomatik test çalıştırılmamıştır; Aşama 7 sonucu manuel kontrollere bağlıdır.
 
+## Aşama 8 uygulama kaydı
+
+- Liste ve detay yüklenme durumları güncel kart, fiyat, eylem ve detay metadata alanlarını taklit eden skeleton’larla eşleştirildi; içerik alanı yüklenirken korunur.
+- Liste hatası ve detay hatası aynı güvenli `ErrorState` yapısını kullanır. Alt seviye `ApiError` mesajları kullanıcıya doğrudan yazılmaz; yeniden deneme mevcut `requestNumber` akışıyla yeni API isteği başlatır.
+- Başarılı fakat boş API dizisi, arama/filtre sonucunun boş olması, bilinmeyen ürün ve bilinmeyen frontend yolu ayrı component ve metinlerle korunur.
+- Ürün görseli yüklenemezse 1:1 alan korunur ve fallback, hangi ürün görselinin yüklenemediğini erişilebilir adla bildirir.
+- Skip link, sticky header için `scroll-padding`, güçlü focus halkası, aktif navigasyonda `aria-current`, sepet/adet kontrollerinde `role="group"` ve durumlarda `role`/`aria-live` kullanıldı. Reduced-motion tercihinde başlangıç yükleme perdesinin bekleme süresi de kaldırıldı.
+- Mavi-mor-pembe marka teması korunurken beyaz metin kullanılan ana gradient tonları daha koyu değerlere çekildi. Bu değişiklik erişilebilir kontrastı iyileştirmeyi amaçlayan teknik karardır; ölçümlü tam WCAG doğrulaması değildir.
+- `frontend-list-detail-design.md`, `search-filter-sort-design.md` ve `cart-design-and-state.md` repository’de bulunamadı. Mevcut gerçek kod, karar kaydı ve kaynak PDF’ler esas alındı; eksik belgeler tahmin edilerek oluşturulmadı.
+- İş mantığı, backend, API sözleşmesi, arama/filtre/sıralama ve reducer davranışı değiştirilmedi. Aşama 8 otomatik test edilmedi; kullanıcı manuel kontrolleri bekleniyor.
+
 ## Açık kararlar ve riskler
 
 - Hedef `04-05` klasörü kendi `.git` klasörüne sahip değildir; commit'ler üstteki `.../quiz-sinav-react/02` repository'sine ait olacaktır. Üst repository'deki ilgisiz kullanıcı değişiklikleri bu aşamada korunmuştur.
@@ -336,6 +355,7 @@ Bu kararlar ürün listesi ve detayının kaynak gereksinimlerine uygun, küçü
 - Başlangıç ürün görselleri harici `placehold.co` adreslerine bağlıdır. Servis yüklenmezse fallback görünür; gerçek ürün varlıklarının sahipliği ve barındırılması hâlâ açık bir ürün kararıdır.
 - Aşama 6 kontrol seçimleri route veya yenileme boyunca kalıcı değildir. Liste componenti yeniden kurulduğunda arama, kategori ve sıralama başlangıç değerlerine döner; kaynak görev kalıcılık istemediği için URL parametresi veya global state eklenmemiştir.
 - Aşama 7 sepeti yalnız React belleğinde tutulur. Sayfa yenilemede sepetin sıfırlanması, uygulanmayan `BON-004` kalıcılık bonusuyla uyumludur.
+- Aşama 8 tam WCAG denetimi değildir. Özellikle gerçek cihaz, tarayıcı yakınlaştırması, renk kontrast ölçümü ve ekran okuyucu davranışı manuel veya uzman araçlarıyla ayrıca doğrulanmalıdır.
 
 ## Karar değişikliği şablonu
 

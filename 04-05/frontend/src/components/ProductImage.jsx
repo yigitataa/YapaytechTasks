@@ -1,8 +1,12 @@
 import { useState } from 'react'
 
-function ImagePlaceholder() {
+function ImagePlaceholder({ alt }) {
   return (
-    <div className="product-image__placeholder" role="img" aria-label="Ürün görseli bulunamadı">
+    <div
+      className="product-image__placeholder"
+      role="img"
+      aria-label={`${alt || 'Ürün görseli'} yüklenemedi`}
+    >
       <svg viewBox="0 0 64 64" aria-hidden="true">
         <path d="M12 18a6 6 0 0 1 6-6h28a6 6 0 0 1 6 6v28a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6V18Z" />
         <circle cx="24" cy="25" r="5" />
@@ -20,7 +24,7 @@ function ProductImage({ src, alt, eager = false }) {
   return (
     <div className="product-image component-enter component-enter--media">
       {imageFailed ? (
-        <ImagePlaceholder />
+        <ImagePlaceholder alt={alt} />
       ) : (
         <img
           src={src}

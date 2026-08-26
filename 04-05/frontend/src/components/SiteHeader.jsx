@@ -1,7 +1,11 @@
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import CartLink from '../features/cart/CartLink.jsx'
 
 function SiteHeader() {
+  const location = useLocation()
+  const productsAreCurrent =
+    location.pathname === '/' || location.pathname.startsWith('/products/')
+
   return (
     <header className="site-header component-enter component-enter--header">
       <div className="container site-header__inner">
@@ -13,7 +17,11 @@ function SiteHeader() {
         </Link>
 
         <nav className="site-navigation" aria-label="Ana menü">
-          <Link className="nav-link" to="/">
+          <Link
+            className="nav-link"
+            to="/"
+            aria-current={productsAreCurrent ? 'page' : undefined}
+          >
             Ürünler
           </Link>
           <CartLink />

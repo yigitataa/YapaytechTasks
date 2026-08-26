@@ -2,7 +2,11 @@ import { Link } from 'react-router'
 
 function EmptyCartState() {
   return (
-    <section className="status-panel empty-cart component-enter component-enter--status" aria-live="polite">
+    <section
+      className="status-panel empty-cart component-enter component-enter--status"
+      role="status"
+      aria-live="polite"
+    >
       <span className="empty-cart__icon" aria-hidden="true">
         <svg viewBox="0 0 24 24">
           <path d="M3 4h2l1.5 10h10.8l1.7-7H7" />

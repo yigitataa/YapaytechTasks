@@ -188,6 +188,33 @@ Bu kontroller kullanıcı tarafından yapılacaktır. Başlamadan önce backend 
 - [ ] **MT-RSP-003 - Geniş ekran** (`REQ-025`): Masaüstünde içerik okunabilir genişlikte, hizalı ve kullanılabilirdir.
 - [ ] **MT-RSP-004 - Klavye ve görünür odak** (`QLT-010`): Temel bağlantı, form ve butonlara klavyeyle ulaşılır; odak görünürdür.
 
+### Aşama 8 - Kullanıcının yapacağı UI ve erişilebilirlik kontrolleri
+
+Bu kontroller kullanıcı tarafından yapılacaktır. Codex, kullanıcının önceki talebi nedeniyle Aşama 8 sonrasında lint, build, tarayıcı veya otomatik erişilebilirlik testi çalıştırmamıştır.
+
+- [ ] **MT-A8-001 - Liste loading** (`REQ-021`): Ağ `Slow 3G` yapıldığında ürün kartlarının yerini ve oranını taklit eden skeleton’lar görünür; boş beyaz ekran oluşmaz.
+- [ ] **MT-A8-002 - Detay loading** (`REQ-021`): Yavaş ağda görsel, başlık, fiyat, açıklama, eylem ve metadata yerlerini temsil eden detay skeleton’ı görünür.
+- [ ] **MT-A8-003 - Liste error** (`REQ-021`): Backend kapalıyken katalog teknik hata/stack yerine Türkçe bağlantı mesajı ve “Yeniden dene” düğmesi gösterir.
+- [ ] **MT-A8-004 - Çalışan retry** (`REQ-021`): Backend yeniden açıldıktan sonra aynı düğmeye basınca yeni istek yapılır ve ürünler görünür.
+- [ ] **MT-A8-005 - Detay error** (`REQ-021`): Backend kapalıyken geçerli bir ürün detay adresi kullanıcı dostu hata ve yeniden deneme gösterir.
+- [ ] **MT-A8-006 - Boş API listesi** (`REQ-021`): API geçerli `[]` döndürdüğünde “Henüz ürün bulunmuyor” görünür; bu durum hata görünümüyle karışmaz.
+- [ ] **MT-A8-007 - No results** (`REQ-006`, `REQ-007`, `REQ-021`): Eşleşmeyen aramada aranan kelime, açıklama ve “Tüm ürünleri göster” eylemi görünür; eylem kontrolleri temizler.
+- [ ] **MT-A8-008 - Ürün not found** (`REQ-005`, `REQ-021`): `/products/bilinmeyen-id` “Ürün bulunamadı” ve ürünlere dönüş bağlantısı gösterir.
+- [ ] **MT-A8-009 - Route not found** (`REQ-021`): `/bilinmeyen-sayfa` “Sayfa bulunamadı” ve ürünlere dönüş bağlantısı gösterir.
+- [ ] **MT-A8-010 - Görsel fallback** (`QLT-010`): Geçersiz görsel URL’sinde 1:1 görsel alanı bozulmaz; ikon ve “Görsel yok” metni görünür.
+- [ ] **MT-A8-011 - 320 px katalog** (`REQ-025`): Ürünler iki sütun, kontroller tek sütun olur; hızlı sepet kontrolü kırpılmaz ve yatay scrollbar oluşmaz.
+- [ ] **MT-A8-012 - 320 px detay** (`REQ-025`): Görsel, ürün bilgisi ve sepet kontrolü dikey dizilir; bütün metin ve düğmeler erişilebilir kalır.
+- [ ] **MT-A8-013 - 320 px sepet** (`REQ-025`): Ürün adı, kaldırma, adet seçici, satır toplamı ve özet üst üste binmez; yatay scrollbar oluşmaz.
+- [ ] **MT-A8-014 - 768 px tablet** (`REQ-025`): Katalog üç sütun olur; filtre kontrolleri ve detay/sepet düzenleri kırpılmadan kullanılabilir.
+- [ ] **MT-A8-015 - 1280 px masaüstü** (`REQ-025`): Katalog dört sütun, detay iki sütun ve sepet özeti sağda sticky görünür.
+- [ ] **MT-A8-016 - Skip link** (`QLT-010`): Sayfa açıldıktan sonra ilk `Tab` ile “Ana içeriğe geç” görünür; Enter ana içeriğe taşır.
+- [ ] **MT-A8-017 - Klavye sırası** (`QLT-010`): Logo, ürünler, sepet, arama, select’ler, kart bağlantısı, sepet eylemleri ve retry düğmesi Tab/Shift+Tab ile mantıklı sırada erişilir.
+- [ ] **MT-A8-018 - Görünür focus** (`QLT-010`): Klavyeyle odaklanan bağlantı, düğme, input ve select üzerinde yalnız renk değişimine bağlı olmayan belirgin dış çizgi görünür.
+- [ ] **MT-A8-019 - Ekran okuyucu bilgileri** (`QLT-010`): Aktif navigasyon, loading/error mesajları ve sepet adet değişiklikleri erişilebilir ad veya durum mesajı olarak duyurulur.
+- [ ] **MT-A8-020 - Azaltılmış hareket** (`QLT-003`): İşletim sisteminde “hareketi azalt” açıldığında skeleton shimmer ve dekoratif giriş hareketleri yaklaşık sıfır süreye iner.
+- [ ] **MT-A8-021 - Yakınlaştırma** (`REQ-025`, `QLT-010`): Tarayıcı %200 yakınlaştırmada temel içerik ve eylemler kaybolmadan kullanılabilir.
+- [ ] **MT-A8-022 - Önceki işlevler** (`REQ-004` - `REQ-012`): Liste, detay, arama, filtre, iki fiyat sırası, katalog/detaydan sepete ekleme, adet, kaldırma ve toplam davranışları aynı şekilde çalışır.
+
 ## 8. Dokümantasyon ve teslim
 
 - [ ] **MT-DOC-001 - README kapsamı** (`REQ-023`): Ön koşullar, kurulum, frontend/backend çalıştırma ve temel kullanım adımları eksiksizdir.
@@ -220,6 +247,7 @@ Yalnızca ilgili bonus bilinçli olarak seçilip geliştirildiyse doldur:
 | 2026-08-26 | Aşama 5 - Yata Market görsel revizyonu | 10 | 0 | Kullanıcı manuel testleri | Codex | Marka, gradient tema, ilk yükleyici, 10 kademeli kart, detay/route animasyonları, mobil taşma, lint ve build geçti. |
 | 2026-08-26 | Aşama 6 - otomatik kontroller | 18 | 0 | Kullanıcı manuel testleri | Codex | Saf türetme fonksiyonu, lint/build, gerçek API, arama/kategori/iki sıra/birleşik kullanım, boş sonuç, temizleme, erişilebilir etiketler, 320 px responsive ve konsol doğrulandı. |
 | 2026-08-26 | Aşama 7 - manuel kontrole bağlı | 0 | 0 | 14 kullanıcı testi | Kullanıcı | Kullanıcının isteğiyle son Aşama 7 değişikliklerinden sonra otomatik test çalıştırılmadı. |
+| 2026-08-26 | Aşama 8 - manuel kontrole bağlı | 0 | 0 | 22 kullanıcı testi | Kullanıcı | UI durumları, üç viewport ve temel erişilebilirlik kontrolleri kullanıcıya bırakıldı; Codex otomatik test çalıştırmadı. |
 
 ## Aşama 2 otomatik doğrulama kaydı
 

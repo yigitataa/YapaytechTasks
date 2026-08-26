@@ -2,7 +2,11 @@ function QuantityStepper({ productName, quantity, onIncrease, onDecrease }) {
   const willRemove = quantity === 1
 
   return (
-    <div className="quantity-stepper" aria-label={`${productName} ürün adedi`}>
+    <div
+      className="quantity-stepper"
+      role="group"
+      aria-label={`${productName} ürün adedi`}
+    >
       <button
         className={willRemove ? 'is-remove' : undefined}
         type="button"

@@ -1,18 +1,26 @@
 function ErrorState({
-  message,
+  message = 'Lütfen bağlantını kontrol edip yeniden dene.',
   onRetry,
   title = 'Ürünleri şu anda gösteremiyoruz',
+  headingLevel = 'h2',
 }) {
+  const Heading = headingLevel === 'h1' ? 'h1' : 'h2'
+
   return (
-    <section className="status-panel component-enter component-enter--status" role="alert">
+    <section
+      className="status-panel status-panel--error component-enter component-enter--status"
+      role="alert"
+      aria-labelledby="request-error-title"
+      aria-describedby="request-error-description"
+    >
       <span className="status-panel__icon status-panel__icon--error" aria-hidden="true">
         !
       </span>
-      <p className="eyebrow">İstek tamamlanamadı</p>
-      <h2>{title}</h2>
-      <p>{message}</p>
+      <p className="eyebrow">Bağlantı sorunu</p>
+      <Heading id="request-error-title">{title}</Heading>
+      <p id="request-error-description">{message}</p>
       <button className="button button--primary" type="button" onClick={onRetry}>
-        Tekrar dene
+        Yeniden dene
       </button>
     </section>
   )

@@ -12,7 +12,6 @@ function ProductDetailPage() {
   const { productId } = useParams()
   const [product, setProduct] = useState(null)
   const [status, setStatus] = useState('loading')
-  const [errorMessage, setErrorMessage] = useState('')
   const [requestNumber, setRequestNumber] = useState(0)
 
   useEffect(() => {
@@ -20,7 +19,6 @@ function ProductDetailPage() {
 
     async function loadProduct() {
       setStatus('loading')
-      setErrorMessage('')
 
       try {
         const data = await getProductById(productId, { signal: controller.signal })
@@ -28,7 +26,6 @@ function ProductDetailPage() {
         setStatus('success')
       } catch (error) {
         if (error.name !== 'AbortError') {
-          setErrorMessage(error.message)
           setStatus(error instanceof ApiError && error.status === 404 ? 'not-found' : 'error')
         }
       }
@@ -52,9 +49,10 @@ function ProductDetailPage() {
       {status === 'loading' ? <LoadingState variant="detail" /> : null}
       {status === 'error' ? (
         <ErrorState
-          message={errorMessage}
+          message="Ürün bilgileri yüklenemedi. Bağlantını kontrol edip yeniden deneyebilirsin."
           onRetry={() => setRequestNumber((current) => current + 1)}
           title="Ürünü şu anda gösteremiyoruz"
+          headingLevel="h1"
         />
       ) : null}
 

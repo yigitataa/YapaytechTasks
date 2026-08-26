@@ -12,7 +12,13 @@ function App() {
   const location = useLocation()
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setIsPageLoading(false), 720)
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
+    const timer = window.setTimeout(
+      () => setIsPageLoading(false),
+      reduceMotion ? 0 : 720,
+    )
 
     return () => window.clearTimeout(timer)
   }, [])
@@ -25,6 +31,10 @@ function App() {
     <div className="app-shell">
       {isPageLoading ? <PageLoader /> : null}
 
+      <a className="skip-link" href="#main-content">
+        Ana içeriğe geç
+      </a>
+
       <div className="theme-orbs" aria-hidden="true">
         <span className="theme-orb theme-orb--blue" />
         <span className="theme-orb theme-orb--purple" />
@@ -33,7 +43,7 @@ function App() {
 
       <SiteHeader />
 
-      <main id="main-content" className="main-content">
+      <main id="main-content" className="main-content" tabIndex="-1">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<ProductListPage />} />
           <Route path="/products/:productId" element={<ProductDetailPage />} />

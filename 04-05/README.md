@@ -2,7 +2,7 @@
 
 Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışacağı küçük ölçekli bir e-ticaret uygulaması için hazırlanmıştır.
 
-Şu anda **Aşama 7 - Sepet Yönetimi, Adetler ve Toplamlar** uygulanmıştır. **Yata Market** adlı React arayüzünde arama, kategori filtresi ve fiyat sıralaması birlikte çalışır. Ürünler katalog kartından veya detay sayfasından sepete eklenebilir; aynı ürün yeniden eklendiğinde mevcut adedi artar. Sepet sayfasında adet değiştirme, tek ürünü kaldırma, sepeti temizleme ve doğru toplamları görme işlemleri bulunur. Mavi-mor geçişli tema, responsive düzen ve erişilebilir hareket tercihleri korunur. Aşama 4'te tamamlanan backend CRUD sözleşmesi değişmemiştir. Son Aşama 7 değişiklikleri kullanıcının isteğiyle otomatik test edilmemiştir ve manuel kontrole bağlıdır.
+Şu anda **Aşama 8 - UI Durumları, Responsive Kullanım ve Temel Erişilebilirlik** uygulanmıştır. **Yata Market** arayüzündeki liste, detay, arama/filtre/sıralama ve sepet işlevleri korunmuştur. API yüklenmesi skeleton ile; ağ hatası kullanıcı dostu mesaj ve çalışan yeniden deneme eylemiyle; boş katalog, eşleşmeyen arama, bilinmeyen ürün ve bilinmeyen route birbirinden farklı görünümlerle ele alınır. Görsel fallback, klavye odakları, ana içeriğe atlama bağlantısı, aktif navigasyon bilgisi, erişilebilir sepet bildirimleri ve responsive düzen iyileştirilmiştir. Kullanıcının isteği gereği Aşama 8 değişikliklerinden sonra otomatik test çalıştırılmamıştır; sonuç manuel kontrole bağlıdır.
 
 ## Kullanılan teknolojiler
 
@@ -106,6 +106,17 @@ Sepet kullanımı:
 - Sepet yalnız React belleğinde tutulur. Sayfa yenilendiğinde sıfırlanması beklenen davranıştır; yenilemede kalıcılık bonusu uygulanmamıştır.
 
 Arayüz hareketleri `prefers-reduced-motion` tercihini destekler. İşletim sisteminde azaltılmış hareket etkinse dekoratif giriş, gradient ışık ve yükleyici animasyonları yaklaşık sıfır süreye indirilir.
+
+UI durumları:
+
+- **Loading:** Liste kartlarını veya detay yerleşimini taklit eden skeleton görünür.
+- **Error:** Teknik hata ayrıntıları yerine Türkçe açıklama ve gerçekten yeni istek başlatan **Yeniden dene** düğmesi görünür.
+- **Empty:** Backend başarılı biçimde boş dizi döndürdüğünde katalog boş durumu görünür.
+- **No results:** Arama ve kategori seçimleri ürün bırakmadığında hata yerine seçimleri temizleme eylemi görünür.
+- **Not found:** Bilinmeyen ürün ve frontend adresleri ayrı 404 mesajıyla kataloğa dönüş sunar.
+- **Success:** Ürünler, filtre kontrolleri ve sepet normal etkileşimli görünümlerine geçer.
+
+Aşama 8 durum ve responsive kararlarının ayrıntısı [UI durumları ve erişilebilirlik belgesinde](./docs/ui-states-responsive-accessibility.md) bulunur.
 
 ## Backend kurulumu ve çalıştırma
 
@@ -315,7 +326,7 @@ PowerShell ile kopyalanabilir POST, PATCH ve DELETE örnekleri için [API doküm
 
 ## Bu aşamanın sınırı
 
-Aşama 7, ortak sepet state'ini, adet yönetimini ve toplam hesaplarını ekler. Aşağıdakiler bilinçli olarak henüz eklenmemiştir:
+Aşama 8 mevcut kullanıcı akışlarının durum, responsive ve temel erişilebilirlik kalitesini geliştirir. Yeni ürün veya sepet özelliği eklemez. Aşağıdakiler bilinçli olarak henüz eklenmemiştir:
 
 - Favoriler ve kalıcı istemci state'i.
 - Bonus fiyat aralığı filtresi ve sayfalama.

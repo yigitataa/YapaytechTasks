@@ -3,6 +3,8 @@ function LoadingState({ variant = 'list' }) {
     return (
       <section
         className="detail-skeleton component-enter component-enter--detail"
+        role="status"
+        aria-live="polite"
         aria-busy="true"
         aria-label="Ürün detayı yükleniyor"
       >
@@ -14,6 +16,8 @@ function LoadingState({ variant = 'list' }) {
           <div className="skeleton skeleton--line" />
           <div className="skeleton skeleton--line" />
           <div className="skeleton skeleton--medium" />
+          <div className="skeleton skeleton--button" />
+          <div className="skeleton skeleton--meta" />
         </div>
         <span className="sr-only">Ürün detayı yükleniyor</span>
       </section>
@@ -21,7 +25,13 @@ function LoadingState({ variant = 'list' }) {
   }
 
   return (
-    <div className="product-grid" aria-busy="true" aria-label="Ürünler yükleniyor">
+    <div
+      className="product-grid"
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+      aria-label="Ürünler yükleniyor"
+    >
       {Array.from({ length: 8 }, (_, index) => (
         <div
           className="product-card product-card--skeleton component-enter component-enter--card"
@@ -34,7 +44,10 @@ function LoadingState({ variant = 'list' }) {
             <div className="skeleton skeleton--short" />
             <div className="skeleton skeleton--title" />
             <div className="skeleton skeleton--line" />
+          </div>
+          <div className="product-card__footer product-card__footer--skeleton">
             <div className="skeleton skeleton--price" />
+            <div className="skeleton skeleton--quick-action" />
           </div>
         </div>
       ))}

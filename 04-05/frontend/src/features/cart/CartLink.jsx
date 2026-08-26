@@ -1,4 +1,4 @@
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import CartBadge from './CartBadge.jsx'
 import { useCart } from './useCart.js'
 
@@ -14,12 +14,14 @@ function CartIcon() {
 
 function CartLink() {
   const { totalQuantity } = useCart()
+  const location = useLocation()
 
   return (
     <Link
       className="cart-link"
       to="/cart"
       aria-label={`Sepet, ${totalQuantity} ürün`}
+      aria-current={location.pathname === '/cart' ? 'page' : undefined}
     >
       <CartIcon />
       <span>Sepet</span>

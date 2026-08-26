@@ -16,7 +16,6 @@ import {
 function ProductListPage() {
   const [products, setProducts] = useState([])
   const [status, setStatus] = useState('loading')
-  const [errorMessage, setErrorMessage] = useState('')
   const [requestNumber, setRequestNumber] = useState(0)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState(ALL_CATEGORIES)
@@ -43,7 +42,6 @@ function ProductListPage() {
 
     async function loadProducts() {
       setStatus('loading')
-      setErrorMessage('')
 
       try {
         const data = await getProducts({ signal: controller.signal })
@@ -51,7 +49,6 @@ function ProductListPage() {
         setStatus('success')
       } catch (error) {
         if (error.name !== 'AbortError') {
-          setErrorMessage(error.message)
           setStatus('error')
         }
       }
@@ -92,7 +89,7 @@ function ProductListPage() {
         {status === 'loading' ? <LoadingState /> : null}
         {status === 'error' ? (
           <ErrorState
-            message={errorMessage}
+            message="Ürünler yüklenemedi. Bağlantını kontrol edip yeniden deneyebilirsin."
             onRetry={() => setRequestNumber((current) => current + 1)}
           />
         ) : null}
