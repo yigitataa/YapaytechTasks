@@ -64,14 +64,20 @@ Bu dosya teslim için zorunlu bir özellik değildir. Her aşamada ne yaptığı
 
 ## Aşama 4 - Backend CRUD, validasyon ve hata yönetimi
 
-- **Hangi ihtiyacı çözdüm?** _Doldurulacak._
-- **Ne öğrendim?** _Doldurulacak._
-- **Veri hangi dosyalar/katmanlar arasında hareket etti?** _Doldurulacak._
-- **En önemli state veya veri yapısı neydi?** _Doldurulacak._
-- **Hangi hata veya sınır senaryosunu ele aldım?** _Doldurulacak._
-- **Hangi teknik kararı neden verdim?** _Doldurulacak._
-- **Hangi testi yaptım; kanıtım neydi?** _Doldurulacak._
-- **Anlamadığım konular / sorularım:** _Doldurulacak._
+- **Hangi ihtiyacı çözdüm?**
+  - Api Tarafındaki CRUD operasyonlarını hayata geçirdim. Bundan sonra projemde ürün ekleme, okuma, güncelleme, silme işlemleri yapabiliriz
+- **Ne öğrendim?**
+  - CRUD işlemlerinin teknik detaylarını ve bunları nasıl test etmem gerektiğini öğrendim.
+- **Veri hangi dosyalar/katmanlar arasında hareket etti?**
+  - Anlık olarak sorguları terminal üzerinden gerçekleştirdik. Yani sadece backend katmanında veriyi kullandık.
+- **Hangi hata veya sınır senaryosunu ele aldım?**
+  - Sorgunun yanlış yapılması, parametrelerin eksik girilmesi, parametrelerin kurallara uygun olmaması (negatif fiyat girme vb.) senaryoları değerlendirdim.
+- **Hangi teknik kararı neden verdim?**
+  - Teknik kararları alırken genel olarak yapının basitliğini korumayı ve fazladan materyal kullanmamaya özen gösterdim. Bu nedenle genel olarak teknik çözümleri seçerken seçeneklerden mevcut paketlerle çözebileceğim alternatiflere odaklandım.
+- **Hangi testi yaptım; kanıtım neydi?**
+  - CRUD testleri ve hata testleri yaptım. Öncesinde alınması gereken çıktıları netleştirdim ve testleri bu sonuçlara göre yaptım. Daha sonrasında ise sonuçları bu önizlemelerle karşılaştırdım. Hata kodları ve fonksiyonun çıktı etkisini değerlendirdim.
+- **Anlamadığım konular / sorularım:**
+  - Bu aşamada anlamadığım bir konu yok.
 
 ## Aşama 5 - Frontend ürün liste ve detay
 

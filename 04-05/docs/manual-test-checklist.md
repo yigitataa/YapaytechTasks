@@ -55,6 +55,31 @@ Notlar:
 - [ ] **MT-A3-006 - Yeniden başlatma** (`REQ-003`): Backend durdurulup açıldığında aynı 10 başlangıç ürünü yeniden gelir.
 - [ ] **MT-A3-007 - Yazma kapsamı sınırı**: `POST`, `PUT`, `PATCH` ve `DELETE` ürün endpoint'leri uygulanmış veya README'de çalışıyor gibi gösterilmiş değildir.
 
+### Aşama 4 - CRUD, validasyon ve hata yönetimi
+
+Bu testleri çalıştırmadan önce README'deki komutla backend'i başlat. Windows PowerShell 5.1 ve PowerShell 7 ile uyumlu, kopyalanabilir request örnekleri [API dokümantasyonunda](./api.md#powershell-ile-hızlı-crud-zinciri) bulunur.
+
+- [ ] **MT-A4-001 - Başlangıç listesi** (`REQ-014`): `GET /api/products` `200` ve 10 başlangıç ürünü döndürür.
+- [ ] **MT-A4-002 - Ürün oluşturma** (`REQ-016`): Geçerli POST `201` ve oluşturulan ürün nesnesini döndürür.
+- [ ] **MT-A4-003 - Backend kimliği** (`REQ-016`): Cevap dolu ve benzersiz bir `id` içerir; istemci kimliği belirleyemez.
+- [ ] **MT-A4-004 - Oluşturulan ürünü okuma** (`REQ-015`, `REQ-016`): Yeni kimlikle GET `200` ve POST cevabındaki aynı ürünü döndürür.
+- [ ] **MT-A4-005 - Oluşturulan ürünü listede görme** (`REQ-014`, `REQ-016`): Yeni ürün sonraki listede bulunur.
+- [ ] **MT-A4-006 - Kısmi güncelleme** (`REQ-017`): Yalnız `price` gönderen PATCH `200` döndürür; fiyat değişir, gönderilmeyen alanlar korunur.
+- [ ] **MT-A4-007 - Ürün silme** (`REQ-018`): DELETE `204` ve tamamen boş response body döndürür.
+- [ ] **MT-A4-008 - Silinen ürünü okuma** (`REQ-019`): Silinen kimliğin GET isteği `404` ve JSON ürün-bulunamadı mesajı döndürür.
+- [ ] **MT-A4-009 - Eksik ad** (`REQ-019`): `name` olmadan POST `400` ve `details.name` döndürür.
+- [ ] **MT-A4-010 - Negatif fiyat** (`REQ-019`): Negatif `price` ile POST `400` ve `details.price` döndürür.
+- [ ] **MT-A4-011 - Metin fiyat** (`REQ-019`): Metin türündeki `price` ile POST `400` ve `details.price` döndürür.
+- [ ] **MT-A4-012 - Eksik kategori** (`REQ-019`): `category` olmadan POST `400` ve `details.category` döndürür.
+- [ ] **MT-A4-013 - Boş güncelleme** (`REQ-019`): `{}` body ile PATCH `400` ve neyin eksik olduğunu açıklayan JSON döndürür.
+- [ ] **MT-A4-014 - Bilinmeyen ürünü güncelleme** (`REQ-019`): Geçerli body ile bilinmeyen kimliğe PATCH `404` döndürür.
+- [ ] **MT-A4-015 - Bilinmeyen ürünü silme** (`REQ-019`): Bilinmeyen kimliğe DELETE `404` döndürür.
+- [ ] **MT-A4-016 - Bilinmeyen API route'u** (`REQ-019`): Bilinmeyen route `404`, JSON içerik türü ve `Endpoint bulunamadı` mesajı döndürür.
+- [ ] **MT-A4-017 - İstemci kimliğini reddetme** (`REQ-016`, `REQ-019`): POST body içindeki `id` `400` ve backend-kimliği açıklamasıyla reddedilir.
+- [ ] **MT-A4-018 - Geçersiz JSON** (`REQ-019`): Bozuk JSON body `400` ve `Geçersiz JSON gövdesi` mesajı döndürür; backend çalışmaya devam eder.
+- [ ] **MT-A4-019 - Yeniden başlatma sınırı** (`REQ-003`): Backend yeniden başlayınca geçici CRUD değişiklikleri kaybolur ve 10 başlangıç ürünü geri gelir.
+- [ ] **MT-A4-020 - Health gerileme kontrolü** (`REQ-002`, `REQ-022`): Bütün hata senaryolarından sonra `/api/health` hâlâ `200` ve `{"status":"ok"}` döndürür.
+
 ## 3. Ürün liste ve detay
 
 - [ ] **MT-PRD-001 - Liste görünümü** (`REQ-004`, `REQ-020`): Backend'den gelen ürünler okunabilir biçimde listelenir.
@@ -122,6 +147,7 @@ Yalnızca ilgili bonus bilinçli olarak seçilip geliştirildiyse doldur:
 | - | Aşama 1 - yalnızca dokümantasyon | 0 | 0 | Tümü | - | Uygulama henüz oluşturulmadı. |
 | 2026-08-25 | Aşama 2 - otomatik kontroller | 13 | 0 | Kullanıcı manuel testleri | Codex | Kurulum, lint, build, syntax, iki dev server, health/CORS, yeniden başlatma ve tarayıcı konsolu doğrulandı. |
 | 2026-08-25 | Aşama 3 - otomatik kontroller | 19 | 0 | Kullanıcı manuel testleri | Codex | Health, ürün liste/detay, veri kalitesi, JSON 404, kapsam sınırı, yeniden başlatma ve süreç temizliği doğrulandı. |
+| 2026-08-26 | Aşama 4 - otomatik kontroller | 48 | 0 | Kullanıcı manuel testleri | Codex | 38 gerçek süreç/API doğrulaması, 7 validator sınır kontrolü, backend syntax, frontend lint ve son süreç/port temizliği geçti. |
 
 ## Aşama 2 otomatik doğrulama kaydı
 
@@ -163,3 +189,32 @@ Bu sonuçlar kullanıcının Aşama 3 manuel test kutularının yerine geçmez; 
 | Yeniden başlatma | Geçti | Backend durdurulup yeniden başlatıldı. |
 | Başlangıç verisinin geri yüklenmesi | Geçti | Yeniden başlatmadan önce ve sonra liste 10 üründü; SHA-256 özeti aynı kaldı. |
 | Süreç temizliği | Geçti | Geçici backend süreci kapatıldı ve port `3000` boş bırakıldı. |
+
+## Aşama 4 otomatik doğrulama kaydı
+
+Bu sonuçlar kullanıcının Aşama 4 manuel test kutularının yerine geçmez. Gerçek backend süreci iki kez başlatılmış, gerçek HTTP istekleri yapılmış ve süreçler test sonunda kapatılmıştır.
+
+| Kontrol | Sonuç | Kanıt özeti |
+|---|---|---|
+| Değişiklik öncesi Aşama 3 kontrolü | Geçti | `npm run check`; health `200`; liste `200`/10 ürün; `p-001` detay `200`; bilinmeyen kimlik JSON `404`. |
+| Backend syntax | Geçti | Güncel `npm run check` bütün app/server/data/error/validator/service/controller/route/middleware dosyalarında çıkış kodu `0` verdi. Backend'de ayrıca lint veya test script'i bulunmadı. |
+| Frontend lint gerileme kontrolü | Geçti | Frontend değiştirilmedi; mevcut `npm run lint` yine de çalıştırıldı ve çıkış kodu `0` verdi. Frontend/backend paketlerinde test script'i bulunmadı. |
+| Başlangıç veri kalitesi | Geçti | Liste 10 ürün/6 kategori içerdi; 10/10 kimlik benzersiz, bütün fiyatlar pozitif sonlu sayı ve temel alanlar doğru türdeydi. |
+| Eski GET sözleşmeleri | Geçti | Health `200 {"status":"ok"}`; liste doğrudan JSON dizisi; `p-001` detayı listedeki nesneyle birebir eşleşti. |
+| Ürün oluşturma | Geçti | POST `201`; gerçek üretilen kimlik `26ca50bf-6059-4ac7-9d35-f433319a01d8`; ürün detaydan geldi ve liste 10'dan 11'e çıktı. |
+| Kimlik benzersizliği | Geçti | Yeni kimlik Node.js `randomUUID()` biçimindeydi; oluşturma sonrasında 11/11 kimlik benzersizdi. |
+| Kısmi güncelleme | Geçti | Yalnız fiyat PATCH edildi; `200`, fiyat `1499`; ad, açıklama, kategori ve görsel adresi korundu. |
+| Silme | Geçti | DELETE `204` ve response body tam `0` bayt; aynı kimliğin sonraki GET isteği `404 {"message":"Ürün bulunamadı"}`. |
+| Oluşturma validasyonu | Geçti | Eksik ad, negatif fiyat, metin fiyat ve eksik kategori ayrı isteklerde `400`; ilgili alan `details` içinde açıklandı. |
+| Validator sınırları | Geçti | 7/7: boşluk adı, sayısal kategori, sayısal açıklama/görsel, metin trim, isteğe bağlı alan varsayılanları ve nesne olmayan body doğru ele alındı. |
+| Güncelleme validasyonu | Geçti | `{}` PATCH `400`; `details.body` en az bir güncellenebilir alan istedi. |
+| Bulunamayan yazma işlemleri | Geçti | Bilinmeyen kimliğe geçerli PATCH ve DELETE ayrı ayrı `404 {"message":"Ürün bulunamadı"}` döndürdü. |
+| Bilinmeyen API route'u | Geçti | `GET /api/bilinmeyen-route` `404`, `application/json` ve `{"message":"Endpoint bulunamadı"}` döndürdü. |
+| Geçersiz JSON | Geçti | Sözdizimi bozuk POST body `400 {"message":"Geçersiz JSON gövdesi"}` döndürdü; süreç çalışmaya devam etti. |
+| İstemci `id` alanı | Geçti | İstemci kimliği içeren POST `400`; `details.id` kimliğin backend tarafından üretildiğini belirtti. |
+| Diğer bilinmeyen alan | Geçti | `stock` içeren POST `400`; `details.stock` alanı “Desteklenmeyen alan” dedi. |
+| Kapsam sınırı | Geçti | PUT route'u eklenmedi; istek ortak JSON `404` cevabına gitti. Frontend dosyaları değiştirilmedi. |
+| Güvenli 500 | Geçti | Gerçek `errorHandler`, beklenmeyen `Error("gizli-iç-hata")` için yalnız `500 {"message":"Sunucu hatası"}` üretti; iç mesaj ve stack sızmadı. |
+| Hata sonrası gerileme kontrolü | Geçti | Tüm hata isteklerinden sonra health tekrar `200`, ürün listesi tekrar `200` ve 10 ürün döndürdü. |
+| Yeniden başlatma/kalıcılık sınırı | Geçti | Geçici ürünle liste 11 oldu; süreç durdurulup başlatılınca ürün kayboldu ve liste 10 başlangıç ürününe döndü. |
+| Süreç temizliği | Geçti | İki geçici backend süreci güvenli biçimde kapatıldı; son kontrolde port `3000` boştu. |

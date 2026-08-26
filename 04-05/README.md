@@ -2,7 +2,7 @@
 
 Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışacağı küçük ölçekli bir e-ticaret uygulaması için hazırlanmıştır.
 
-Şu anda **Aşama 3 - Backend Ürün Okuma API'si** uygulanmıştır. React başlangıç ekranı korunur; Express backend sağlık kontrolünün yanında ürün listeleme ve ürün detayı okuma işlemlerini destekler. Ürün oluşturma, güncelleme, silme, frontend ürün ekranları, arama, filtre, sıralama ve sepet henüz uygulanmamıştır.
+Şu anda **Aşama 4 - Backend CRUD, Validasyon ve Hata Yönetimi** uygulanmıştır. React başlangıç ekranı korunur; Express backend sağlık kontrolü ile ürün listeleme, detay, oluşturma, kısmi güncelleme ve silme işlemlerini destekler. Frontend ürün ekranları, arama, filtre, sıralama ve sepet henüz uygulanmamıştır.
 
 ## Kullanılan teknolojiler
 
@@ -19,10 +19,12 @@ Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışac
   backend/
     src/
       data/        Başlangıç ürün dizisi
-      services/    Ürün verisini okuma işlemleri
+      services/    Ürün verisini okuma ve değiştirme işlemleri
       controllers/ HTTP isteği ve cevap yönetimi
       routes/      Endpoint-controller eşleştirmesi
       middleware/  Ortak 404 ve hata cevapları
+      validators/  Ürün request body kuralları
+      errors/      Kontrollü uygulama hatası sınıfı
       app.js        Express yapılandırması
       server.js     Port dinleme işlemi
   docs/            Gereksinim, karar ve öğrenme belgeleri
@@ -100,14 +102,17 @@ Beklenen cevap ve durum kodu:
 }
 ```
 
-## Ürün okuma API'si
+## Ürün CRUD API'si
 
 Ürün verileri backend içindeki JavaScript dizisinde tutulur. Başlangıç veri kümesinde 10 ürün ve 6 kategori vardır.
 
-| Yöntem | Endpoint | Başarı | Bulunamadı | Açıklama |
+| Yöntem | Endpoint | Başarı | Temel hata | Açıklama |
 |---|---|---|---|---|
-| `GET` | `/api/products` | `200` ve JSON dizisi | - | Bütün başlangıç ürünlerini döndürür. |
-| `GET` | `/api/products/:id` | `200` ve JSON nesnesi | `404` ve JSON mesajı | Kimliği verilen tek ürünü döndürür. |
+| `GET` | `/api/products` | `200` ve JSON dizisi | - | Bütün ürünleri döndürür. |
+| `GET` | `/api/products/:id` | `200` ve JSON nesnesi | `404` | Kimliği verilen tek ürünü döndürür. |
+| `POST` | `/api/products` | `201` ve oluşturulan ürün | `400` | Doğrulanmış body ile ürün oluşturur; `id` değerini backend üretir. |
+| `PATCH` | `/api/products/:id` | `200` ve güncel ürün | `400`, `404` | Yalnız gönderilen desteklenen alanları değiştirir. |
+| `DELETE` | `/api/products/:id` | `204`, boş gövde | `404` | Ürünü çalışan süreçteki bellek dizisinden siler. |
 
 Ürün modeli:
 
@@ -147,7 +152,21 @@ GET http://localhost:3000/api/products/bilinmeyen-id
 }
 ```
 
-Bu aşamada yalnızca `GET` ürün işlemleri vardır. `POST`, `PUT`, `PATCH` ve `DELETE` henüz desteklenmez.
+Geçerli ürün oluşturma body örneği:
+
+```json
+{
+  "name": "USB-C Masa Şarjı",
+  "description": "Çoklu cihazlar için masaüstü şarj ünitesi.",
+  "price": 1899,
+  "category": "Elektronik",
+  "imageUrl": "https://example.com/usb-c-sarj.png"
+}
+```
+
+`name`, `price` ve `category` oluştururken zorunludur. `description` ile `imageUrl` isteğe bağlıdır. Fiyat sonlu, sayısal ve sıfırdan büyük olmalıdır. Bilinmeyen alanlar ve istemciden gelen `id` kontrollü `400` ile reddedilir. Validasyon cevabı genel `message` yanında alan bazlı `details` içerebilir.
+
+Tam endpoint sözleşmeleri, örnekler ve hata cevapları [docs/api.md](./docs/api.md) içindedir. Bu projede güncelleme için yalnız `PATCH` desteklenir; `PUT` eklenmemiştir.
 
 Backend için kullanılabilir npm script'leri:
 
@@ -225,7 +244,7 @@ npm run check
 Backend çalışırken başka bir PowerShell terminalinden sağlık endpoint'ini kontrol etmek için:
 
 ```powershell
-$response = Invoke-WebRequest http://localhost:3000/api/health
+$response = Invoke-WebRequest http://localhost:3000/api/health -UseBasicParsing
 $response.StatusCode
 $response.Content
 ```
@@ -239,16 +258,16 @@ Invoke-RestMethod http://localhost:3000/api/products
 Invoke-RestMethod http://localhost:3000/api/products/p-001
 ```
 
+PowerShell ile kopyalanabilir POST, PATCH ve DELETE örnekleri için [API dokümantasyonundaki hızlı CRUD zincirini](./docs/api.md#powershell-ile-hızlı-crud-zinciri) kullan.
+
 ## Bu aşamanın sınırı
 
-Aşama 3 yalnızca backend ürün okuma işlemlerini ekler. Aşağıdakiler bilinçli olarak henüz eklenmemiştir:
+Aşama 4 yalnızca backend ürün CRUD, validasyon ve hata yönetimini tamamlar. Aşağıdakiler bilinçli olarak henüz eklenmemiştir:
 
-- `POST`, `PUT`, `PATCH` veya `DELETE` ürün endpoint'leri.
-- Ürün oluşturma/güncelleme validasyonu.
 - React ürün sayfaları.
 - Arama, filtreleme, sıralama veya sepet.
 - Veritabanı ve authentication.
 - Ödeme, sipariş ve bonus özellikler.
 - Test framework'ü veya deployment yapılandırması.
 
-Ürün dizisi kalıcı değildir. Backend yeniden başladığında `backend/src/data/products.js` içindeki 10 başlangıç ürünü yeniden yüklenir; çalışma zamanındaki olası değişiklikler dosyaya veya veritabanına yazılmaz.
+Ürün dizisi kalıcı değildir. POST, PATCH ve DELETE işlemleri yalnız çalışan backend sürecinin belleğini değiştirir. Backend yeniden başladığında `backend/src/data/products.js` içindeki 10 başlangıç ürünü yeniden yüklenir; çalışma zamanı değişiklikleri dosyaya veya veritabanına yazılmaz.
