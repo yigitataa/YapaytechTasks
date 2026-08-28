@@ -1,10 +1,19 @@
-import { useCallback, useMemo, useReducer } from 'react'
+import { useCallback, useEffect, useMemo, useReducer } from 'react'
 import { CartContext } from './cartContext.js'
 import { CART_ACTIONS, cartReducer, initialCartState } from './cartReducer.js'
 import { selectCartSubtotal, selectTotalQuantity } from './cartSelectors.js'
+import { loadCartState, saveCartState } from './cartStorage.js'
 
 function CartProvider({ children }) {
-  const [state, dispatch] = useReducer(cartReducer, initialCartState)
+  const [state, dispatch] = useReducer(
+    cartReducer,
+    initialCartState,
+    () => loadCartState(),
+  )
+
+  useEffect(() => {
+    saveCartState(state)
+  }, [state])
 
   const addItem = useCallback((product) => {
     dispatch({ type: CART_ACTIONS.ADD_ITEM, payload: product })
