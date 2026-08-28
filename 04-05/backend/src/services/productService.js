@@ -5,6 +5,20 @@ export function getAllProducts() {
   return products
 }
 
+export function getPaginatedProducts({ page, limit }) {
+  const totalItems = products.length
+  const totalPages = Math.ceil(totalItems / limit)
+  const offset = (page - 1) * limit
+
+  return {
+    items: products.slice(offset, offset + limit),
+    page,
+    limit,
+    totalItems,
+    totalPages,
+  }
+}
+
 export function getProductById(id) {
   return products.find((product) => product.id === id)
 }

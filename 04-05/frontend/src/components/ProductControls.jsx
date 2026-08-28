@@ -13,11 +13,16 @@ function ProductControls({
   searchTerm,
   selectedCategory,
   sortBy,
+  minPrice,
+  maxPrice,
+  priceRangeError,
   categories,
   hasActiveControls,
   onSearchChange,
   onCategoryChange,
   onSortChange,
+  onMinPriceChange,
+  onMaxPriceChange,
   onClear,
 }) {
   return (
@@ -85,6 +90,46 @@ function ProductControls({
           <option value={SORT_OPTIONS.PRICE_DESCENDING}>Fiyat: yüksekten düşüğe</option>
         </select>
       </div>
+
+      <fieldset
+        className="control-field control-field--price"
+        aria-describedby={priceRangeError ? 'price-range-error' : undefined}
+      >
+        <legend>Fiyat aralığı</legend>
+        <div className="price-range-inputs">
+          <label>
+            <span>Minimum</span>
+            <input
+              type="number"
+              min="0"
+              step="1"
+              inputMode="decimal"
+              value={minPrice}
+              placeholder="0"
+              aria-invalid={Boolean(priceRangeError)}
+              onChange={(event) => onMinPriceChange(event.target.value)}
+            />
+          </label>
+          <label>
+            <span>Maksimum</span>
+            <input
+              type="number"
+              min="0"
+              step="1"
+              inputMode="decimal"
+              value={maxPrice}
+              placeholder="5000"
+              aria-invalid={Boolean(priceRangeError)}
+              onChange={(event) => onMaxPriceChange(event.target.value)}
+            />
+          </label>
+        </div>
+        {priceRangeError ? (
+          <p id="price-range-error" className="control-field__error" role="alert">
+            {priceRangeError}
+          </p>
+        ) : null}
+      </fieldset>
 
       <button
         className="button button--secondary product-controls__clear"

@@ -2,7 +2,7 @@
 
 Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışacağı küçük ölçekli bir e-ticaret uygulaması için hazırlanmıştır.
 
-Şu anda zorunlu Aşama 10'un ardından **Aşama 11A - Sepetin Sayfa Yenilendiğinde Korunması** bonusu uygulanmıştır. **Yata Market** zorunlu özellikleri tamamlanmış, API ve test dokümanları gerçek kodla eşleştirilmiş ve sepet `localStorage` ile kalıcı hâle getirilmiştir. Gerçek tarayıcı, responsive görünüm, klavye ve kullanıcı akışları kullanıcı tarafından manuel doğrulanmalıdır; bu kontroller tamamlanana kadar teslim durumu **manuel kontrole bağlıdır**.
+Zorunlu Aşama 10'un ardından kaynak görevdeki **altı bonus özelliğin tamamı Aşama 11'de uygulanmıştır**. Yata Market; kalıcı sepet, fiyat aralığı, favoriler, backend loglama, sayfalama ve demo ürün yönetimi içerir. Gerçek tarayıcı, responsive görünüm, klavye ve kullanıcı akışları kullanıcı tarafından manuel doğrulanmalıdır; bu kontroller tamamlanana kadar teslim durumu **manuel kontrole bağlıdır**.
 
 ## Kullanılan teknolojiler
 
@@ -30,9 +30,9 @@ Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışac
     src/
       api/          Express ürün API'siyle ortak iletişim
       components/   Kart, görsel, fiyat ve UI durumları
-      features/cart/ Sepet Context, reducer, storage, hesaplamalar ve bileşenler
-      pages/        Ürün listesi, detay, sepet ve 404 sayfaları
-      utils/        Para birimi biçimlendirme
+      features/     Sepet, favori ve ürün yönetimi state/yardımcı bileşenleri
+      pages/        Katalog, detay, sepet, favoriler, yönetim ve 404 sayfaları
+      utils/        Ürün türetme, sayfalama ve para biçimlendirme
       App.jsx       Frontend route eşleştirmeleri
     .env.example    İsteğe bağlı API taban adresi örneği
   backend/
@@ -41,8 +41,8 @@ Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışac
       services/    Ürün verisini okuma ve değiştirme işlemleri
       controllers/ HTTP isteği ve cevap yönetimi
       routes/      Endpoint-controller eşleştirmesi
-      middleware/  Ortak 404 ve hata cevapları
-      validators/  Ürün request body kuralları
+      middleware/  İstek loglama, ortak 404 ve hata cevapları
+      validators/  Ürün body ve sayfalama query kuralları
       errors/      Kontrollü uygulama hatası sınıfı
       app.js        Express yapılandırması
       server.js     Port dinleme işlemi
@@ -107,6 +107,8 @@ Frontend route'ları:
 | `/` | Backend'den gelen ürünlerin responsive kart listesi |
 | `/products/:productId` | Kimliği URL'den alınan tek ürün detayı |
 | `/cart` | Sepet ürünleri, adet kontrolleri ve toplam özeti |
+| `/favorites` | Ortak favori state'indeki ürünler |
+| `/manage-products` | Kimlik doğrulamasız demo CRUD yönetim ekranı |
 | Diğer adresler | Kontrollü “Sayfa bulunamadı” görünümü |
 
 Liste isteği `GET /api/products`, detay isteği `GET /api/products/:id` endpoint'ini kullanır. Ürün dizisi frontend kaynak koduna kopyalanmamıştır.
@@ -115,10 +117,16 @@ Katalog kontrolleri:
 
 - **Ürün ara:** Yalnız ürün adında, büyük/küçük harf ve Türkçe karakter farklarına duyarsız kısmi eşleşme yapar.
 - **Kategori:** Seçenekleri backend'den gelen ürünlerin benzersiz kategorilerinden üretir; “Tüm kategoriler” filtreyi kaldırır.
+- **Fiyat aralığı:** Minimum ve maksimum değerler tek başına veya birlikte kullanılabilir; geçersiz aralık açıklanır.
 - **Sırala:** “Fiyat: düşükten yükseğe” ve “Fiyat: yüksekten düşüğe” seçeneklerini sunar. “Önerilen sıra” API sırasını korur.
-- **Seçimleri temizle:** Arama, kategori ve sıralamayı birlikte başlangıç değerlerine döndürür.
+- **Sayfalama:** Birleşik arama/filtre/sıralama sonucu altışar ürün olarak gösterilir; kontrol değişince ilk sayfaya dönülür.
+- **Seçimleri temizle:** Arama, kategori, fiyat sınırları, sıralama ve sayfayı başlangıç değerlerine döndürür.
 
-Kontroller anlık ve birlikte uygulanır. Sonuç yoksa bu durum API hatası sayılmaz; “Aramana uygun ürün bulunamadı” paneli ve “Tüm ürünleri göster” düğmesi görünür. Detay sayfasına gidip listeye dönüldüğünde veya sayfa yenilendiğinde seçimler sıfırlanır; Aşama 6'da URL ya da tarayıcı depolamasıyla kalıcılık eklenmemiştir.
+Kontroller anlık ve birlikte uygulanır. Sonuç yoksa bu durum API hatası sayılmaz; “Aramana uygun ürün bulunamadı” paneli ve “Tüm ürünleri göster” düğmesi görünür. Detay sayfasına gidip listeye dönüldüğünde veya sayfa yenilendiğinde katalog seçimleri sıfırlanır; URL ya da tarayıcı depolamasıyla filtre kalıcılığı eklenmemiştir.
+
+Favoriler sepetten bağımsız Context/reducer state'idir. Katalog ve detay düğmeleri aynı benzersiz kimlik listesini değiştirir; `/favorites` yalnız seçilen ürünleri gösterir. Favoriler bu sürümde tarayıcı yenilemesinde korunmaz.
+
+`/manage-products`, mevcut POST/PATCH/DELETE API'sine bağlı oluşturma, düzenleme ve onaylı silme işlemleri sunar. Authentication/yetkilendirme içermediği için gerçek bir yönetici paneli değildir; eğitim/demo ekranıdır. Değişiklikler backend belleğinde olduğu için yeniden başlatmada sıfırlanır.
 
 Sepet kullanımı:
 
@@ -183,7 +191,7 @@ Beklenen cevap ve durum kodu:
 
 | Yöntem | Endpoint | Başarı | Temel hata | Açıklama |
 |---|---|---|---|---|
-| `GET` | `/api/products` | `200` ve JSON dizisi | - | Bütün ürünleri döndürür. |
+| `GET` | `/api/products` | `200`; query yoksa dizi, `page/limit` varsa sayfalı nesne | `400` | Bütün veya sayfalı ürünleri döndürür. |
 | `GET` | `/api/products/:id` | `200` ve JSON nesnesi | `404` | Kimliği verilen tek ürünü döndürür. |
 | `POST` | `/api/products` | `201` ve oluşturulan ürün | `400` | Doğrulanmış body ile ürün oluşturur; `id` değerini backend üretir. |
 | `PATCH` | `/api/products/:id` | `200` ve güncel ürün | `400`, `404` | Yalnız gönderilen desteklenen alanları değiştirir. |
@@ -243,6 +251,8 @@ Geçerli ürün oluşturma body örneği:
 
 Tam endpoint sözleşmeleri, örnekler ve hata cevapları [docs/api.md](./docs/api.md) içindedir. Bu projede güncelleme için yalnız `PATCH` desteklenir; `PUT` eklenmemiştir.
 
+Backend tamamlanan istekleri varsayılan olarak yöntem, path, durum ve süreyle terminale loglar. `REQUEST_LOGGING=false` ile kapatılabilir; query değerleri, header ve body loglanmaz.
+
 Backend için kullanılabilir npm script'leri:
 
 - `npm run dev`: Sunucuyu dosya değişikliklerini izleyerek başlatır.
@@ -271,7 +281,7 @@ npm run lint
 npm run build
 ```
 
-Aşama 9 doğrulamasında backend testleri `11/11`, frontend testleri `21/21` geçmiştir. Backend testleri gerçek HTTP istekleri gönderir ve her testten önce bellek ürünlerini başlangıç durumuna getirir. Frontend testleri saf arama/filtre/sıralama, reducer ve toplam hesaplarını kapsar. Production build JSX componentlerinin derlenebilirliğini kontrol eder; gerçek tarayıcı davranışı, responsive görünüm, klavye ve görsel tasarım manuel kontrol listesine aittir.
+Aşama 11 son doğrulamasında backend testleri `19/19`, frontend testleri `54/54` geçmiştir. Backend testleri gerçek HTTP istekleri, CRUD, sayfalama ve log middleware'ini kapsar; ürün state'i testler arasında sıfırlanır. Frontend testleri arama/kategori/fiyat/sıralama, sayfalama, sepet/storage, favori reducer ve yönetim formu mantığını kapsar. Production build JSX componentlerinin derlenebilirliğini kontrol eder; gerçek tarayıcı davranışı, responsive görünüm, klavye ve görsel tasarım manuel kontrol listesine aittir.
 
 ## Frontend ve backend'i birlikte çalıştırma
 
@@ -315,10 +325,12 @@ Oluşturduğun `.env` dosyasındaki örnekler:
 ```dotenv
 PORT=3000
 CORS_ORIGIN=http://localhost:5180
+REQUEST_LOGGING=true
 ```
 
 - `PORT`, backend'in dinleyeceği portu belirler.
 - `CORS_ORIGIN`, tarayıcıdan backend'e erişmesine izin verilen frontend adresini belirler.
+- `REQUEST_LOGGING`, `false` olduğunda basit backend istek loglarını kapatır.
 - `.env` kişisel/yerel ayardır ve `.gitignore` nedeniyle Git'e eklenmez.
 - `.env.example` yalnızca gereken değişkenleri gösterir; hassas bilgi içermez ve Git'e eklenebilir.
 
@@ -377,27 +389,24 @@ PowerShell ile kopyalanabilir POST, PATCH ve DELETE örnekleri için [API doküm
 
 ## Bonus durumu ve bilinen sınırlamalar
 
-Uygulanan bonus:
+Kaynak görevin altı bonusu uygulanmıştır; bunlar zorunlu özelliklerin yerine geçmez:
 
-- **Sepetin sayfa yenilemesinde korunması:** `localStorage` ile uygulanmıştır (Aşama 11A).
-
-Aşağıdaki bonuslar zorunlu teslimin parçası değildir ve uygulanmamıştır:
-
-- Favoriler.
-- Fiyat aralığı filtresi.
-- Sayfalama.
-- Basit backend loglama.
-- Ürün yönetimi için ek frontend arayüzü.
+- **Sepetin sayfa yenilemesinde korunması:** `localStorage` ile uygulanmıştır.
+- **Fiyat aralığı filtresi:** Minimum/maksimum ve birleşik katalog kontrolleriyle uygulanmıştır.
+- **Favoriler:** Liste, detay, ortak state ve ayrı favoriler sayfasıyla uygulanmıştır.
+- **Basit backend loglama:** Yöntem, path, durum ve süreyi gizlilik sınırıyla kaydeder.
+- **Sayfalama:** API'de isteğe bağlı `page`/`limit`, frontend'de birleşik sonuç sonrası altışar ürün olarak uygulanmıştır.
+- **Ürün yönetim arayüzü:** `/manage-products` üzerinde oluşturma, düzenleme, validasyon ve onaylı silme sunar.
 
 Bilinen sınırlamalar:
 
 - Sepet yalnız aynı tarayıcı ve origin içindeki `localStorage` alanında korunur; başka tarayıcıya veya cihaza senkronize edilmez. Tarayıcı verisi temizlenirse sepet kaybolur.
 - Storage'daki sepet, ürünün temel bilgilerinin bir anlık kopyasını taşır; backend'de ürün daha sonra değiştirilir veya silinirse kayıt otomatik uzlaştırılmaz.
+- Favoriler storage'a yazılmaz ve sayfa yenilendiğinde sıfırlanır.
 - Backend CRUD değişiklikleri yalnız backend belleğinde yaşar ve backend yeniden başlatıldığında sıfırlanır; bu davranış sepet bonusundan bağımsızdır.
 - Backend query parametreleriyle sunucu tarafı arama, filtreleme veya sıralama.
-- Frontend ürün oluşturma, düzenleme veya silme arayüzü.
-- Veritabanı ve authentication.
-- Ödeme, sipariş ve uygulanmayan diğer bonus özellikler.
+- Yönetim arayüzünde authentication/yetkilendirme yoktur; üretim admin paneli olarak güvenli değildir.
+- Veritabanı, ödeme ve sipariş sistemi.
 - E2E/tarayıcı test altyapısı, coverage hedefi veya deployment yapılandırması.
 - Ürün görselleri harici `placehold.co` servisine bağlıdır; erişilemezse frontend fallback gösterir.
 

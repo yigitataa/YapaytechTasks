@@ -42,3 +42,16 @@ Bu tablo kaynak gereksinimlerini değiştirmez; [requirements.md](./requirements
 - Otomatik veya salt okunur denetimle **17 gereksinim geçti**.
 - Gerçek kullanıcı/tarayıcı veya son Git işlemi gerektiren **9 gereksinim manuel doğrulama bekliyor**.
 - Açıklanamayan **Kaldı** maddesi bulunmuyor.
+
+## Bonus izlenebilirliği
+
+Bonuslar zorunlu gereksinim durumlarını değiştirmez; aşağıdaki tablo Aşama 11 uygulama ve otomatik kanıtlarını gösterir.
+
+| Bonus | Kod kanıtı | Otomatik test kanıtı | Manuel durum |
+|---|---|---|---|
+| BON-001 Favoriler | `features/favorites`, `FavoritesPage.jsx` | 5 reducer testi | Kullanıcı akışı bekliyor |
+| BON-002 Fiyat aralığı | `deriveProducts.js`, `ProductControls.jsx` | 7 fiyat sınırı/birleşik test | Kullanıcı akışı bekliyor |
+| BON-003 Sayfalama | Pagination validator/service/component/utils | 4 backend + 5 frontend test | Kullanıcı akışı bekliyor |
+| BON-004 Sepet kalıcılığı | `cartStorage.js`, `CartProvider.jsx` | 10 storage testi | Gerçek yenileme bekliyor |
+| BON-005 Basit loglama | `requestLogger.js`, `app.js` | 4 logger testi | Terminal görünümü bekliyor |
+| BON-006 Ürün yönetimi | `features/admin`, `ProductManagementPage.jsx` | 6 form testi + mevcut CRUD HTTP testleri | Kullanıcı akışı bekliyor |

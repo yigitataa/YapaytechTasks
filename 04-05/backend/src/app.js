@@ -2,12 +2,18 @@ import cors from 'cors'
 import express from 'express'
 import { errorHandler } from './middleware/errorHandler.js'
 import { notFoundHandler } from './middleware/notFoundHandler.js'
+import { createRequestLogger } from './middleware/requestLogger.js'
 import productRouter from './routes/productRoutes.js'
 
 const app = express()
 const corsOrigin = process.env.CORS_ORIGIN ?? 'http://localhost:5180'
 
 app.disable('x-powered-by')
+app.use(
+  createRequestLogger({
+    enabled: process.env.REQUEST_LOGGING !== 'false',
+  }),
+)
 app.use(
   cors({
     origin: corsOrigin,

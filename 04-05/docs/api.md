@@ -21,7 +21,7 @@ npm run dev
 | Yöntem | Yol | Path/query parametresi | Request body | Başarı | Temel hatalar |
 |---|---|---|---|---|---|
 | `GET` | `/api/health` | Yok | Yok | `200` sağlık nesnesi | - |
-| `GET` | `/api/products` | Yok | Yok | `200` ürün dizisi | - |
+| `GET` | `/api/products` | İsteğe bağlı `page`, `limit` | Yok | Query yoksa ürün dizisi; query varsa sayfalı nesne | `400` |
 | `GET` | `/api/products/:id` | `id`: zorunlu ürün kimliği | Yok | `200` tek ürün | `404` |
 | `POST` | `/api/products` | Yok | Ürün oluşturma alanları | `201` oluşturulan ürün | `400` |
 | `PATCH` | `/api/products/:id` | `id`: zorunlu ürün kimliği | Değiştirilecek en az bir alan | `200` güncel ürün | `400`, `404` |
@@ -29,7 +29,7 @@ npm run dev
 
 `PUT` desteklenmez. Bu projede güncelleme, yalnız gönderilen alanları değiştiren `PATCH` ile yapılır.
 
-Bu sürüm query parametresi kullanmaz. Arama, kategori filtresi ve fiyat sıralaması backend listesi alındıktan sonra frontend'de uygulanır.
+Arama, kategori/fiyat filtresi ve fiyat sıralaması frontend'de uygulanır. Sayfalama API'si isteğe bağlı `page` ve `limit` pozitif tam sayılarını kabul eder; `limit` en fazla `100` olabilir. Query gönderilmezse zorunlu kapsamla geriye dönük uyumlu doğrudan ürün dizisi döner.
 
 ## Ürün modeli ve validasyon
 
@@ -95,6 +95,34 @@ Cevap köşeli parantezle başlayan bir JSON dizisidir:
   }
 ]
 ```
+
+### Sayfalı ürün listesi (bonus)
+
+```text
+GET /api/products?page=2&limit=4
+200 OK
+```
+
+```json
+{
+  "items": [
+    {
+      "id": "p-005",
+      "name": "Şehir Sırt Çantası",
+      "description": "Dizüstü bilgisayar bölmesi ve düzenleyici cepleri bulunan hafif sırt çantası.",
+      "price": 1599,
+      "category": "Aksesuar",
+      "imageUrl": "https://placehold.co/600x400/png?text=Sehir+Sirt+Cantasi"
+    }
+  ],
+  "page": 2,
+  "limit": 4,
+  "totalItems": 10,
+  "totalPages": 3
+}
+```
+
+Son sayfanın ötesindeki geçerli bir sayfa `200` ve boş `items` döndürür. `page=0`, `limit=abc`, `limit=101` veya bilinmeyen query alanı `400` ve `Geçersiz sayfalama parametreleri` mesajı döndürür.
 
 ### Tek ürün getirme
 
@@ -184,6 +212,16 @@ Her hata JSON'dur ve en az `message` alanı içerir. Alan bazlı validasyon hata
 | Ürün bulunamaz | `404` | `{"message":"Ürün bulunamadı"}` |
 | API route'u/metodu desteklenmez | `404` | `{"message":"Endpoint bulunamadı"}` |
 | Beklenmeyen backend hatası | `500` | `{"message":"Sunucu hatası"}`; stack trace/iç mesaj gönderilmez |
+
+## Request loglama (bonus)
+
+Backend varsayılan olarak tamamlanan her isteği terminale şu alanlarla yazar: seviye, HTTP yöntemi, path, durum kodu ve süre. `4xx` istekleri `WARN`, `5xx` cevapları `ERROR`, diğerleri `INFO` seviyesindedir.
+
+```text
+[INFO] GET /api/products 200 4ms
+```
+
+Query değerleri, authorization/header bilgileri ve request body loglanmaz. Yerel ortamda kapatmak için `REQUEST_LOGGING=false` kullanılabilir. Bu basit eğitim loglaması dosya rotasyonu veya uzak log servisi içermez.
 
 ## PowerShell ile hızlı CRUD zinciri
 

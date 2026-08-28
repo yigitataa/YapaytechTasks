@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router'
 import CartLink from '../features/cart/CartLink.jsx'
+import FavoriteLink from '../features/favorites/FavoriteLink.jsx'
 
 function SiteHeader() {
   const location = useLocation()
@@ -23,6 +24,14 @@ function SiteHeader() {
             aria-current={productsAreCurrent ? 'page' : undefined}
           >
             Ürünler
+          </Link>
+          <FavoriteLink />
+          <Link
+            className="nav-link nav-link--management"
+            to="/manage-products"
+            aria-current={location.pathname === '/manage-products' ? 'page' : undefined}
+          >
+            Yönetim
           </Link>
           <CartLink />
         </nav>

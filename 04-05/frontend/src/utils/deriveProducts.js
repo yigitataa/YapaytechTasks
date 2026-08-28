@@ -6,6 +6,33 @@ export const SORT_OPTIONS = {
   PRICE_DESCENDING: 'price-descending',
 }
 
+function parsePriceBoundary(value) {
+  if (value === '' || value === null || value === undefined) {
+    return null
+  }
+
+  const parsedValue = Number(value)
+
+  return Number.isFinite(parsedValue) && parsedValue >= 0
+    ? parsedValue
+    : Number.NaN
+}
+
+export function getPriceRangeError(minPrice = '', maxPrice = '') {
+  const minimum = parsePriceBoundary(minPrice)
+  const maximum = parsePriceBoundary(maxPrice)
+
+  if (Number.isNaN(minimum) || Number.isNaN(maximum)) {
+    return 'Fiyat sınırları sıfır veya daha büyük bir sayı olmalıdır.'
+  }
+
+  if (minimum !== null && maximum !== null && minimum > maximum) {
+    return 'Minimum fiyat, maksimum fiyattan büyük olamaz.'
+  }
+
+  return ''
+}
+
 function normalizeText(value) {
   return value
     .trim()
@@ -24,9 +51,18 @@ export function getProductCategories(products) {
 
 export function deriveProducts(
   products,
-  { searchTerm = '', selectedCategory = ALL_CATEGORIES, sortBy = SORT_OPTIONS.DEFAULT },
+  {
+    searchTerm = '',
+    selectedCategory = ALL_CATEGORIES,
+    sortBy = SORT_OPTIONS.DEFAULT,
+    minPrice = '',
+    maxPrice = '',
+  },
 ) {
   const normalizedSearch = normalizeText(searchTerm)
+  const priceRangeError = getPriceRangeError(minPrice, maxPrice)
+  const minimum = parsePriceBoundary(minPrice)
+  const maximum = parsePriceBoundary(maxPrice)
 
   const matchingProducts = products
     .filter((product) =>
@@ -36,6 +72,12 @@ export function deriveProducts(
       selectedCategory === ALL_CATEGORIES
         ? true
         : product.category === selectedCategory,
+    )
+    .filter((product) =>
+      priceRangeError || minimum === null ? true : product.price >= minimum,
+    )
+    .filter((product) =>
+      priceRangeError || maximum === null ? true : product.price <= maximum,
     )
 
   const sortedProducts = [...matchingProducts]

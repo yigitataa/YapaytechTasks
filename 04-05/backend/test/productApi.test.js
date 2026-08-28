@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict'
 import { after, before, beforeEach, test } from 'node:test'
-import app from '../src/app.js'
 import { resetProductsForTests } from '../src/services/productService.js'
+
+process.env.REQUEST_LOGGING = 'false'
+const { default: app } = await import('../src/app.js')
 
 let baseUrl
 let server
@@ -59,6 +61,63 @@ test('product list returns the clean initial collection', async () => {
   assert.equal(response.status, 200)
   assert.equal(Array.isArray(response.body), true)
   assert.equal(response.body.length, 10)
+})
+
+test('paginated product list returns items and metadata', async () => {
+  const response = await request('/api/products?page=2&limit=4')
+
+  assert.equal(response.status, 200)
+  assert.deepEqual(response.body.items.map((product) => product.id), [
+    'p-005',
+    'p-006',
+    'p-007',
+    'p-008',
+  ])
+  assert.deepEqual(
+    {
+      page: response.body.page,
+      limit: response.body.limit,
+      totalItems: response.body.totalItems,
+      totalPages: response.body.totalPages,
+    },
+    { page: 2, limit: 4, totalItems: 10, totalPages: 3 },
+  )
+})
+
+test('pagination uses defaults when only one query field is provided', async () => {
+  const response = await request('/api/products?page=2')
+
+  assert.equal(response.status, 200)
+  assert.equal(response.body.page, 2)
+  assert.equal(response.body.limit, 6)
+  assert.deepEqual(response.body.items.map((product) => product.id), [
+    'p-007',
+    'p-008',
+    'p-009',
+    'p-010',
+  ])
+})
+
+test('an out-of-range page returns a valid empty item list', async () => {
+  const response = await request('/api/products?page=99&limit=6')
+
+  assert.equal(response.status, 200)
+  assert.deepEqual(response.body.items, [])
+  assert.equal(response.body.page, 99)
+  assert.equal(response.body.totalPages, 2)
+})
+
+test('invalid pagination query returns controlled validation details', async () => {
+  const invalidPage = await request('/api/products?page=0&limit=6')
+  const invalidLimit = await request('/api/products?page=1&limit=abc')
+  const excessiveLimit = await request('/api/products?page=1&limit=101')
+
+  assert.equal(invalidPage.status, 400)
+  assert.equal(typeof invalidPage.body.details.page, 'string')
+  assert.equal(invalidLimit.status, 400)
+  assert.equal(typeof invalidLimit.body.details.limit, 'string')
+  assert.equal(excessiveLimit.status, 400)
+  assert.equal(typeof excessiveLimit.body.details.limit, 'string')
 })
 
 test('a valid product id returns the matching product', async () => {

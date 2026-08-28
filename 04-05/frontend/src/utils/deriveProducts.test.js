@@ -3,6 +3,7 @@ import { test } from 'node:test'
 import {
   ALL_CATEGORIES,
   deriveProducts,
+  getPriceRangeError,
   SORT_OPTIONS,
 } from './deriveProducts.js'
 
@@ -74,4 +75,52 @@ test('a search with no match returns an empty array', () => {
   const result = deriveProducts(products, { searchTerm: 'bulunmayan' })
 
   assert.deepEqual(result, [])
+})
+
+test('minimum price is inclusive', () => {
+  const result = deriveProducts(products, { minPrice: '200' })
+
+  assert.deepEqual(result.map((product) => product.id), ['p-1', 'p-3'])
+})
+
+test('maximum price is inclusive', () => {
+  const result = deriveProducts(products, { maxPrice: '200' })
+
+  assert.deepEqual(result.map((product) => product.id), ['p-2', 'p-3'])
+})
+
+test('minimum and maximum price work together', () => {
+  const result = deriveProducts(products, { minPrice: '100', maxPrice: '200' })
+
+  assert.deepEqual(result.map((product) => product.id), ['p-2', 'p-3'])
+})
+
+test('price range works with search category and sorting', () => {
+  const result = deriveProducts(products, {
+    searchTerm: 'mat',
+    selectedCategory: 'Spor',
+    sortBy: SORT_OPTIONS.PRICE_DESCENDING,
+    minPrice: '150',
+    maxPrice: '250',
+  })
+
+  assert.deepEqual(result.map((product) => product.id), ['p-3'])
+})
+
+test('invalid or negative price boundaries return an error', () => {
+  assert.notEqual(getPriceRangeError('-1', ''), '')
+  assert.notEqual(getPriceRangeError('abc', ''), '')
+})
+
+test('minimum price greater than maximum returns an error', () => {
+  assert.equal(
+    getPriceRangeError('300', '100'),
+    'Minimum fiyat, maksimum fiyattan büyük olamaz.',
+  )
+})
+
+test('invalid price range does not unexpectedly hide products', () => {
+  const result = deriveProducts(products, { minPrice: '300', maxPrice: '100' })
+
+  assert.equal(result.length, products.length)
 })

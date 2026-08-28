@@ -3,6 +3,7 @@ import {
   createProduct as createProductRecord,
   deleteProductById,
   getAllProducts,
+  getPaginatedProducts,
   getProductById,
   updateProductById,
 } from '../services/productService.js'
@@ -10,21 +11,30 @@ import {
   validateProductForCreate,
   validateProductForUpdate,
 } from '../validators/productValidator.js'
+import { validatePaginationQuery } from '../validators/paginationValidator.js'
 
-function getValidatedValue(validationResult) {
+function getValidatedValue(
+  validationResult,
+  message = 'Geçersiz ürün verisi',
+) {
   if (Object.keys(validationResult.errors).length > 0) {
-    throw new AppError(
-      'Geçersiz ürün verisi',
-      400,
-      validationResult.errors,
-    )
+    throw new AppError(message, 400, validationResult.errors)
   }
 
   return validationResult.value
 }
 
-export function listProducts(_request, response) {
-  response.status(200).json(getAllProducts())
+export function listProducts(request, response) {
+  if (Object.keys(request.query).length === 0) {
+    return response.status(200).json(getAllProducts())
+  }
+
+  const pagination = getValidatedValue(
+    validatePaginationQuery(request.query),
+    'Geçersiz sayfalama parametreleri',
+  )
+
+  return response.status(200).json(getPaginatedProducts(pagination))
 }
 
 export function showProduct(request, response) {

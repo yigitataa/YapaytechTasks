@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
 import QuickAddButton from '../features/cart/QuickAddButton.jsx'
+import FavoriteButton from '../features/favorites/FavoriteButton.jsx'
 import Price from './Price.jsx'
 import ProductImage from './ProductImage.jsx'
 
@@ -9,6 +10,7 @@ function ProductCard({ product, eagerImage = false, revealIndex = 0 }) {
       className="product-card component-enter component-enter--card"
       style={{ '--reveal-index': revealIndex }}
     >
+      <FavoriteButton product={product} className="product-card__favorite" />
       <Link
         className="product-card__link"
         to={`/products/${encodeURIComponent(product.id)}`}

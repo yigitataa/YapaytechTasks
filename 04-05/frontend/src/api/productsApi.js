@@ -5,19 +5,27 @@ const apiBaseUrl = (
 ).replace(/\/$/, '')
 
 export class ApiError extends Error {
-  constructor(message, status = 0) {
+  constructor(message, status = 0, details = {}) {
     super(message)
     this.name = 'ApiError'
     this.status = status
+    this.details = details
   }
 }
 
-async function requestJson(path, { signal } = {}) {
+async function requestJson(path, { signal, method = 'GET', body } = {}) {
   let response
+  const headers = { Accept: 'application/json' }
+
+  if (body !== undefined) {
+    headers['Content-Type'] = 'application/json'
+  }
 
   try {
     response = await fetch(`${apiBaseUrl}${path}`, {
-      headers: { Accept: 'application/json' },
+      method,
+      headers,
+      body: body === undefined ? undefined : JSON.stringify(body),
       signal,
     })
   } catch (error) {
@@ -30,6 +38,10 @@ async function requestJson(path, { signal } = {}) {
     )
   }
 
+  if (response.status === 204) {
+    return null
+  }
+
   let data
 
   try {
@@ -39,7 +51,11 @@ async function requestJson(path, { signal } = {}) {
   }
 
   if (!response.ok) {
-    throw new ApiError(data?.message || 'İstek tamamlanamadı.', response.status)
+    throw new ApiError(
+      data?.message || 'İstek tamamlanamadı.',
+      response.status,
+      data?.details,
+    )
   }
 
   return data
@@ -55,6 +71,49 @@ export async function getProducts(options = {}) {
   return products
 }
 
+export async function getProductsPage(page, limit, options = {}) {
+  const result = await requestJson(
+    `/api/products?page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`,
+    options,
+  )
+
+  if (
+    !result ||
+    !Array.isArray(result.items) ||
+    !Number.isInteger(result.page) ||
+    !Number.isInteger(result.limit) ||
+    !Number.isInteger(result.totalItems) ||
+    !Number.isInteger(result.totalPages)
+  ) {
+    throw new ApiError('Sayfalı ürün listesi beklenen biçimde değil.')
+  }
+
+  return result
+}
+
 export async function getProductById(productId, options = {}) {
   return requestJson(`/api/products/${encodeURIComponent(productId)}`, options)
+}
+
+export async function createProduct(productData, options = {}) {
+  return requestJson('/api/products', {
+    ...options,
+    method: 'POST',
+    body: productData,
+  })
+}
+
+export async function updateProduct(productId, changes, options = {}) {
+  return requestJson(`/api/products/${encodeURIComponent(productId)}`, {
+    ...options,
+    method: 'PATCH',
+    body: changes,
+  })
+}
+
+export async function deleteProduct(productId, options = {}) {
+  return requestJson(`/api/products/${encodeURIComponent(productId)}`, {
+    ...options,
+    method: 'DELETE',
+  })
 }

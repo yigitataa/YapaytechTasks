@@ -117,7 +117,7 @@ Bu maddeler **zorunlu değildir**. Temel gereksinimler tamamlanmadan bonus geli�
 | BON-005 | Basit loglama | Sunucu işlemleri için ek gözlemlenebilirlik sağlar. |
 | BON-006 | Ürün yönetimi için ek bir arayüz | Zorunlu backend CRUD işlemlerini kullanan ayrı bir yönetim UI'si ekler. |
 
-**Uygulama durumu:** `BON-004`, zorunlu proje tamamlandıktan sonra Aşama 11A'da `localStorage` ile uygulanmıştır. Diğer bonuslar uygulanmamıştır; bu durum zorunlu gereksinimlerin kapsamını değiştirmez.
+**Uygulama durumu:** `BON-001` - `BON-006` bonuslarının tamamı, zorunlu proje tamamlandıktan sonra Aşama 11'de uygulanmıştır. Bunlar kaynak görevin zorunlu maddeleri değildir ve zorunlu gereksinimlerin kapsamını değiştirmez.
 
 ## Geliştiriciye bırakılan teknik kararlar
 
@@ -149,7 +149,7 @@ Aşağıdakiler PDF'de zorunlu istenmemiştir; Aşama 1 bunları gereksinime dö
 - Belirli bir ürün veri şeması, para birimi veya tasarım sistemi.
 - Deployment, alan adı, bulut servisi ya da CI/CD.
 - Otomatik test zorunluluğu veya test kapsam yüzdesi.
-- Frontend'de ürün CRUD yönetim ekranı; bu özellik BON-006 kapsamındadır.
+- Kimlik doğrulamalı veya yetkilendirmeli gerçek yönetici paneli. Uygulanan `BON-006` ekranı yalnız eğitim/demo amaçlıdır.
 - Favoriler, fiyat aralığı filtresi, sayfalama, yenileme sonrası sepet kalıcılığı ve loglama; bunlar bonus hedeflerdir.
 
 ## Açık noktalar

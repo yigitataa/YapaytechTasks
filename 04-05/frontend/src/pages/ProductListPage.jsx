@@ -4,14 +4,17 @@ import EmptyState from '../components/EmptyState.jsx'
 import ErrorState from '../components/ErrorState.jsx'
 import LoadingState from '../components/LoadingState.jsx'
 import NoResultsState from '../components/NoResultsState.jsx'
+import Pagination from '../components/Pagination.jsx'
 import ProductControls from '../components/ProductControls.jsx'
 import ProductList from '../components/ProductList.jsx'
 import {
   ALL_CATEGORIES,
   deriveProducts,
   getProductCategories,
+  getPriceRangeError,
   SORT_OPTIONS,
 } from '../utils/deriveProducts.js'
+import { paginateProducts } from '../utils/paginateProducts.js'
 
 function ProductListPage() {
   const [products, setProducts] = useState([])
@@ -20,21 +23,46 @@ function ProductListPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState(ALL_CATEGORIES)
   const [sortBy, setSortBy] = useState(SORT_OPTIONS.DEFAULT)
+  const [minPrice, setMinPrice] = useState('')
+  const [maxPrice, setMaxPrice] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
 
   const categories = useMemo(() => getProductCategories(products), [products])
+  const priceRangeError = getPriceRangeError(minPrice, maxPrice)
   const visibleProducts = useMemo(
-    () => deriveProducts(products, { searchTerm, selectedCategory, sortBy }),
-    [products, searchTerm, selectedCategory, sortBy],
+    () =>
+      deriveProducts(products, {
+        searchTerm,
+        selectedCategory,
+        sortBy,
+        minPrice,
+        maxPrice,
+      }),
+    [products, searchTerm, selectedCategory, sortBy, minPrice, maxPrice],
   )
   const hasActiveControls =
     searchTerm.length > 0 ||
     selectedCategory !== ALL_CATEGORIES ||
-    sortBy !== SORT_OPTIONS.DEFAULT
+    sortBy !== SORT_OPTIONS.DEFAULT ||
+    minPrice !== '' ||
+    maxPrice !== ''
+  const pagination = useMemo(
+    () => paginateProducts(visibleProducts, currentPage),
+    [visibleProducts, currentPage],
+  )
+
+  function updateControl(setter, value) {
+    setter(value)
+    setCurrentPage(1)
+  }
 
   function clearControls() {
     setSearchTerm('')
     setSelectedCategory(ALL_CATEGORIES)
     setSortBy(SORT_OPTIONS.DEFAULT)
+    setMinPrice('')
+    setMaxPrice('')
+    setCurrentPage(1)
   }
 
   useEffect(() => {
@@ -46,6 +74,7 @@ function ProductListPage() {
       try {
         const data = await getProducts({ signal: controller.signal })
         setProducts(data)
+        setCurrentPage(1)
         setStatus('success')
       } catch (error) {
         if (error.name !== 'AbortError') {
@@ -100,16 +129,28 @@ function ProductListPage() {
               searchTerm={searchTerm}
               selectedCategory={selectedCategory}
               sortBy={sortBy}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+              priceRangeError={priceRangeError}
               categories={categories}
               hasActiveControls={hasActiveControls}
-              onSearchChange={setSearchTerm}
-              onCategoryChange={setSelectedCategory}
-              onSortChange={setSortBy}
+              onSearchChange={(value) => updateControl(setSearchTerm, value)}
+              onCategoryChange={(value) => updateControl(setSelectedCategory, value)}
+              onSortChange={(value) => updateControl(setSortBy, value)}
+              onMinPriceChange={(value) => updateControl(setMinPrice, value)}
+              onMaxPriceChange={(value) => updateControl(setMaxPrice, value)}
               onClear={clearControls}
             />
 
             {visibleProducts.length > 0 ? (
-              <ProductList products={visibleProducts} />
+              <>
+                <ProductList products={pagination.items} />
+                <Pagination
+                  page={pagination.page}
+                  totalPages={pagination.totalPages}
+                  onPageChange={setCurrentPage}
+                />
+              </>
             ) : (
               <NoResultsState searchTerm={searchTerm} onClear={clearControls} />
             )}

@@ -3,9 +3,11 @@ import { Route, Routes, useLocation } from 'react-router'
 import PageLoader from './components/PageLoader.jsx'
 import SiteHeader from './components/SiteHeader.jsx'
 import CartPage from './pages/CartPage.jsx'
+import FavoritesPage from './pages/FavoritesPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import ProductDetailPage from './pages/ProductDetailPage.jsx'
 import ProductListPage from './pages/ProductListPage.jsx'
+import ProductManagementPage from './pages/ProductManagementPage.jsx'
 
 function App() {
   const [isPageLoading, setIsPageLoading] = useState(true)
@@ -48,6 +50,8 @@ function App() {
           <Route path="/" element={<ProductListPage />} />
           <Route path="/products/:productId" element={<ProductDetailPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/manage-products" element={<ProductManagementPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

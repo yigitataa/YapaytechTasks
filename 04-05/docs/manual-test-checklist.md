@@ -262,18 +262,29 @@ Bu bölüm **Codex tarafından çalıştırılmadı, kullanıcı manuel olarak y
 
 ## Bonus test alanı
 
-Yalnızca ilgili bonus bilinçli olarak seçilip geliştirildiyse doldur:
+**Bu manuel testler Codex tarafından çalıştırılmadı.** Backend'i `http://localhost:3000`, frontend'i `http://localhost:5180` adresinde çalıştırdıktan sonra sonuçları kullanıcı işaretlemelidir.
 
-- [ ] **MT-BON-001 - Favoriler** (`BON-001`): _Beklenen davranış ve kanıt daha sonra yazılacak._
-- [ ] **MT-BON-002 - Fiyat aralığı filtresi** (`BON-002`): _Beklenen davranış ve kanıt daha sonra yazılacak._
-- [ ] **MT-BON-003 - Sayfalama** (`BON-003`): _Beklenen davranış ve kanıt daha sonra yazılacak._
+- [ ] **MT-BON-001A - Favoriye ekleme** (`BON-001`): Katalogda bir ürünün favori düğmesine bas. Düğmenin seçili durumunu, header sayacının `1` olduğunu ve `/favorites` sayfasında aynı ürünün göründüğünü doğrula.
+- [ ] **MT-BON-001B - Detayda ortak favori state'i** (`BON-001`): Favori ürünün detayını aç. Favori düğmesi seçili olmalı; buradan kaldırınca katalog ve favoriler sayfasındaki durum da güncellenmelidir.
+- [ ] **MT-BON-001C - Benzersizlik ve boş durum** (`BON-001`): Aynı ürünü art arda seçip kaldır; kopya satır oluşmamalı. Bütün favorileri kaldırınca açıklayıcı boş görünüm çıkmalıdır.
+- [ ] **MT-BON-002A - Fiyat sınırları** (`BON-002`): Katalogda yalnız minimum, yalnız maksimum ve iki sınırı birlikte dene. Sınır fiyatındaki ürün dahil olmalı ve ürünler seçilen aralıkta kalmalıdır.
+- [ ] **MT-BON-002B - Birleşik filtre** (`BON-002`): Arama, kategori, minimum/maksimum fiyat ve fiyat sıralamasını birlikte uygula. Sonuçların bütün seçimlere aynı anda uyduğunu doğrula.
+- [ ] **MT-BON-002C - Geçersiz aralık** (`BON-002`): Negatif değer ve minimumdan küçük maksimum gir. Açıklayıcı hata görünmeli; uygulama çökmemeli. “Seçimleri temizle” bütün kontrolleri sıfırlamalıdır.
+- [ ] **MT-BON-003A - Sayfa kontrolleri** (`BON-003`): Katalogda ileri/geri ve numaralı sayfa düğmelerini kullan. İlk sayfada önceki, son sayfada sonraki düğmesi pasif olmalıdır.
+- [ ] **MT-BON-003B - Filtre ile sayfalama** (`BON-003`): İkinci sayfadayken arama veya filtre değiştir. Sayfa `1`e dönmeli ve sayfalama filtrelenmiş sonuç sayısına göre güncellenmelidir.
+- [ ] **MT-BON-003C - API sayfalama** (`BON-003`): `http://localhost:3000/api/products?page=2&limit=4` adresini aç. `items`, `page`, `limit`, `totalItems`, `totalPages` alanlarını gör; `page=0` veya `limit=abc` isteğinin JSON `400` döndürdüğünü doğrula.
 - [ ] **MT-BON-004A - Yenilemede sepet kalıcılığı** (`BON-004`): İki farklı ürünü farklı adetlerle sepete ekle, görünen adet ve toplamları not et, sayfayı yenile. Aynı satırlar, adetler, rozet ve toplamlar geri gelmelidir.
 - [ ] **MT-BON-004B - Ürün kaldırma kaydı** (`BON-004`): Ürünlerden birini kaldırıp sayfayı yenile. Kaldırılan ürün geri gelmemeli; diğer ürün korunmalıdır.
 - [ ] **MT-BON-004C - Sepeti temizleme kaydı** (`BON-004`): “Sepeti temizle”ye basıp sayfayı yenile. Boş sepet görünümü korunmalıdır.
 - [ ] **MT-BON-004D - Uygulamayı yeniden açma** (`BON-004`): Sepete ürün ekle, frontend sekmesini kapatıp aynı `http://localhost:5180` adresini yeniden aç. Tarayıcı verisi temizlenmediyse sepet geri gelmelidir.
 - [ ] **MT-BON-004E - Bozuk storage verisi** (`BON-004`): DevTools → Application → Local Storage → `http://localhost:5180` altında `yata-market-cart` değerini `{bozuk-json` yapıp sayfayı yenile. Uygulama çökmemeli ve güvenli boş sepet görünmelidir.
-- [ ] **MT-BON-005 - Basit loglama** (`BON-005`): _Beklenen davranış ve kanıt daha sonra yazılacak._
-- [ ] **MT-BON-006 - Ürün yönetim arayüzü** (`BON-006`): _Beklenen davranış ve kanıt daha sonra yazılacak._
+- [ ] **MT-BON-005A - Başarılı istek logu** (`BON-005`): Backend terminali açıkken health ve ürün liste adreslerini çağır. Logda yöntem, path, `200` durum kodu ve milisaniye süre görünmelidir.
+- [ ] **MT-BON-005B - Hata seviyesi ve gizlilik** (`BON-005`): Bilinmeyen ürün/route çağır. `404` kaydı görünmeli; URL query değeri, request body, token veya header içeriği logda yer almamalıdır.
+- [ ] **MT-BON-006A - Ürün oluşturma** (`BON-006`): `/manage-products` sayfasında geçerli form gönder. `201` sonrasında başarı mesajı ve yeni ürün yönetim listesinde görünmeli; katalogda da bulunmalıdır.
+- [ ] **MT-BON-006B - Validasyon** (`BON-006`): Ad/kategori boş veya fiyat negatifken gönder. İlgili alanın yanında Türkçe hata görünmeli ve ürün oluşmamalıdır.
+- [ ] **MT-BON-006C - Ürün düzenleme** (`BON-006`): Bir üründe “Düzenle”yi seç, yalnız fiyatı değiştirip kaydet. Yeni fiyat görünmeli, diğer alanlar korunmalıdır.
+- [ ] **MT-BON-006D - Silme onayı** (`BON-006`): “Sil”e basıp önce iptal et; ürün kalmalıdır. Yeniden silip onayla; ürün listeden ve katalogdan kalkmalıdır.
+- [ ] **MT-BON-006E - Bellek sınırlaması** (`BON-006`): Geçici ürün oluştur, backend'i durdurup yeniden başlat. Başlangıçtaki 10 ürün geri gelmeli ve geçici değişiklik kaybolmalıdır.
 
 ## Test özeti
 
@@ -291,6 +302,7 @@ Yalnızca ilgili bonus bilinçli olarak seçilip geliştirildiyse doldur:
 | 2026-08-27 | Aşama 9 - otomatik kontroller | 35 | 0 | 12 kullanıcı testi | Codex + Kullanıcı | 32 otomatik test, backend syntax, frontend lint ve production build geçti; tarayıcı ve görsel kontroller kullanıcıya bırakıldı. |
 | 2026-08-28 | Aşama 10 - otomatik teslim denetimi | 10 kontrol | 0 | 12 kullanıcı testi | Codex + Kullanıcı | Temiz kurulum, 32 test, syntax, lint, build, API smoke, link, izlenebilirlik ve Git hijyeni denetlendi; manuel teslim provası bekliyor. |
 | 2026-08-28 | Aşama 11A - sepet kalıcılığı bonusu | 31 frontend + 11 backend testi | 0 | 5 kullanıcı testi | Codex + Kullanıcı | 10 storage testi dahil bütün testler, frontend lint/build ve backend syntax kontrolü geçti; gerçek tarayıcı yenilemesi kullanıcıya bırakıldı. |
+| 2026-08-28 | Aşama 11 - tüm bonuslar | 54 frontend + 19 backend testi | 0 | Bonus kullanıcı testleri | Codex + Kullanıcı | Fiyat, favori, loglama, sayfalama ve yönetim testleri dahil lint/build/syntax geçti; hiçbir tarayıcı veya görsel test Codex tarafından çalıştırılmadı. |
 
 ## Aşama 2 otomatik doğrulama kaydı
 
@@ -475,3 +487,16 @@ Bu kayıt yalnız otomatik saf fonksiyon, lint, build ve regresyon kontrolleridi
 | `frontend/npm run lint` | Geçti | ESLint exit code `0`; hata veya uyarı yok. |
 | `frontend/npm run build` | Geçti | Vite 107 modülü dönüştürdü; production build exit code `0`. |
 | Backend regresyonu | Geçti | `npm test` 11/11 ve `npm run check` başarılı; backend davranışı değiştirilmedi. |
+
+## Aşama 11 tüm bonuslar otomatik doğrulama kaydı
+
+Bu kayıt otomatik saf fonksiyon, HTTP integration, lint, build ve syntax kontrolleridir. Yukarıdaki bonus kullanıcı akışları Codex tarafından çalıştırılmadı.
+
+| Komut/kontrol | Sonuç | Kanıt özeti |
+|---|---|---|
+| `frontend/npm test` | Geçti | 54/54: sepet/storage, arama-kategori-fiyat-sıralama, favori, sayfalama ve yönetim formu testleri. |
+| `frontend/npm run lint` | Geçti | ESLint hata ve uyarı olmadan tamamlandı. |
+| `frontend/npm run build` | Geçti | Vite 120 modülü dönüştürerek production build üretti. |
+| `backend/npm test` | Geçti | 19/19: CRUD, hata, sayfalama, izolasyon ve request logger integration/birim testleri. |
+| `backend/npm run check` | Geçti | Bütün backend kaynaklarında syntax kontrolü başarılı. |
+| Manuel tarayıcı testi | Çalıştırılmadı | Kullanıcı bonus test alanındaki adımları uygulamalıdır. |

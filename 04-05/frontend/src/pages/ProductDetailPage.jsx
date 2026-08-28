@@ -6,6 +6,7 @@ import LoadingState from '../components/LoadingState.jsx'
 import Price from '../components/Price.jsx'
 import ProductImage from '../components/ProductImage.jsx'
 import AddToCartButton from '../features/cart/AddToCartButton.jsx'
+import FavoriteButton from '../features/favorites/FavoriteButton.jsx'
 import NotFoundPage from './NotFoundPage.jsx'
 
 function ProductDetailPage() {
@@ -67,7 +68,10 @@ function ProductDetailPage() {
           </div>
 
           <div className="product-detail__content component-enter component-enter--detail-copy">
-            <span className="category-pill">{product.category}</span>
+            <div className="product-detail__topline">
+              <span className="category-pill">{product.category}</span>
+              <FavoriteButton product={product} />
+            </div>
             <h1>{product.name}</h1>
             <Price value={product.price} className="product-detail__price" />
             <div className="product-detail__divider" />

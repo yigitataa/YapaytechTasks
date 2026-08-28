@@ -97,3 +97,34 @@ Bu tablo yalnız otomatik kontrolleri gösterir. Aşama 10 manuel teslim provas�
 | Backend syntax | `npm run check` başarılı |
 
 Bu otomatik kontroller gerçek tarayıcı yenilemesini taklit etmez. Yenileme, sekmeyi kapatıp açma ve DevTools ile bozuk storage oluşturma testleri kullanıcı tarafından yapılmalıdır.
+
+## Aşama 11 tüm bonuslar otomatik kapsamı - 2026-08-28
+
+Bonuslar yeni tarayıcı/E2E framework'ü eklenmeden mevcut Node test runner ile saf mantık ve HTTP integration düzeyinde doğrulandı. Her bonus sonrasında frontend test/lint/build ve backend test/check regresyonu çalıştırıldı.
+
+| Alan | Otomatik kanıt |
+|---|---|
+| Sepet kalıcılığı | 10 storage testi; geçerli round-trip, bozuk veri ve erişim hatası fallback'i |
+| Fiyat aralığı | 7 test; tek/çift sınır, dahil sınır, birleşik kullanım ve geçersiz aralık |
+| Favoriler | 5 reducer testi; ekleme, kaldırma, benzersizlik, temizleme ve geçersiz kimlik |
+| Backend loglama | 4 middleware testi; seviye, yöntem/path/status/süre, gizlilik ve kapatma |
+| Sayfalama | 4 backend HTTP + 5 frontend saf test; metadata, varsayılan, uzak/boş sayfa, invalid query ve mutation yokluğu |
+| Ürün yönetim formu | 6 saf test; başlangıç formu, validasyon, fiyat dönüşümü, trim ve düzenleme dönüşümü |
+
+Son bütünleşik sonuç:
+
+- Backend: `19/19` test geçti; `npm run check` başarılı.
+- Frontend: `54/54` test geçti; ESLint hatasız; Vite production build `120` modülle başarılı.
+- Yeni runtime veya test bağımlılığı eklenmedi.
+- Tarayıcı, responsive görünüm, klavye, görsel tasarım, gerçek yenileme ve yönetim kullanıcı akışları **Codex tarafından çalıştırılmadı**; `manual-test-checklist.md` kullanıcı adımlarını içerir.
+
+Alt aşama regresyon kayıtları:
+
+| Tamamlanan bonus | Frontend test | Backend test | Ek kontroller |
+|---|---:|---:|---|
+| Sepet kalıcılığı | 31/31 | 11/11 | Frontend lint/build, backend check geçti |
+| Fiyat aralığı | 38/38 | 11/11 | Frontend lint/build, backend check geçti |
+| Favoriler | 43/43 | 11/11 | Frontend lint/build, backend check geçti |
+| Backend loglama | 43/43 | 15/15 | Frontend lint/build, backend check geçti |
+| Sayfalama | 48/48 | 19/19 | Frontend lint/build, backend check geçti |
+| Ürün yönetim arayüzü | 54/54 | 19/19 | Frontend lint/build, backend check geçti |

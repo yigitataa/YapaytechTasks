@@ -164,6 +164,41 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 - **Değerlendirilen alternatifler:** (1) Storage işlemlerini reducer içine koymak az dosya kullanır fakat side effect ekleyerek reducer'ı saf olmaktan çıkarır. (2) Bütün okuma/yazma kodunu doğrudan Provider içinde tutmak küçük uygulamada çalışır fakat doğrulama kodunu JSX yaşam döngüsüyle karıştırır ve saf Node testini zorlaştırır. (3) Ayrı yardımcı modül ile Provider lazy init + effect kullanmak bir ek dosya oluşturur fakat sorumlulukları ayırır; bu proje için seçilmiştir.
 - **Sonuç/Sınırlama:** Sepet aynı tarayıcı ve origin'de yenileme/yeniden açma boyunca korunur. Tarayıcı verisi temizlenirse veya storage kullanılamazsa boş sepet kullanılır. Saklanan ürün anlık kopyası backend'deki sonraki fiyat/silme değişiklikleriyle otomatik uzlaştırılmaz; hesap ve cihazlar arası senkronizasyon yoktur. Hassas veri saklanmaz.
 
+## ADR-019 - Fiyat aralığı filtresinin frontend'de uygulanması
+
+- **Durum:** Kabul edildi ve uygulandı (Aşama 11, bonus `BON-002`)
+- **Karar:** Minimum ve maksimum fiyat sınırları, mevcut arama → kategori → sıralama veri hattında frontend tarafında, iki sınır da dahil olacak şekilde uygulanacak. Negatif/sayısal olmayan değerler ve minimumun maksimumdan büyük olması alanın yanında açıklanacak; geçersiz sınır ürünleri beklenmedik biçimde gizlemeyecek.
+- **Değerlendirilen alternatifler:** Backend query filtresi büyük veri kümelerinde daha verimlidir fakat mevcut küçük liste için API sözleşmesini ve test kapsamını büyütür. Ayrı bir global filtre state'i sayfalar arası kalıcılık sağlayabilir fakat bu görev istemez. Mevcut saf türetme fonksiyonunu genişletmek en küçük ve test edilebilir çözümdür.
+- **Neden/Sınırlama:** Arama, kategori, fiyat ve sıralamanın tek saf fonksiyonda birleşmesi tutarlı sonuç üretir. Sınırlar URL'de veya storage'da korunmaz.
+
+## ADR-020 - Favorilerin ayrı Context ve reducer ile yönetilmesi
+
+- **Durum:** Kabul edildi ve uygulandı (Aşama 11, bonus `BON-001`)
+- **Karar:** Favoriler sepete karıştırılmadan ayrı Context/`useReducer` içinde yalnız benzersiz ürün kimlikleri olarak tutulacak. Liste ve detay aynı Provider'ı kullanacak; `/favorites` ayrı görünüm sunacak.
+- **Değerlendirilen alternatifler:** Favorileri sepet state'ine eklemek dosya sayısını azaltır fakat iki bağımsız kullanıcı davranışını bağlar. Her kartta yerel state ortak görünümü bozar. Backend veya `localStorage` kalıcılığı ek kapsam ve senkronizasyon kararı gerektirir.
+- **Neden/Sınırlama:** Ayrı state sorumluluğu ve testleri sade tutar; kimlik listesi kopya favoriyi engeller. Kaynak yalnız favoriyi bonus saydığı için bu sürümde favoriler yenilemede korunmaz.
+
+## ADR-021 - Bağımlılıksız merkezi backend istek loglama
+
+- **Durum:** Kabul edildi ve uygulandı (Aşama 11, bonus `BON-005`)
+- **Karar:** Express'in cevap `finish` olayıyla yöntem, path, durum kodu ve süreyi yazan küçük bir middleware kullanılacak. `2xx/3xx` bilgi, `4xx` uyarı, `5xx` hata seviyesidir; query değerleri, header ve body loglanmaz. Testlerde `REQUEST_LOGGING=false` ile sessiz çalışır.
+- **Değerlendirilen alternatifler:** Morgan veya Pino daha zengin üretim özellikleri sunar fakat yeni bağımlılık ve yapılandırma getirir. Controller bazlı loglama tekrara ve eksik rotalara yol açar. Merkezi küçük middleware bu eğitim projesi için yeterlidir.
+- **Neden/Sınırlama:** Bütün istekler tek noktada ve hassas içerik sızdırmadan gözlenir. Yapılandırılmış JSON, dosya rotasyonu ve uzak log servisi kapsam dışıdır.
+
+## ADR-022 - API'de isteğe bağlı, katalogda türetilmiş sonuç sonrası sayfalama
+
+- **Durum:** Kabul edildi ve uygulandı (Aşama 11, bonus `BON-003`)
+- **Karar:** `GET /api/products?page=&limit=` isteğe bağlı sayfalı bir cevap sunacak; query yokken eski doğrudan dizi sözleşmesi korunacak. Katalog ise bütün küçük veri kümesini aldıktan sonra arama, kategori, fiyat ve sıralamayı uygular, en son altı ürünlük sayfalara böler.
+- **Değerlendirilen alternatifler:** Tam sunucu tarafı arama/filtre/sıralama ve sayfalama büyük veri için doğrudur fakat bu aşamada mevcut frontend davranışını ve API kapsamını büyütür. Yalnız frontend sayfalama API bonusunu karşılamaz. Zorunlu GET sözleşmesini tamamen envelope'a çevirmek geriye dönük kırıcıdır.
+- **Neden/Sınırlama:** İsteğe bağlı endpoint API sayfalamasını kanıtlarken frontend sırası birleşik kontrolleri tutarlı kılar. Çok büyük veri kümeleri için sunucu tarafı filtreleme ve sayfalama birlikte yeniden tasarlanmalıdır.
+
+## ADR-023 - Kimlik doğrulamasız demo ürün yönetim arayüzü
+
+- **Durum:** Kabul edildi ve uygulandı (Aşama 11, bonus `BON-006`)
+- **Karar:** `/manage-products` route'u mevcut POST/PATCH/DELETE API'sini kullanacak. Tek form oluşturma ve düzenlemeyi paylaşacak; silme açık onay isteyecek, frontend alan hataları ile backend `details` cevapları form yakınında gösterilecek. İşlemler API başarısından sonra ekrana yansıtılacak.
+- **Değerlendirilen alternatifler:** Ayrı oluşturma/düzenleme sayfaları daha büyük yönetim sistemlerinde ölçeklenir fakat bu küçük veri kümesinde gereksiz gezinme oluşturur. Optimistic güncelleme daha hızlı hissedilir fakat başarısız CRUD geri alma karmaşıklığı getirir. Modal tabanlı silme ekstra focus yönetimi gerektirir; satır içi onay daha sadedir.
+- **Neden/Sınırlama:** Mevcut API'yi en az yeni yapı ile görünür biçimde kullanır ve kontrollü hata sunar. Authentication/yetkilendirme yoktur; bu nedenle gerçek veya güvenli bir admin paneli değildir. Değişiklikler backend yeniden başlayınca sıfırlanır.
+
 ## Aşama 4 teknik kararları (K1-K9)
 
 Bu kararlar PDF'deki zorunlu beş REST işlemini ve kontrollü hata davranışını somutlaştırır. Endpoint ayrıntıları, ürün alan kuralları ve aşağıdaki uygulama biçimleri kaynak PDF'nin dayattığı şema değil, bu proje için seçilen teknik çözümlerdir.
@@ -388,13 +423,13 @@ Bu kararlar ürün listesi ve detayının kaynak gereksinimlerine uygun, küçü
 - Git geçmişi salt okunur incelendi; geçmiş yeniden yazılmadı ve otomatik commit oluşturulmadı. Kullanıcının `learning-notes.md` içeriği ve boş `test.js` dosyası korunmuştur.
 - Son teslim durumu, tarayıcı ve responsive kontroller kullanıcı tarafından tamamlanana ve çalışma ağacı gözden geçirilip commit edilene kadar “Manuel kontrole bağlı”dır.
 
-## Aşama 11A uygulama kaydı
+## Aşama 11 uygulama kaydı
 
-- Yalnız `BON-004` uygulandı; favori, fiyat aralığı, sayfalama, loglama ve ürün yönetim arayüzüne başlanmadı.
-- `cartStorage.js` geçerli sepeti `yata-market-cart` anahtarıyla JSON olarak kaydeder; yüklemede yalnız whitelist içindeki ürün alanlarını ve pozitif tam sayı adedi kabul eder.
-- Bozuk JSON, geçersiz alan/tür, yinelenen ürün satırı ve storage erişim hatası boş sepet fallback'i üretir. Sepeti temizleme `{ "items": [] }` kaydını yazar.
-- `CartProvider` lazy başlangıç yüklemesi ve state değişiminde effect kullanır; `cartReducer` değiştirilmemiş ve saf kalmıştır.
-- Yeni bağımlılık eklenmedi. Frontend 31/31 test, lint ve 107 modüllü production build; backend 11/11 test ve syntax kontrolü başarılıdır. Tarayıcı yenileme ve yeniden açma akışı kullanıcı manuel testine bırakılmıştır.
+- Kaynak PDF'deki altı bonusun tamamı zorunlu kapsam tamamlandıktan sonra ayrı mantıksal alt aşamalar hâlinde uygulandı.
+- Sepet `localStorage` ile korunur; fiyat aralığı mevcut birleşik katalog hattına eklendi; favoriler ayrı ortak state ve sayfada gösterilir.
+- Backend log middleware'i yöntem, yol, durum ve süreyi hassas request içeriği olmadan kaydeder. API `page`/`limit` ile isteğe bağlı sayfalama sunar; frontend birleşik sonuçları altışar ürün olarak sayfalar.
+- `/manage-products` route'u mevcut CRUD API ile oluşturma, düzenleme ve onaylı silme sunar; kimlik doğrulama olmadığı açıkça belirtilir.
+- Yeni runtime bağımlılığı eklenmedi. Son regresyonda frontend 54/54 test, lint ve 120 modüllü production build; backend 19/19 test ve syntax kontrolü başarılıdır. Tarayıcı, responsive, klavye ve kullanıcı akışları Codex tarafından çalıştırılmadı.
 
 ## Açık kararlar ve riskler
 
@@ -403,8 +438,10 @@ Bu kararlar ürün listesi ve detayının kaynak gereksinimlerine uygun, küçü
 - Kaynak PDF görsel tasarım ve marka adı belirlemez. “Yata Market” adı ve mavi-mor-pembe renkli tema kullanıcının açık görsel tercihidir; kaynak zorunluluğu değildir.
 - Para birimi kaynakta belirtilmez. Türkçe içerik ve tasarım raporundaki fiyat örnekleri nedeniyle Aşama 5'te TRY seçilmiştir; gerçek iş gereksinimi farklıysa biçimlendirici tek noktadan değiştirilebilir.
 - Başlangıç ürün görselleri harici `placehold.co` adreslerine bağlıdır. Servis yüklenmezse fallback görünür; gerçek ürün varlıklarının sahipliği ve barındırılması hâlâ açık bir ürün kararıdır.
-- Aşama 6 kontrol seçimleri route veya yenileme boyunca kalıcı değildir. Liste componenti yeniden kurulduğunda arama, kategori ve sıralama başlangıç değerlerine döner; kaynak görev kalıcılık istemediği için URL parametresi veya global state eklenmemiştir.
-- Aşama 11A ile sepet aynı tarayıcı origin'inde `localStorage` kullanılarak korunur. Storage kaydı backend ürünleriyle otomatik uzlaştırılmadığı ve cihazlar arasında paylaşılmadığı için eski ürün anlık kopyası kalabilir.
+- Katalog kontrol seçimleri route veya yenileme boyunca kalıcı değildir. Liste componenti yeniden kurulduğunda arama, kategori, fiyat sınırları, sıralama ve sayfa başlangıç değerlerine döner.
+- Sepet aynı tarayıcı origin'inde `localStorage` kullanılarak korunur. Storage kaydı backend ürünleriyle otomatik uzlaştırılmadığı ve cihazlar arasında paylaşılmadığı için eski ürün anlık kopyası kalabilir.
+- Favoriler yalnız çalışan frontend state'inde tutulur ve yenilemede sıfırlanır; bonus gereksinimi favori kalıcılığı istemez.
+- Ürün yönetim ekranında authentication/yetkilendirme yoktur ve backend değişiklikleri bellektedir. Bu ekran gerçek üretim yönetici paneli olarak kullanılmamalıdır.
 - Aşama 8 tam WCAG denetimi değildir. Özellikle gerçek cihaz, tarayıcı yakınlaştırması, renk kontrast ölçümü ve ekran okuyucu davranışı manuel veya uzman araçlarıyla ayrıca doğrulanmalıdır.
 
 ## Karar değişikliği şablonu
