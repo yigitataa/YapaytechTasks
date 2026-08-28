@@ -2,7 +2,7 @@
 
 Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışacağı küçük ölçekli bir e-ticaret uygulaması için hazırlanmıştır.
 
-Şu anda **Aşama 8 - UI Durumları, Responsive Kullanım ve Temel Erişilebilirlik** uygulanmıştır. **Yata Market** arayüzündeki liste, detay, arama/filtre/sıralama ve sepet işlevleri korunmuştur. API yüklenmesi skeleton ile; ağ hatası kullanıcı dostu mesaj ve çalışan yeniden deneme eylemiyle; boş katalog, eşleşmeyen arama, bilinmeyen ürün ve bilinmeyen route birbirinden farklı görünümlerle ele alınır. Görsel fallback, klavye odakları, ana içeriğe atlama bağlantısı, aktif navigasyon bilgisi, erişilebilir sepet bildirimleri ve responsive düzen iyileştirilmiştir. Kullanıcının isteği gereği Aşama 8 değişikliklerinden sonra otomatik test çalıştırılmamıştır; sonuç manuel kontrole bağlıdır.
+Şu anda zorunlu Aşama 10'un ardından **Aşama 11A - Sepetin Sayfa Yenilendiğinde Korunması** bonusu uygulanmıştır. **Yata Market** zorunlu özellikleri tamamlanmış, API ve test dokümanları gerçek kodla eşleştirilmiş ve sepet `localStorage` ile kalıcı hâle getirilmiştir. Gerçek tarayıcı, responsive görünüm, klavye ve kullanıcı akışları kullanıcı tarafından manuel doğrulanmalıdır; bu kontroller tamamlanana kadar teslim durumu **manuel kontrole bağlıdır**.
 
 ## Kullanılan teknolojiler
 
@@ -10,6 +10,17 @@ Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışac
 - Backend: Node.js, Express ve JavaScript.
 - Paket yöneticisi: npm.
 - Veri tabanı: Kullanılmıyor.
+
+## Zorunlu özellikler
+
+- Backend API'den gelen ürünleri listeleme ve tek ürün detayını gösterme.
+- Ürün adına göre arama, kategori filtresi ve iki fiyat sıralaması.
+- Katalogdan veya detaydan sepete ekleme; adet artırma, azaltma, kaldırma ve sepeti temizleme.
+- Toplam ürün adedi, satır toplamı, genel toplam ve boş sepet durumu.
+- Ürünler için listeleme, tek kayıt, oluşturma, kısmi güncelleme ve silme REST işlemleri.
+- Kontrollü validasyon, bulunamadı ve beklenmeyen hata cevapları.
+- Loading, error, empty, no-results ve not-found kullanıcı durumları.
+- Responsive düzen ve temel klavye/erişilebilirlik desteği.
 
 ## Proje yapısı
 
@@ -19,7 +30,7 @@ Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışac
     src/
       api/          Express ürün API'siyle ortak iletişim
       components/   Kart, görsel, fiyat ve UI durumları
-      features/cart/ Sepet Context, reducer, hesaplamalar ve bileşenler
+      features/cart/ Sepet Context, reducer, storage, hesaplamalar ve bileşenler
       pages/        Ürün listesi, detay, sepet ve 404 sayfaları
       utils/        Para birimi biçimlendirme
       App.jsx       Frontend route eşleştirmeleri
@@ -40,6 +51,16 @@ Bu repository, React frontend ile Node.js/Express backend'in birlikte çalışac
   README.md        Kurulum ve çalıştırma rehberi
 ```
 
+## Dokümantasyon haritası
+
+- [Gereksinimler ve kapsam](./docs/requirements.md)
+- [Gereksinim-kod-test izlenebilirliği](./docs/traceability.md)
+- [Teknik kararlar](./docs/decisions.md)
+- [REST API referansı](./docs/api.md)
+- [Test stratejisi](./docs/test-strategy.md)
+- [Manuel test kontrol listesi](./docs/manual-test-checklist.md)
+- [UI durumları ve responsive kararları](./docs/ui-states-responsive-accessibility.md)
+
 ## Ön koşullar
 
 - Node.js `20.19+` veya `22.12+`.
@@ -59,20 +80,23 @@ Proje kökünden:
 
 ```powershell
 cd frontend
-npm install
+npm ci
 npm run dev
 ```
+
+`npm ci`, repository'deki `package-lock.json` dosyasına göre tekrarlanabilir kurulum yapar. Bağımlılıkları bilinçli olarak değiştirdiğinde lockfile'ı güncellemek için `npm install` kullanılabilir.
 
 Vite geliştirme sunucusu varsayılan olarak şu adreste açılır:
 
 ```text
-http://localhost:5173
+http://localhost:5180
 ```
 
 Frontend için kullanılabilir npm script'leri:
 
 - `npm run dev`: Geliştirme sunucusunu başlatır.
 - `npm run lint`: JavaScript ve JSX dosyalarını ESLint ile kontrol eder.
+- `npm test`: Arama/filtre/sıralama, sepet reducer/toplam ve storage testlerini çalıştırır.
 - `npm run build`: Yayına hazırlanmış production dosyalarını `dist/` içine üretir.
 - `npm run preview`: Oluşturulan production build'i yerel olarak önizler.
 
@@ -103,7 +127,8 @@ Sepet kullanımı:
 - Header'daki sepet rozeti bütün ürün adetlerinin toplamını gösterir.
 - Sepet sayfasındaki `+` adedi artırır. Adet `1` iken azaltma düğmesi çöp kutusuna dönüşür ve yalnız o ürün satırını kaldırır.
 - Her satırdaki **Kaldır** ürünü doğrudan siler; **Sepeti temizle** bütün satırları kaldırır.
-- Sepet yalnız React belleğinde tutulur. Sayfa yenilendiğinde sıfırlanması beklenen davranıştır; yenilemede kalıcılık bonusu uygulanmamıştır.
+- Sepet `yata-market-cart` anahtarıyla tarayıcının `localStorage` alanına kaydedilir. Sayfa yenilendiğinde aynı ürünler ve adetler geri yüklenir; ürün kaldırma ve sepeti temizleme işlemleri de kaydı günceller.
+- Storage içeriği bozuk JSON veya geçersiz ürün/adet verisi içerirse uygulama çökmez ve güvenli biçimde boş sepetle açılır.
 
 Arayüz hareketleri `prefers-reduced-motion` tercihini destekler. İşletim sisteminde azaltılmış hareket etkinse dekoratif giriş, gradient ışık ve yükleyici animasyonları yaklaşık sıfır süreye indirilir.
 
@@ -124,7 +149,7 @@ Proje kökünden:
 
 ```powershell
 cd backend
-npm install
+npm ci
 npm run dev
 ```
 
@@ -222,7 +247,31 @@ Backend için kullanılabilir npm script'leri:
 
 - `npm run dev`: Sunucuyu dosya değişikliklerini izleyerek başlatır.
 - `npm start`: Sunucuyu izleme modu olmadan başlatır.
+- `npm test`: Express API integration testlerini rastgele boş bir portta çalıştırır.
 - `npm run check`: Backend kaynak dosyalarında syntax kontrolü yapar.
+
+## Otomatik testler ve kalite kontrolü
+
+Yeni test paketi kurulmamıştır; frontend ve backend Node.js'in yerleşik test çalıştırıcısını kullanır.
+
+Backend:
+
+```powershell
+cd backend
+npm test
+npm run check
+```
+
+Frontend:
+
+```powershell
+cd frontend
+npm test
+npm run lint
+npm run build
+```
+
+Aşama 9 doğrulamasında backend testleri `11/11`, frontend testleri `21/21` geçmiştir. Backend testleri gerçek HTTP istekleri gönderir ve her testten önce bellek ürünlerini başlangıç durumuna getirir. Frontend testleri saf arama/filtre/sıralama, reducer ve toplam hesaplarını kapsar. Production build JSX componentlerinin derlenebilirliğini kontrol eder; gerçek tarayıcı davranışı, responsive görünüm, klavye ve görsel tasarım manuel kontrol listesine aittir.
 
 ## Frontend ve backend'i birlikte çalıştırma
 
@@ -230,7 +279,7 @@ Birinci terminal:
 
 ```powershell
 cd backend
-npm install
+npm ci
 npm run dev
 ```
 
@@ -238,13 +287,13 @@ npm run dev
 
 ```powershell
 cd frontend
-npm install
+npm ci
 npm run dev
 ```
 
 Ardından tarayıcıda:
 
-1. `http://localhost:5173` adresini açarak ürün kartlarını kontrol et.
+1. `http://localhost:5180` adresini açarak ürün kartlarını kontrol et.
 2. Bir ürün kartına tıklayıp `/products/{id}` detayına gidildiğini kontrol et.
 3. `http://localhost:3000/api/health` adresini açarak backend cevabını kontrol et.
 
@@ -265,7 +314,7 @@ Oluşturduğun `.env` dosyasındaki örnekler:
 
 ```dotenv
 PORT=3000
-CORS_ORIGIN=http://localhost:5173
+CORS_ORIGIN=http://localhost:5180
 ```
 
 - `PORT`, backend'in dinleyeceği portu belirler.
@@ -273,7 +322,7 @@ CORS_ORIGIN=http://localhost:5173
 - `.env` kişisel/yerel ayardır ve `.gitignore` nedeniyle Git'e eklenmez.
 - `.env.example` yalnızca gereken değişkenleri gösterir; hassas bilgi içermez ve Git'e eklenebilir.
 
-`.env` oluşturmak zorunlu değildir. Dosya yoksa backend `3000` portunu ve `http://localhost:5173` CORS origin değerini kullanır.
+`.env` oluşturmak zorunlu değildir. Dosya yoksa backend `3000` portunu ve `http://localhost:5180` CORS origin değerini kullanır.
 
 Frontend varsayılan olarak `http://localhost:3000` API adresini kullanır. Farklı bir backend adresi gerekiyorsa:
 
@@ -294,14 +343,16 @@ Frontend kontrolleri:
 
 ```powershell
 cd frontend
+npm test
 npm run lint
 npm run build
 ```
 
-Backend syntax kontrolü:
+Backend test ve syntax kontrolü:
 
 ```powershell
 cd backend
+npm test
 npm run check
 ```
 
@@ -324,16 +375,30 @@ Invoke-RestMethod http://localhost:3000/api/products/p-001
 
 PowerShell ile kopyalanabilir POST, PATCH ve DELETE örnekleri için [API dokümantasyonundaki hızlı CRUD zincirini](./docs/api.md#powershell-ile-hızlı-crud-zinciri) kullan.
 
-## Bu aşamanın sınırı
+## Bonus durumu ve bilinen sınırlamalar
 
-Aşama 8 mevcut kullanıcı akışlarının durum, responsive ve temel erişilebilirlik kalitesini geliştirir. Yeni ürün veya sepet özelliği eklemez. Aşağıdakiler bilinçli olarak henüz eklenmemiştir:
+Uygulanan bonus:
 
-- Favoriler ve kalıcı istemci state'i.
-- Bonus fiyat aralığı filtresi ve sayfalama.
+- **Sepetin sayfa yenilemesinde korunması:** `localStorage` ile uygulanmıştır (Aşama 11A).
+
+Aşağıdaki bonuslar zorunlu teslimin parçası değildir ve uygulanmamıştır:
+
+- Favoriler.
+- Fiyat aralığı filtresi.
+- Sayfalama.
+- Basit backend loglama.
+- Ürün yönetimi için ek frontend arayüzü.
+
+Bilinen sınırlamalar:
+
+- Sepet yalnız aynı tarayıcı ve origin içindeki `localStorage` alanında korunur; başka tarayıcıya veya cihaza senkronize edilmez. Tarayıcı verisi temizlenirse sepet kaybolur.
+- Storage'daki sepet, ürünün temel bilgilerinin bir anlık kopyasını taşır; backend'de ürün daha sonra değiştirilir veya silinirse kayıt otomatik uzlaştırılmaz.
+- Backend CRUD değişiklikleri yalnız backend belleğinde yaşar ve backend yeniden başlatıldığında sıfırlanır; bu davranış sepet bonusundan bağımsızdır.
 - Backend query parametreleriyle sunucu tarafı arama, filtreleme veya sıralama.
 - Frontend ürün oluşturma, düzenleme veya silme arayüzü.
 - Veritabanı ve authentication.
-- Ödeme, sipariş ve bonus özellikler.
-- Test framework'ü veya deployment yapılandırması.
+- Ödeme, sipariş ve uygulanmayan diğer bonus özellikler.
+- E2E/tarayıcı test altyapısı, coverage hedefi veya deployment yapılandırması.
+- Ürün görselleri harici `placehold.co` servisine bağlıdır; erişilemezse frontend fallback gösterir.
 
 Ürün dizisi kalıcı değildir. POST, PATCH ve DELETE işlemleri yalnız çalışan backend sürecinin belleğini değiştirir. Backend yeniden başladığında `backend/src/data/products.js` içindeki 10 başlangıç ürünü yeniden yüklenir; çalışma zamanı değişiklikleri dosyaya veya veritabanına yazılmaz.

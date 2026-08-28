@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import products from '../data/products.js'
+import products, { createInitialProducts } from '../data/products.js'
 
 export function getAllProducts() {
   return products
@@ -43,4 +43,8 @@ export function deleteProductById(id) {
 
   const [deletedProduct] = products.splice(productIndex, 1)
   return deletedProduct
+}
+
+export function resetProductsForTests() {
+  products.splice(0, products.length, ...createInitialProducts())
 }

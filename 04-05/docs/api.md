@@ -18,16 +18,18 @@ npm run dev
 
 ## Endpoint özeti
 
-| Yöntem | Yol | Request body | Başarı | Temel hatalar |
-|---|---|---|---|---|
-| `GET` | `/api/health` | Yok | `200` sağlık nesnesi | - |
-| `GET` | `/api/products` | Yok | `200` ürün dizisi | - |
-| `GET` | `/api/products/:id` | Yok | `200` tek ürün | `404` |
-| `POST` | `/api/products` | Ürün oluşturma alanları | `201` oluşturulan ürün | `400` |
-| `PATCH` | `/api/products/:id` | Değiştirilecek en az bir alan | `200` güncel ürün | `400`, `404` |
-| `DELETE` | `/api/products/:id` | Yok | `204`, boş gövde | `404` |
+| Yöntem | Yol | Path/query parametresi | Request body | Başarı | Temel hatalar |
+|---|---|---|---|---|---|
+| `GET` | `/api/health` | Yok | Yok | `200` sağlık nesnesi | - |
+| `GET` | `/api/products` | Yok | Yok | `200` ürün dizisi | - |
+| `GET` | `/api/products/:id` | `id`: zorunlu ürün kimliği | Yok | `200` tek ürün | `404` |
+| `POST` | `/api/products` | Yok | Ürün oluşturma alanları | `201` oluşturulan ürün | `400` |
+| `PATCH` | `/api/products/:id` | `id`: zorunlu ürün kimliği | Değiştirilecek en az bir alan | `200` güncel ürün | `400`, `404` |
+| `DELETE` | `/api/products/:id` | `id`: zorunlu ürün kimliği | Yok | `204`, boş gövde | `404` |
 
 `PUT` desteklenmez. Bu projede güncelleme, yalnız gönderilen alanları değiştiren `PATCH` ile yapılır.
+
+Bu sürüm query parametresi kullanmaz. Arama, kategori filtresi ve fiyat sıralaması backend listesi alındıktan sonra frontend'de uygulanır.
 
 ## Ürün modeli ve validasyon
 

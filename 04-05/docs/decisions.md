@@ -94,11 +94,11 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 
 ## ADR-010 - Sepet state yönetimi
 
-- **Durum:** Kabul edildi (Aşama 7)
+- **Durum:** Kabul edildi ve kalıcılıkla genişletildi (Aşama 11A)
 - **Karar:** Sepet React Context ve `useReducer` ile yönetilir.
 - **Neden:** Sepete ekleme, adet değiştirme, kaldırma ve temizleme gibi ilişkili geçişleri tek yerde toplar; harici state kütüphanesi gerektirmez.
 - **Alternatif:** Üst componentte `useState`, prop aktarımı veya Redux benzeri bir kütüphane.
-- **Sonuç/Sınırlama:** Bu yaklaşım yalnızca istemci belleğinde çalışır. Sayfa yenilemede sepeti korumak BON-004'tür ve temel kapsamda eklenmez.
+- **Sonuç/Sınırlama:** Çalışan sepet state'i yine Context/reducer içindedir. İsteğe bağlı BON-004 kapsamında başlangıç state'i `localStorage` üzerinden yüklenir ve değişiklikler reducer dışında kaydedilir; reducer saf kalır.
 
 ## ADR-011 - Sepet yönetimi davranışları
 
@@ -106,7 +106,7 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 - **Karar:** Ürün hem katalog kartından hem detay sayfasından sepete eklenebilir. Aynı ürün yeniden eklendiğinde yeni satır açılmaz, mevcut adet artar. Sepette adet artırılır veya azaltılır; adet `1` iken azaltma kontrolü kaldırma kontrolüne dönüşür. Ayrıca doğrudan ürün kaldırma ve tüm sepeti temizleme eylemleri bulunur.
 - **Neden:** Kaynaktaki “sepetteki ürünler yönetilebilmelidir” ifadesini kullanıcı açısından gözlemlenebilir ve test edilebilir hâle getirir.
 - **Alternatif:** Yalnızca kaldırma veya doğrudan adet girişi.
-- **Sonuç/Sınırlama:** Adet hiçbir zaman sıfır veya negatif olarak gösterilmez; son adet kaldırılınca satır sepetten çıkar. Sepet tarayıcı belleğindedir, yenilemede sıfırlanır. Bu ayrıntılı etkileşimler kaynakta tek tek sayılmış değildir; sepet yönetimi gereksinimini somutlaştıran uygulama kararıdır. Stok kontrolü kapsam dışıdır.
+- **Sonuç/Sınırlama:** Adet hiçbir zaman sıfır veya negatif olarak gösterilmez; son adet kaldırılınca satır sepetten çıkar. Aşama 11A'dan itibaren bu state aynı origin'in `localStorage` alanına da yazılır. Ayrıntılı etkileşimler kaynakta tek tek sayılmış değildir; sepet yönetimi gereksinimini somutlaştıran uygulama kararıdır. Stok kontrolü kapsam dışıdır.
 
 ## ADR-012 - Arama, filtre ve sıralamanın yeri
 
@@ -130,7 +130,7 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 - **Karar:** Her aşamada [manuel test kontrol listesi](./manual-test-checklist.md) güncellenecek; kritik hesaplama ve API davranışları oluştuğunda küçük, hedefli otomatik testler değerlendirilecek.
 - **Neden:** PDF çalışan davranışı ve kaliteyi değerlendirir ancak belirli bir otomatik test aracı veya kapsam yüzdesi zorunlu kılmaz.
 - **Alternatif:** Baştan geniş bir uçtan uca test paketi kurmak veya yalnızca manuel test yapmak.
-- **Sonuç/Sınırlama:** Otomatik testler kaynak zorunluluğu gibi sunulmaz; seçilecek araç ve test kapsamı uygulama yapısı görüldükten sonra kayda eklenmelidir.
+- **Sonuç/Sınırlama:** Otomatik testler kaynak zorunluluğu gibi sunulmaz. Araç ve kapsam, uygulama yapısı görüldükten sonra Aşama 9'daki ADR-016 ile kesinleştirilmiştir.
 
 ## ADR-015 - UI durumları ve temel erişilebilirlik
 
@@ -139,6 +139,30 @@ Kaynak gereksinimleri [requirements.md](./requirements.md) içinde tutulur; bir 
 - **Neden:** Kullanıcı her anda ne olduğunu ve sonraki eylemini anlayabilmeli; klavye ve ekran okuyucu kullanıcıları da aynı temel akışlara ulaşabilmelidir. Mevcut küçük projede yeni UI veya erişilebilirlik kütüphanesi eklemek gereksizdir.
 - **Alternatif:** Tek bir genel spinner/hata görünümü kullanmak veya kapsamlı bir component/UI kütüphanesi eklemek.
 - **Sonuç/Sınırlama:** Durumlar birbirinden ayrılır ve teknik hata metinleri sızmaz. Bu çalışma tam WCAG sertifikası veya otomatik erişilebilirlik denetimi değildir. Kullanıcının kararıyla lint, build ve viewport testleri Codex tarafından çalıştırılmadığı için son uygunluk manuel kontrollere bağlıdır.
+
+## ADR-016 - Minimal otomatik test altyapısı
+
+- **Durum:** Kabul edildi ve uygulandı (Aşama 9)
+- **Karar:** Frontend ve backend için Node.js'in yerleşik `node:test` çalıştırıcısı kullanılacak. Backend testleri Express uygulamasını rastgele boş bir portta başlatıp yerleşik `fetch` ile gerçek HTTP istekleri gönderecek; her testten önce bellek ürünleri başlangıç kopyasından sıfırlanacak. Frontend'de arama/filtre/sıralama ile sepet reducer ve selector gibi saf JavaScript mantıkları doğrudan test edilecek. JSX componentleri için bu aşamada ayrı DOM test kütüphanesi yerine lint ve production build derleme smoke kontrolü kullanılacak.
+- **Neden:** Projenin mevcut test altyapısı yoktu. Yerleşik çalıştırıcı yeni bağımlılık, ikinci framework veya E2E kurulumu gerektirmeden kritik davranışları tek komutla ve başlangıç seviyesinde okunabilir biçimde güvenceye alır.
+- **Alternatif:** Backend için Vitest + Supertest; frontend için Vitest + React Testing Library; tam tarayıcı E2E aracı. Bu seçenekler component etkileşimleri ve daha büyük test yardımcıları çoğaldığında daha güçlüdür, ancak mevcut küçük proje için ek paket ve yapılandırma maliyeti getirir.
+- **Sonuç/Sınırlama:** Backend CRUD/hata akışı gerçek HTTP sınırından, frontend'in kritik saf mantıkları birim düzeyinde test edilir. Production build bütün JSX import ve derleme zincirini kontrol eder fakat görünür metin, focus, responsive düzen veya gerçek tarayıcı etkileşimini kanıtlamaz; bunlar kullanıcı manuel testidir. Coverage yüzdesi ve E2E altyapısı eklenmemiştir.
+
+## ADR-017 - Teslim kanıtlarının sınıflandırılması
+
+- **Durum:** Kabul edildi ve uygulandı (Aşama 10)
+- **Karar:** Teslim denetimi üç kanıt türünü ayrı gösterecek: otomatik test/build/lint sonucu, salt okunur kod-doküman incelemesi ve kullanıcı manuel doğrulaması. Gereksinimlerin karşılıkları `traceability.md`, test sınırları `test-strategy.md` içinde tutulacak.
+- **Neden:** Derlemenin geçmesi responsive görünümün veya gerçek kullanıcı akışının çalıştığını tek başına kanıtlamaz. Kanıt türlerini ayırmak, yapılmayan manuel testleri yapılmış gibi göstermeden teslim durumunu açıklanabilir kılar.
+- **Alternatif:** Bütün kontrolleri tek bir “geçti” listesinde toplamak veya tam E2E altyapısı kurmak.
+- **Sonuç/Sınırlama:** Otomatik olarak doğrulanan maddeler doğrudan kanıtlanır; responsive, klavye ve tarayıcı akışları kullanıcı sonucu gelene kadar “Manuel doğrulama gerekli” kalır. Bu aşamada yeni E2E bağımlılığı eklenmez.
+
+## ADR-018 - Sepetin `localStorage` ile kalıcılığı
+
+- **Durum:** Kabul edildi ve uygulandı (Aşama 11A, bonus `BON-004`)
+- **Karar:** Storage okuma, doğrulama ve yazma işlemleri ayrı `cartStorage.js` modülünde tutulacak. `CartProvider`, `useReducer` için lazy initializer ile başlangıç sepetini bir kez yükleyecek ve state değiştiğinde `useEffect` ile güvenli kopyayı kaydedecek. `cartReducer` storage erişimi yapmayacak.
+- **Neden:** Reducer'ın aynı state ve action için yalnızca yeni state üretmesi test edilebilirliği korur. Ayrı modül, tarayıcıdan gelen veriye güvenmeyip JSON biçimini, ürün alanlarını, pozitif tam sayı adedi ve benzersiz ürün kimliklerini tek yerde doğrular. Okuma/yazma veya erişim hatası uygulamaya yayılmaz.
+- **Değerlendirilen alternatifler:** (1) Storage işlemlerini reducer içine koymak az dosya kullanır fakat side effect ekleyerek reducer'ı saf olmaktan çıkarır. (2) Bütün okuma/yazma kodunu doğrudan Provider içinde tutmak küçük uygulamada çalışır fakat doğrulama kodunu JSX yaşam döngüsüyle karıştırır ve saf Node testini zorlaştırır. (3) Ayrı yardımcı modül ile Provider lazy init + effect kullanmak bir ek dosya oluşturur fakat sorumlulukları ayırır; bu proje için seçilmiştir.
+- **Sonuç/Sınırlama:** Sepet aynı tarayıcı ve origin'de yenileme/yeniden açma boyunca korunur. Tarayıcı verisi temizlenirse veya storage kullanılamazsa boş sepet kullanılır. Saklanan ürün anlık kopyası backend'deki sonraki fiyat/silme değişiklikleriyle otomatik uzlaştırılmaz; hesap ve cihazlar arası senkronizasyon yoktur. Hassas veri saklanmaz.
 
 ## Aşama 4 teknik kararları (K1-K9)
 
@@ -283,8 +307,8 @@ Bu kararlar ürün listesi ve detayının kaynak gereksinimlerine uygun, küçü
 - Hedef klasör, mevcut `.../quiz-sinav-react/02` Git repository'sinin içinde tutulmuştur; iç içe yeni bir repository oluşturulmamıştır.
 - Frontend ve backend ayrı npm paketleri olarak kurulmuş, kesin bağımlılık sürümleri iki `package-lock.json` dosyasına kaydedilmiştir.
 - Desteklenen Node.js aralığı Vite gereksinimiyle uyumlu olarak `^20.19.0 || >=22.12.0` seçilmiştir.
-- Varsayılan frontend adresi `http://localhost:5173`, backend adresi `http://localhost:3000` olarak belirlenmiştir.
-- CORS yalnızca `CORS_ORIGIN` değişkenindeki origin'e; değişken yoksa `http://localhost:5173` adresine izin verecek şekilde yapılandırılmıştır.
+- Varsayılan frontend adresi başlangıçta `http://localhost:5173` idi; eski quiz projesinin kullandığı 5173/5174 portlarıyla karışmayı önlemek için Yata Market'e özel `http://localhost:5180` adresine alınmış ve Vite `strictPort` ile sabitlenmiştir. Backend adresi `http://localhost:3000` olarak kalır.
+- CORS yalnızca `CORS_ORIGIN` değişkenindeki origin'e; değişken yoksa Yata Market'in güncel `http://localhost:5180` adresine izin verecek şekilde yapılandırılmıştır.
 - `.env` isteğe bağlı yerel ayar dosyasıdır ve Git tarafından yok sayılır; hassas bilgi içermeyen `.env.example` izlenebilir.
 
 ## Aşama 3 uygulama kaydı
@@ -332,7 +356,7 @@ Bu kararlar ürün listesi ve detayının kaynak gereksinimlerine uygun, küçü
 - Bu üç parçalı kontrolde çöp kutusu ürünü doğrudan kaldırır, ortadaki değer mevcut adedi gösterir ve artı düğmesi yeni satır açmadan adedi artırır.
 - Sepet sayfasında artı ve eksi kontrolleri bulunur. Adet `1` olduğunda eksi yerine erişilebilir etiketli çöp kutusu görünür ve yalnız ilgili satırı kaldırır; ayrı “Kaldır” düğmesi de korunur.
 - Toplam ürün adedi, satır toplamı ve ara toplam saf selector fonksiyonlarıyla hesaplanır. Para hesaplarında kayan nokta sapmasını azaltmak için fiyatlar küçük para birimine çevrilip toplanır.
-- Sepet kalıcılığı bonus olduğu için `localStorage` eklenmemiştir; sayfa yenilenince sepet sıfırlanır.
+- Aşama 7 tamamlandığında sepet kalıcılığı bonus olduğu için `localStorage` henüz eklenmemişti. Bu tarihsel sınır daha sonra Aşama 11A'daki `ADR-018` ile değiştirilmiştir.
 - Kullanıcının isteği üzerine son değişikliklerden sonra otomatik test çalıştırılmamıştır; Aşama 7 sonucu manuel kontrollere bağlıdır.
 
 ## Aşama 8 uygulama kaydı
@@ -346,6 +370,32 @@ Bu kararlar ürün listesi ve detayının kaynak gereksinimlerine uygun, küçü
 - `frontend-list-detail-design.md`, `search-filter-sort-design.md` ve `cart-design-and-state.md` repository’de bulunamadı. Mevcut gerçek kod, karar kaydı ve kaynak PDF’ler esas alındı; eksik belgeler tahmin edilerek oluşturulmadı.
 - İş mantığı, backend, API sözleşmesi, arama/filtre/sıralama ve reducer davranışı değiştirilmedi. Aşama 8 otomatik test edilmedi; kullanıcı manuel kontrolleri bekleniyor.
 
+## Aşama 9 uygulama kaydı
+
+- Backend'e 11 bağımsız HTTP integration testi eklendi. Health, liste, detay, kontrollü 404, oluşturma, geçersiz oluşturma, kısmi PATCH, bilinmeyen PATCH, DELETE sonrası 404, bilinmeyen route ve test izolasyonu doğrulanır.
+- Frontend'e 9 arama/filtre/sıralama ve 12 sepet reducer/hesap testi olmak üzere 21 saf mantık testi eklendi.
+- Test izolasyonu için başlangıç ürünleri her testte yeni nesne kopyaları olarak üretilir ve çalışan bellek dizisi sıfırlanır. Bu yardımcı üretim davranışını değiştirmez; production sunucusu yine başlangıçta aynı 10 ürünü kullanır.
+- Sepet selector'ları geçersiz fiyat veya adet değerini toplam hesabına `0` katkı olarak kabul edecek biçimde güvenli hâle getirildi; böylece bozuk veri `NaN` olarak kullanıcı arayüzüne yayılmaz. Geçerli ürünlerdeki fiyat × adet davranışı değişmedi.
+- Kalite incelemesinde API hata ayrıştırmasının `productsApi.js`, para biçimlendirmenin `formatCurrency.js` içinde zaten ortaklaştırıldığı; frontend'e backend veri yazma sorumluluğu veya backend'e UI kararı sızmadığı görüldü. Kaynak dosyalarda gömülü parola, token ya da API anahtarı bulunmadı; bu alanlarda gereksiz refaktör yapılmadı.
+- Yeni paket eklenmedi. Backend `npm test` 11/11, frontend `npm test` 21/21, backend `npm run check`, frontend `npm run lint` ve `npm run build` başarılı oldu; build 106 modülü dönüştürdü.
+- Tarayıcı, responsive viewport, klavye, konsol ve backend-kapalı görünüm testleri Codex tarafından çalıştırılmadı; kullanıcı manuel kontrol listesinde bekliyor.
+
+## Aşama 10 uygulama kaydı
+
+- README gerçek `package.json` scriptleriyle eşleştirildi; temiz ve tekrarlanabilir kurulum için lockfile tabanlı `npm ci` öne çıkarıldı.
+- API belgesinde altı endpoint'in metot, yol, path/query parametresi, body, başarı ve hata sözleşmeleri gerçek route/controller koduyla karşılaştırıldı.
+- `traceability.md` ile 26 zorunlu gereksinim kod, test ve doküman kanıtlarına bağlandı; `test-strategy.md` otomatik ve manuel sınırı açıklar.
+- Git geçmişi salt okunur incelendi; geçmiş yeniden yazılmadı ve otomatik commit oluşturulmadı. Kullanıcının `learning-notes.md` içeriği ve boş `test.js` dosyası korunmuştur.
+- Son teslim durumu, tarayıcı ve responsive kontroller kullanıcı tarafından tamamlanana ve çalışma ağacı gözden geçirilip commit edilene kadar “Manuel kontrole bağlı”dır.
+
+## Aşama 11A uygulama kaydı
+
+- Yalnız `BON-004` uygulandı; favori, fiyat aralığı, sayfalama, loglama ve ürün yönetim arayüzüne başlanmadı.
+- `cartStorage.js` geçerli sepeti `yata-market-cart` anahtarıyla JSON olarak kaydeder; yüklemede yalnız whitelist içindeki ürün alanlarını ve pozitif tam sayı adedi kabul eder.
+- Bozuk JSON, geçersiz alan/tür, yinelenen ürün satırı ve storage erişim hatası boş sepet fallback'i üretir. Sepeti temizleme `{ "items": [] }` kaydını yazar.
+- `CartProvider` lazy başlangıç yüklemesi ve state değişiminde effect kullanır; `cartReducer` değiştirilmemiş ve saf kalmıştır.
+- Yeni bağımlılık eklenmedi. Frontend 31/31 test, lint ve 107 modüllü production build; backend 11/11 test ve syntax kontrolü başarılıdır. Tarayıcı yenileme ve yeniden açma akışı kullanıcı manuel testine bırakılmıştır.
+
 ## Açık kararlar ve riskler
 
 - Hedef `04-05` klasörü kendi `.git` klasörüne sahip değildir; commit'ler üstteki `.../quiz-sinav-react/02` repository'sine ait olacaktır. Üst repository'deki ilgisiz kullanıcı değişiklikleri bu aşamada korunmuştur.
@@ -354,7 +404,7 @@ Bu kararlar ürün listesi ve detayının kaynak gereksinimlerine uygun, küçü
 - Para birimi kaynakta belirtilmez. Türkçe içerik ve tasarım raporundaki fiyat örnekleri nedeniyle Aşama 5'te TRY seçilmiştir; gerçek iş gereksinimi farklıysa biçimlendirici tek noktadan değiştirilebilir.
 - Başlangıç ürün görselleri harici `placehold.co` adreslerine bağlıdır. Servis yüklenmezse fallback görünür; gerçek ürün varlıklarının sahipliği ve barındırılması hâlâ açık bir ürün kararıdır.
 - Aşama 6 kontrol seçimleri route veya yenileme boyunca kalıcı değildir. Liste componenti yeniden kurulduğunda arama, kategori ve sıralama başlangıç değerlerine döner; kaynak görev kalıcılık istemediği için URL parametresi veya global state eklenmemiştir.
-- Aşama 7 sepeti yalnız React belleğinde tutulur. Sayfa yenilemede sepetin sıfırlanması, uygulanmayan `BON-004` kalıcılık bonusuyla uyumludur.
+- Aşama 11A ile sepet aynı tarayıcı origin'inde `localStorage` kullanılarak korunur. Storage kaydı backend ürünleriyle otomatik uzlaştırılmadığı ve cihazlar arasında paylaşılmadığı için eski ürün anlık kopyası kalabilir.
 - Aşama 8 tam WCAG denetimi değildir. Özellikle gerçek cihaz, tarayıcı yakınlaştırması, renk kontrast ölçümü ve ekran okuyucu davranışı manuel veya uzman araçlarıyla ayrıca doğrulanmalıdır.
 
 ## Karar değişikliği şablonu

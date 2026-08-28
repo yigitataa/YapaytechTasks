@@ -1,4 +1,4 @@
-const products = [
+const initialProducts = [
   {
     id: 'p-001',
     name: 'Kablosuz Kulaklık',
@@ -91,5 +91,10 @@ const products = [
   },
 ]
 
-export default products
+export function createInitialProducts() {
+  return initialProducts.map((product) => ({ ...product }))
+}
 
+const products = createInitialProducts()
+
+export default products

@@ -81,36 +81,60 @@ Bu dosya teslim için zorunlu bir özellik değildir. Her aşamada ne yaptığı
 
 ## Aşama 5 - Frontend ürün liste ve detay
 
-- **Hangi ihtiyacı çözdüm?** _Doldurulacak._
-- **Ne öğrendim?** _Doldurulacak._
-- **Veri backend'den componentlere nasıl ulaştı?** _Doldurulacak._
-- **En önemli state veya veri yapısı neydi?** _Doldurulacak._
-- **Hangi hata veya sınır senaryosunu ele aldım?** _Doldurulacak._
-- **Hangi teknik kararı neden verdim?** _Doldurulacak._
-- **Hangi testi yaptım; kanıtım neydi?** _Doldurulacak._
-- **Anlamadığım konular / sorularım:** _Doldurulacak._
+- **Hangi ihtiyacı çözdüm?**
+  - Uygulamanın frontend kısmını geliştirdik. Ürünler daha kolay gözlemlenebilir bir hale geldi
+- **Ne öğrendim?**
+  - Bir alışveriş uygulaması için gerekli tasarım kalıpları ve sunumda dikkat çekici detayların önemini öğrendim.
+- **Veri backend'den componentlere nasıl ulaştı?**
+  - Kurmuş olduğumuz REST API sistemiyle istek atarak ürünlerin bilgilerine ulaşarak frontend kısmında sergiliyoruz.
+- **En önemli state veya veri yapısı neydi?**
+  - Şu anlık kullandığımız en önemli veri yapısı "product" nesnesidir. Onun dışında hata durumlarını tespit edip ona göre uygulamanın tepki vermesini sağlamak için hata değişkenleri kullanıyoruz.
+- **Hangi hata veya sınır senaryosunu ele aldım?**
+  - Frontend ve backend bağlantısı koparsa ne olur, kullanıcı ne görür bu senaryoları değerlendirdim.
+- **Hangi teknik kararı neden verdim?**
+  - Ürün verilerini frontend içinde sabit tutmak yerine backend API’den fetch ile almaya karar verdim. Böylece frontend ile backend arasındaki sorumluluklar ayrıldı ve ürünler tek bir kaynaktan yönetildi. Liste ve detay sayfaları arasında geçiş yapmak için React Router kullandım.
+- **Hangi testi yaptım; kanıtım neydi?**
+  - Ürünlerin API’den gelip gelmediğini, ürün detayına geçişi, bilinmeyen ürün 404 görünümünü ve responsive tasarımı test ettim. API’deki 10 ürünün ekranda 10 kart olarak görünmesi, doğru detay sayfasının açılması, hata durumlarının kontrollü gösterilmesi ve lint/build komutlarının başarıyla tamamlanması test kanıtlarımdı.
+- **Anlamadığım konular / sorularım:**
+  - Frontend ve Backend bağlantısı koptuğunda kullanıcının ön belleğinde yüklü olan verileri gösterip yine de bağlantının koptuğunu belirtebilir miyiz?
 
 ## Aşama 6 - Arama, filtre ve sıralama
 
-- **Hangi ihtiyacı çözdüm?** _Doldurulacak._
-- **Ne öğrendim?** _Doldurulacak._
-- **Kullanıcı girdisi ürün listesine nasıl etki etti?** _Doldurulacak._
-- **En önemli state veya veri yapısı neydi?** _Doldurulacak._
-- **Hangi boş sonuç veya birleşik filtre senaryosunu ele aldım?** _Doldurulacak._
-- **Hangi teknik kararı neden verdim?** _Doldurulacak._
-- **Hangi testi yaptım; kanıtım neydi?** _Doldurulacak._
-- **Anlamadığım konular / sorularım:** _Doldurulacak._
+- **Hangi ihtiyacı çözdüm?**
+  - Kullanıcı deneyimi arama, filtreleme ve sıralama özelliğiyle zenginleştirildi.
+- **Ne öğrendim?**
+  - Arama çubuğunu nasıl oluşturacağımı ve değişen sayfa boyutlara göre nasıl optimize edeceğimi öğrendim.
+- **Kullanıcı girdisi ürün listesine nasıl etki etti?**
+  - Daha dinamik bir hal aldı ve kullanıcı istediği ürüne daha kolay ulaşabilir.
+- **En önemli state veya veri yapısı neydi?**
+  - Ürünler, arama metni, seçilen kategori ve sıralama seçeneği state içinde tutuldu.
+- **Hangi boş sonuç veya birleşik filtre senaryosunu ele aldım?**
+  - Arama ve kategoriye uygun ürün olmadığında “Ürün bulunamadı” mesajı gösterildi. Arama, kategori ve sıralamanın birlikte çalışması sağlandı.
+- **Hangi teknik kararı neden verdim?**
+  - Ürün sayısı az olduğu için arama, filtreleme ve sıralamayı frontend tarafında yaptım.
+- **Hangi testi yaptım; kanıtım neydi?**
+  - Arama, kategori ve fiyat sıralamasını tarayıcıda test ettim. Doğru ürünlerin ekranda görünmesi ve build işleminin başarılı olması kanıtımdı.
+- **Anlamadığım konular / sorularım:**
+  - Bu aşamada sorum yok.
 
 ## Aşama 7 - Sepet yönetimi
 
-- **Hangi ihtiyacı çözdüm?** _Doldurulacak._
-- **Ne öğrendim?** _Doldurulacak._
-- **Sepet verisi hangi componentler arasında hareket etti?** _Doldurulacak._
-- **En önemli state veya reducer davranışı neydi?** _Doldurulacak._
-- **Hangi boş sepet veya adet senaryosunu ele aldım?** _Doldurulacak._
-- **Hangi teknik kararı neden verdim?** _Doldurulacak._
-- **Toplamı hangi test ve hesapla doğruladım?** _Doldurulacak._
-- **Anlamadığım konular / sorularım:** _Doldurulacak._
+- **Hangi ihtiyacı çözdüm?**
+  - Kullanıcının beğendiği ve almak istediği ürünü sepetinde saklamasını sağladım.
+- **Ne öğrendim?**
+  - Sepet mantığını ve bunların kaydını nasıl tutacağımı öğrendim.
+- **Sepet verisi hangi componentler arasında hareket etti?**
+  - Sepet verisi CartProvider üzerinden ürün kartı, ürün detay sayfası, header ve sepet sayfası arasında paylaşıldı.
+- **En önemli state veya reducer davranışı neydi?**
+  - En önemli state, sepetteki ürünleri ve adetlerini tutan items dizisiydi. Aynı ürün tekrar eklenince yeni satır oluşturmak yerine adedi artırıldı.
+- **Hangi boş sepet veya adet senaryosunu ele aldım?**
+  - Sepet boşken kullanıcıya boş sepet görünümü gösterildi. Sepet sayfasında adet bire düştüğünde azaltma düğmesi, ürünü kaldıran silme düğmesine dönüştürüldü.
+- **Hangi teknik kararı neden verdim?**
+  - Sepeti bütün sayfalarda ortak kullanabilmek için React Context ve useReducer kullandım. Böylece sepet işlemleri tek yerde ve düzenli biçimde yönetildi.
+- **Toplamı hangi test ve hesapla doğruladım?**
+  - Manuel testte satır toplamını ürün fiyatı × adet, genel toplamı ise bütün satır toplamlarının toplamı olarak kontrol edeceğim. Otomatik test çalıştırılmadığı için doğrulama henüz manuel teste bağlıdır.
+- **Anlamadığım konular / sorularım:**
+  - Şu an sorum yok.
 
 ## Aşama 8 - UI durumları ve responsive kullanım
 

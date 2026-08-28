@@ -1,18 +1,31 @@
 function toMinorUnits(value) {
-  return Math.round(value * 100)
+  return typeof value === 'number' && Number.isFinite(value) && value >= 0
+    ? Math.round(value * 100)
+    : 0
+}
+
+function toValidQuantity(value) {
+  return Number.isInteger(value) && value > 0 ? value : 0
 }
 
 export function selectTotalQuantity(items) {
-  return items.reduce((total, item) => total + item.quantity, 0)
+  return items.reduce(
+    (total, item) => total + toValidQuantity(item.quantity),
+    0,
+  )
 }
 
 export function selectLineTotal(item) {
-  return (toMinorUnits(item.product.price) * item.quantity) / 100
+  return (
+    (toMinorUnits(item.product.price) * toValidQuantity(item.quantity)) / 100
+  )
 }
 
 export function selectCartSubtotal(items) {
   const subtotalInMinorUnits = items.reduce(
-    (total, item) => total + toMinorUnits(item.product.price) * item.quantity,
+    (total, item) =>
+      total +
+      toMinorUnits(item.product.price) * toValidQuantity(item.quantity),
     0,
   )
 

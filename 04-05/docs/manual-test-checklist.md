@@ -89,7 +89,7 @@ Bu testleri çalıştırmadan önce README'deki komutla backend'i başlat. Windo
 
 ### Aşama 5 - Frontend API iletişimi, ürün listesi ve detay
 
-Bu testlerde backend `http://localhost:3000`, frontend `http://localhost:5173` adresinde birlikte çalışmalıdır.
+Bu testlerde backend `http://localhost:3000`, frontend `http://localhost:5180` adresinde birlikte çalışmalıdır.
 
 - [ ] **MT-A5-001 - Gerçek API listesi** (`REQ-004`, `REQ-020`): `/api/products` cevabındaki ürün sayısı ile `/` sayfasındaki kart sayısı aynıdır.
 - [ ] **MT-A5-002 - Kart içeriği** (`REQ-004`): Her kartta ürün görseli/fallback, ad, kategori ve TRY biçimli fiyat okunur; bütün kart tek bir detay bağlantısıdır.
@@ -126,7 +126,7 @@ Bu testlerde backend `http://localhost:3000`, frontend `http://localhost:5173` a
 
 ### Aşama 6 - Ürün arama, kategori filtresi ve fiyat sıralaması
 
-Bu testlerde backend `http://localhost:3000`, frontend `http://localhost:5173` adresinde birlikte çalışmalıdır. Başlangıçta `10 / 10 ürün` görünür.
+Bu testlerde backend `http://localhost:3000`, frontend `http://localhost:5180` adresinde birlikte çalışmalıdır. Başlangıçta `10 / 10 ürün` görünür.
 
 - [ ] **MT-A6-001 - Tam ad araması** (`REQ-006`): “Kablosuz Kulaklık” yazıldığında yalnız bu kart kalır ve sayaç `1 / 10 ürün` olur.
 - [ ] **MT-A6-002 - Büyük/küçük harf ve Türkçe karakter** (`REQ-006`): “KULAKLIK” ve “kulaklık” aynı ürünü gösterir.
@@ -153,11 +153,11 @@ Bu testlerde backend `http://localhost:3000`, frontend `http://localhost:5173` a
 - [ ] **MT-CRT-004 - Ürün kaldırma** (`REQ-010`, `REQ-011`): Hedef ürün kaldırılır; diğer sepet satırları değişmez ve toplam yeniden hesaplanır.
 - [ ] **MT-CRT-005 - Toplam hesaplama** (`REQ-011`): Birden fazla ürün ve adet için görünen toplam, elle hesaplanan fiyat x adet toplamına eşittir.
 - [ ] **MT-CRT-006 - Boş sepet** (`REQ-012`): İlk açılışta ve son ürün kaldırıldığında açık boş sepet mesajı görülür; geçersiz toplam görünmez.
-- [ ] **MT-CRT-007 - Yenileme sınırı** (`BON-004`): Bonus seçilmediyse sayfa yenilemede sepetin sıfırlanmasının hata olmadığı dokümantasyonla uyumlu olduğu doğrulanır. Bonus seçildiyse kalıcılık ayrıca test edilir.
+- [ ] **MT-CRT-007 - Yenilemede kalıcılık** (`BON-004`): Sepette ürün varken sayfa yenilendiğinde aynı ürünler, adetler ve toplamlar geri gelir.
 
 ### Aşama 7 - Uygulanacak kullanıcı testleri
 
-Bu kontroller kullanıcı tarafından yapılacaktır. Başlamadan önce backend `http://localhost:3000`, frontend `http://localhost:5173` adresinde çalışmalıdır.
+Bu kontroller kullanıcı tarafından yapılacaktır. Başlamadan önce backend `http://localhost:3000`, frontend `http://localhost:5180` adresinde çalışmalıdır.
 
 - [ ] **MT-A7-001 - Katalogdan hızlı ekleme** (`REQ-009`): Ana sayfada ürün detayına girmeden bir kartın “Sepete ekle” düğmesine basınca header rozeti `1` olur.
 - [ ] **MT-A7-002 - Katalog kontrolüne dönüşme** (`REQ-010`): Ürün eklenince karttaki düğmenin yerini **çöp kutusu | 1 | +** kontrolü alır. `+` tıklanınca orta değer ve header rozeti `2` olur; sepette iki satır oluşmaz.
@@ -170,7 +170,7 @@ Bu kontroller kullanıcı tarafından yapılacaktır. Başlamadan önce backend 
 - [ ] **MT-A7-009 - Toplam hesabı** (`REQ-011`): En az iki farklı ürün ve farklı adetlerle satır toplamları `fiyat × adet`, ara toplam ise bütün satırların toplamına eşittir.
 - [ ] **MT-A7-010 - Sepeti temizleme** (`REQ-010`): “Sepeti temizle” bütün satırları kaldırır, rozeti sıfırlar ve boş sepet görünümünü açar.
 - [ ] **MT-A7-011 - Boş sepet** (`REQ-012`): Son ürün kaldırıldığında anlaşılır boş sepet mesajı ve kataloğa dönüş bağlantısı görünür.
-- [ ] **MT-A7-012 - Yenileme sınırı** (`BON-004`): Sepette ürün varken tarayıcı yenilenince sepet sıfırlanır; bu davranış uygulanmayan kalıcılık bonusuyla uyumludur.
+- [ ] **MT-A7-012 - Yenilemede kalıcılık** (`BON-004`): Aşama 11A sonrasında sepette ürün varken tarayıcı yenilenince ürünler ve adetler korunur.
 - [ ] **MT-A7-013 - Klavye erişimi** (`QLT-010`): Tab ile hızlı ekleme, sepet bağlantısı, adet, kaldırma ve temizleme kontrollerine ulaşılır; Enter/Space ile çalışırlar ve görünür odak vardır.
 - [ ] **MT-A7-014 - Dar ekran** (`REQ-025`): 320-375 px genişlikte kart hızlı ekleme düğmeleri, sepet satırları, adet kontrolleri ve özet yatay taşma olmadan kullanılabilir.
 
@@ -215,6 +215,42 @@ Bu kontroller kullanıcı tarafından yapılacaktır. Codex, kullanıcının ön
 - [ ] **MT-A8-021 - Yakınlaştırma** (`REQ-025`, `QLT-010`): Tarayıcı %200 yakınlaştırmada temel içerik ve eylemler kaybolmadan kullanılabilir.
 - [ ] **MT-A8-022 - Önceki işlevler** (`REQ-004` - `REQ-012`): Liste, detay, arama, filtre, iki fiyat sırası, katalog/detaydan sepete ekleme, adet, kaldırma ve toplam davranışları aynı şekilde çalışır.
 
+### Aşama 9 - Kullanıcının yapacağı manuel kalite kontrolleri
+
+Bu bölüm **Codex tarafından çalıştırılmadı, kullanıcı manuel olarak yapmalı**. Otomatik test, lint ve build sonuçları aşağıdaki otomatik doğrulama kaydında ayrıdır.
+
+- [ ] **MT-A9-001 - Test komutlarını tekrar çalıştırma**: Backend ve frontend klasörlerinde ayrı ayrı `npm test` çalıştır; sırasıyla `11 pass / 0 fail` ve `21 pass / 0 fail` gör.
+- [ ] **MT-A9-002 - Kalite komutları**: Backend'de `npm run check`; frontend'de `npm run lint` ve `npm run build` çalıştır; bütün komutlar exit code `0` ile bitmeli.
+- [ ] **MT-A9-003 - Testin hatayı yakaladığını görme**: Yalnız deneme için bir testte beklenen değeri değiştir, `npm test` ile testin kaldığını gör ve değişikliği hemen geri al; tekrar çalıştırınca bütün testler geçmeli.
+- [ ] **MT-A9-004 - Uygulamayı başlatma** (`REQ-022`): İki terminalde backend ve frontend'i README komutlarıyla başlat; `http://localhost:3000/api/health` ve `http://localhost:5180` açılmalı.
+- [ ] **MT-A9-005 - Backend kapalı hata görünümü** (`REQ-021`): Frontend açıkken backend'i durdurup sayfayı yenile; sonsuz loading yerine Türkçe hata ve çalışan yeniden deneme görünmeli. Backend'i yeniden başlatıp düğmeyle ürünleri geri getir.
+- [ ] **MT-A9-006 - CRUD zinciri** (`REQ-014` - `REQ-019`): [API belgesindeki PowerShell CRUD zincirini](./api.md#powershell-ile-hızlı-crud-zinciri) uygula; oluşturma, kısmi güncelleme, silme ve silinen kayıtta 404 sonuçlarını gör.
+- [ ] **MT-A9-007 - Birleşik katalog kontrolü** (`REQ-006` - `REQ-008`): Ana sayfada `mat` ara, `Spor` seç ve fiyatı yüksekten düşüğe sırala; Yoga Matı önce, Matara sonra görünmeli.
+- [ ] **MT-A9-008 - Sepet toplam örneği** (`REQ-009` - `REQ-011`): API üzerinden fiyatları `100` ve `75` olan iki geçici test ürünü oluşturup sayfayı yenile. İlk üründen 2, ikinci üründen 1 adet sepete ekle; toplam adet `3`, genel toplam `₺275` olmalı.
+- [ ] **MT-A9-009 - Sepet sınırları** (`REQ-010` - `REQ-012`): Aynı ürün yeni satır açmadan artmalı; adet `1` iken çöp kutusu ürünü kaldırmalı; son ürün kalkınca boş sepet görünmeli.
+- [ ] **MT-A9-010 - Responsive görünüm** (`REQ-025`): Tarayıcı geliştirici araçlarında yaklaşık 320, 768 ve 1280 px genişliklerde liste, detay ve sepeti kontrol et; yatay taşma ve erişilemeyen temel eylem olmamalı.
+- [ ] **MT-A9-011 - Klavye ve focus** (`QLT-010`): Fare kullanmadan Tab, Shift+Tab, Enter ve Space ile navigasyon, filtre, ürün ve sepet kontrollerini kullan; odak halkası görünmeli.
+- [ ] **MT-A9-012 - Konsol ve terminal** (`QLT-008`): Normal kullanıcı akışında tarayıcı konsolunda ve iki terminalde açıklanamayan error/stack kaydı bulunmamalı.
+
+### Aşama 10 - Son manuel teslim provası
+
+**Bu manuel testler Codex tarafından çalıştırılmadı.** Kutuları yalnız beklenen sonucu kendin gördükten sonra işaretle.
+
+| Kimlik | Hazırlık | URL | İşlem | Beklenen sonuç |
+|---|---|---|---|---|
+| MT-A10-001 | Yeni veya temiz bir klasörde repository hazır olsun | - | README'deki sırayla backend ve frontend için `npm ci` çalıştır | İki kurulum da hatasız tamamlanır; ek veritabanı veya gizli ayar gerekmez |
+| MT-A10-002 | İki terminal aç | `http://localhost:3000/api/health`, `http://localhost:5180` | Backend ve frontend'i README komutlarıyla başlat | Health `200`/`{"status":"ok"}`; Yata Market katalog ekranı açılır |
+| MT-A10-003 | İki uygulama açık | `/`, `/products/p-001`, `/products/bilinmeyen-id` | Ürün kartını aç, doğrudan detaya git ve bilinmeyen kimliği dene | Liste ve doğru detay görünür; bilinmeyen ürün kontrollü mesaj gösterir |
+| MT-A10-004 | Katalog açık | `/` | `mat` ara, `Spor` seç, iki fiyat sırasını ayrı ayrı ve birlikte dene | Sonuçlar arama/filtreye uyar; fiyat sırası doğru değişir; boş sonuç hata sayılmaz |
+| MT-A10-005 | Sepet boş | `/`, `/products/p-001`, `/cart` | Katalogdan ve detaydan ekle; artır, azalt, kaldır ve sepeti temizle | Ortak adet korunur; son adette silme görünür; son ürün kalkınca boş sepet açılır |
+| MT-A10-006 | Fiyatları 100 ve 75 olan iki geçici ürün API ile oluşturulmuş olsun | `/`, `/cart` | İlk ürünü 2, ikinci ürünü 1 adet ekle | Toplam adet `3`, genel toplam `₺275` olur |
+| MT-A10-007 | Frontend açık | `/` ve geçerli detay URL'si | Backend'i durdur, sayfayı yenile; sonra backend'i açıp “Yeniden dene”ye bas | Sonsuz loading olmaz; güvenli hata görünür ve retry ürünleri geri getirir |
+| MT-A10-008 | Backend açık | `http://localhost:3000` | `docs/api.md` içindeki PowerShell CRUD zincirini çalıştır | Kodlar sırasıyla `200`, `201`, `200`, `200`, `204`, `404`, `400`, `400`, `200` olur |
+| MT-A10-009 | Tarayıcı geliştirici araçları açık | `/`, `/products/p-001`, `/cart` | 320, 768 ve 1280 px genişliklerde temel akışları dene | Yatay taşma, kırpılan içerik veya erişilemeyen temel eylem olmaz |
+| MT-A10-010 | Fareyi kullanma | Tüm frontend route'ları | Tab, Shift+Tab, Enter ve Space ile gezin | Sıra mantıklıdır; focus görünür; buton ve bağlantılar klavyeyle çalışır |
+| MT-A10-011 | DevTools Console ve iki terminal görünür | Tüm temel akışlar | Liste, detay, arama ve sepeti kullan | Açıklanamayan error, warning veya stack trace oluşmaz |
+| MT-A10-012 | Manuel testler tamamlanmış | - | `git status` ve `git log --oneline` incele; yalnız istenen dosyaları seçip commit et | Gizli/üretilmiş dosya yoktur; çalışma ağacı teslim için bilinçli ve açıklanabilir durumdadır |
+
 ## 8. Dokümantasyon ve teslim
 
 - [ ] **MT-DOC-001 - README kapsamı** (`REQ-023`): Ön koşullar, kurulum, frontend/backend çalıştırma ve temel kullanım adımları eksiksizdir.
@@ -231,7 +267,11 @@ Yalnızca ilgili bonus bilinçli olarak seçilip geliştirildiyse doldur:
 - [ ] **MT-BON-001 - Favoriler** (`BON-001`): _Beklenen davranış ve kanıt daha sonra yazılacak._
 - [ ] **MT-BON-002 - Fiyat aralığı filtresi** (`BON-002`): _Beklenen davranış ve kanıt daha sonra yazılacak._
 - [ ] **MT-BON-003 - Sayfalama** (`BON-003`): _Beklenen davranış ve kanıt daha sonra yazılacak._
-- [ ] **MT-BON-004 - Yenilemede sepet kalıcılığı** (`BON-004`): _Beklenen davranış ve kanıt daha sonra yazılacak._
+- [ ] **MT-BON-004A - Yenilemede sepet kalıcılığı** (`BON-004`): İki farklı ürünü farklı adetlerle sepete ekle, görünen adet ve toplamları not et, sayfayı yenile. Aynı satırlar, adetler, rozet ve toplamlar geri gelmelidir.
+- [ ] **MT-BON-004B - Ürün kaldırma kaydı** (`BON-004`): Ürünlerden birini kaldırıp sayfayı yenile. Kaldırılan ürün geri gelmemeli; diğer ürün korunmalıdır.
+- [ ] **MT-BON-004C - Sepeti temizleme kaydı** (`BON-004`): “Sepeti temizle”ye basıp sayfayı yenile. Boş sepet görünümü korunmalıdır.
+- [ ] **MT-BON-004D - Uygulamayı yeniden açma** (`BON-004`): Sepete ürün ekle, frontend sekmesini kapatıp aynı `http://localhost:5180` adresini yeniden aç. Tarayıcı verisi temizlenmediyse sepet geri gelmelidir.
+- [ ] **MT-BON-004E - Bozuk storage verisi** (`BON-004`): DevTools → Application → Local Storage → `http://localhost:5180` altında `yata-market-cart` değerini `{bozuk-json` yapıp sayfayı yenile. Uygulama çökmemeli ve güvenli boş sepet görünmelidir.
 - [ ] **MT-BON-005 - Basit loglama** (`BON-005`): _Beklenen davranış ve kanıt daha sonra yazılacak._
 - [ ] **MT-BON-006 - Ürün yönetim arayüzü** (`BON-006`): _Beklenen davranış ve kanıt daha sonra yazılacak._
 
@@ -248,6 +288,9 @@ Yalnızca ilgili bonus bilinçli olarak seçilip geliştirildiyse doldur:
 | 2026-08-26 | Aşama 6 - otomatik kontroller | 18 | 0 | Kullanıcı manuel testleri | Codex | Saf türetme fonksiyonu, lint/build, gerçek API, arama/kategori/iki sıra/birleşik kullanım, boş sonuç, temizleme, erişilebilir etiketler, 320 px responsive ve konsol doğrulandı. |
 | 2026-08-26 | Aşama 7 - manuel kontrole bağlı | 0 | 0 | 14 kullanıcı testi | Kullanıcı | Kullanıcının isteğiyle son Aşama 7 değişikliklerinden sonra otomatik test çalıştırılmadı. |
 | 2026-08-26 | Aşama 8 - manuel kontrole bağlı | 0 | 0 | 22 kullanıcı testi | Kullanıcı | UI durumları, üç viewport ve temel erişilebilirlik kontrolleri kullanıcıya bırakıldı; Codex otomatik test çalıştırmadı. |
+| 2026-08-27 | Aşama 9 - otomatik kontroller | 35 | 0 | 12 kullanıcı testi | Codex + Kullanıcı | 32 otomatik test, backend syntax, frontend lint ve production build geçti; tarayıcı ve görsel kontroller kullanıcıya bırakıldı. |
+| 2026-08-28 | Aşama 10 - otomatik teslim denetimi | 10 kontrol | 0 | 12 kullanıcı testi | Codex + Kullanıcı | Temiz kurulum, 32 test, syntax, lint, build, API smoke, link, izlenebilirlik ve Git hijyeni denetlendi; manuel teslim provası bekliyor. |
+| 2026-08-28 | Aşama 11A - sepet kalıcılığı bonusu | 31 frontend + 11 backend testi | 0 | 5 kullanıcı testi | Codex + Kullanıcı | 10 storage testi dahil bütün testler, frontend lint/build ve backend syntax kontrolü geçti; gerçek tarayıcı yenilemesi kullanıcıya bırakıldı. |
 
 ## Aşama 2 otomatik doğrulama kaydı
 
@@ -384,3 +427,51 @@ Bu sonuçlar kullanıcının Aşama 6 manuel test kutularının yerine geçmez. 
 | 320 px responsive | Geçti | Kontrol paneli tek `254.4px` sütun, ürün grid'i `143px 143px`; `innerWidth = scrollWidth = 320`, form kontrolleri 48 px. |
 | Geniş ekran düzeni | Geçti | 1280 px'de kontrol paneli beş sütun ve ürün grid'i dört sütun görünümünde; görsel inceleme geçti. |
 | Tarayıcı konsolu | Geçti | Uygulama kullanımında `warn` veya `error` kaydı bulunmadı; yalnız Vite debug ve React DevTools bilgi kaydı vardı. |
+
+## Aşama 9 otomatik doğrulama kaydı
+
+Bu kontroller gerçek komutlarla çalıştırılmıştır. Tarayıcı, responsive görünüm, klavye, browser console ve backend-kapalı frontend görünümü bu kayda dahil değildir.
+
+| Komut/kontrol | Sonuç | Kanıt özeti |
+|---|---|---|
+| `backend/npm test` | Geçti | Node test runner: 11 test, 11 geçti, 0 kaldı, 0 atlandı. Test sunucusu rastgele boş port kullandı ve kapanışta güvenli biçimde kapandı. |
+| Backend HTTP davranışları | Geçti | Health, liste, detay, ürün 404, POST, invalid POST 400, kısmi PATCH, unknown PATCH, DELETE sonrası GET 404 ve route JSON 404 doğrulandı. |
+| Backend test izolasyonu | Geçti | Her test öncesi başlangıç ürünleri yeni kopyalardan geri yüklendi; son izolasyon testi 10 ürün ve `p-001` kaydını gördü. |
+| `backend/npm run check` | Geçti | Bütün backend kaynak dosyaları syntax kontrolünden exit code `0` ile geçti. |
+| `frontend/npm test` | Geçti | Node test runner: 21 test, 21 geçti, 0 kaldı, 0 atlandı. |
+| Arama/filtre/sıralama | Geçti | 9 test: harf duyarsız ve trim'li arama, kategori/Tümü, iki fiyat sırası, birleşik kullanım, mutasyon yapmama ve boş sonuç doğrulandı. |
+| Sepet reducer/toplamlar | Geçti | 12 test: ekleme, aynı/farklı ürün, artırma, azaltma, son adette kaldırma, doğrudan kaldırma, negatif olmama, adet/satır/genel toplam ve `NaN` koruması doğrulandı. `100 × 2 + 75 × 1 = 275`, toplam adet `3` geçti. |
+| `frontend/npm run lint` | Geçti | ESLint exit code `0`; hata veya uyarı üretmedi. |
+| `frontend/npm run build` | Geçti | Vite 106 modülü dönüştürdü ve production çıktısını exit code `0` ile oluşturdu. Bu bir derleme smoke kontrolüdür, tarayıcı davranış testi değildir. |
+
+## Aşama 10 otomatik doğrulama kaydı
+
+Tarayıcı ve kullanıcı etkileşimi testleri bu kayda dahil değildir.
+
+| Kontrol | Sonuç | Kanıt özeti |
+|---|---|---|
+| Kaynak gereksinim karşılaştırması | Geçti | Kaynak PDF'nin 3 sayfası incelendi; `requirements.md` içindeki 26 zorunlu maddeyle kapsam çelişkisi bulunmadı. |
+| Backend temiz kurulum | Geçti | İzole geçici klasörde `npm ci`; 70 paket kuruldu ve npm audit 0 güvenlik açığı bildirdi. |
+| Frontend temiz kurulum | Geçti | İzole geçici klasörde `npm ci`; 134 paket kuruldu ve npm audit 0 güvenlik açığı bildirdi. |
+| Backend test/syntax | Geçti | `npm test`: 11/11; `npm run check`: exit code `0`. |
+| Frontend test/lint/build | Geçti | `npm test`: 21/21; lint hatasız; build 106 modülle başarılı. |
+| API smoke zinciri | Geçti | Health/list/detail/PATCH `200`, POST `201`, DELETE `204`, invalid JSON `400`, silinen ürün ve bilinmeyen route `404`. |
+| Doküman bağlantıları | Geçti | README ve `docs/*.md` içindeki bütün relative link hedefleri mevcut. |
+| Doküman kapsamı | Geçti | İzlenebilirlikte 26 benzersiz gereksinim, API belgesinde 6 endpoint bulundu. |
+| Git ignore ve gizli bilgi | Geçti | `.env`, `node_modules` ve `dist` takip edilmiyor; takip edilen metinlerde şüpheli gizli bilgi adı bulunmadı. |
+| Git teslim durumu | Manuel işlem gerekli | Sekiz anlamlı commit mevcut; Aşama 9/10 değişiklikleri ve boş `test.js` henüz untracked/commit edilmemiş durumda. Kullanıcı dosyaları silinmedi ve commit oluşturulmadı. |
+
+## Aşama 11A otomatik doğrulama kaydı
+
+Bu kayıt yalnız otomatik saf fonksiyon, lint, build ve regresyon kontrolleridir. Sayfa yenileme, sekmeyi kapatıp açma ve DevTools storage müdahalesi Codex tarafından çalıştırılmadı.
+
+| Komut/kontrol | Sonuç | Kanıt özeti |
+|---|---|---|
+| `frontend/npm test` | Geçti | 31 testin tamamı geçti; 12 reducer/toplam, 10 storage ve 9 arama/filtre/sıralama testi. |
+| Storage round-trip | Geçti | Geçerli ürün ve adet JSON olarak kaydedilip aynı state olarak geri yüklendi. |
+| Bozuk/geçersiz storage | Geçti | Bozuk JSON, yanlış ürün/adet türü ve yinelenen ürün kimliği boş sepet fallback'i üretti. |
+| Storage erişim hatası | Geçti | Okuma/yazma hatası uygulamaya fırlatılmadı; yükleme boş sepet, kaydetme `false` sonucu verdi. |
+| Temizleme kaydı | Geçti | Boş sepet storage'a `{ "items": [] }` olarak yazıldı ve geri yüklendi. |
+| `frontend/npm run lint` | Geçti | ESLint exit code `0`; hata veya uyarı yok. |
+| `frontend/npm run build` | Geçti | Vite 107 modülü dönüştürdü; production build exit code `0`. |
+| Backend regresyonu | Geçti | `npm test` 11/11 ve `npm run check` başarılı; backend davranışı değiştirilmedi. |
