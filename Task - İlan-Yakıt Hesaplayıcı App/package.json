@@ -1,0 +1,34 @@
+{
+  "name": "vehicle-cost-platform",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "shared",
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "contracts:build": "npm run build --workspace @vehicle-cost/contracts",
+    "dev": "npm run contracts:build && concurrently --kill-others --names contracts,client,server --prefix-colors yellow,cyan,green \"npm run dev --workspace @vehicle-cost/contracts\" \"npm run dev --workspace @vehicle-cost/client\" \"npm run dev --workspace @vehicle-cost/server\"",
+    "build": "npm run contracts:build && npm run build --workspace @vehicle-cost/client && npm run build --workspace @vehicle-cost/server",
+    "typecheck": "npm run contracts:build && npm run typecheck --workspace @vehicle-cost/client && npm run typecheck --workspace @vehicle-cost/server",
+    "lint": "eslint . --max-warnings=0",
+    "test": "npm run contracts:build && npm run test --workspace @vehicle-cost/server && npm run test --workspace @vehicle-cost/client",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.34.0",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.34.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "prettier": "^3.6.2",
+    "typescript-eslint": "^8.41.0"
+  }
+}
