@@ -1,0 +1,326 @@
+{
+  "items": [
+    {
+      "name": "Alfa Romeo",
+      "slug": "alfa-romeo"
+    },
+    {
+      "name": "Alpine",
+      "slug": "alpine"
+    },
+    {
+      "name": "Arora",
+      "slug": "arora"
+    },
+    {
+      "name": "Aston Martin",
+      "slug": "aston-martin"
+    },
+    {
+      "name": "Audi",
+      "slug": "audi"
+    },
+    {
+      "name": "Bentley",
+      "slug": "bentley"
+    },
+    {
+      "name": "BMW",
+      "slug": "bmw"
+    },
+    {
+      "name": "Buick",
+      "slug": "buick"
+    },
+    {
+      "name": "BYD",
+      "slug": "byd"
+    },
+    {
+      "name": "Cadillac",
+      "slug": "cadillac"
+    },
+    {
+      "name": "Chery",
+      "slug": "chery"
+    },
+    {
+      "name": "Chevrolet",
+      "slug": "chevrolet"
+    },
+    {
+      "name": "Chrysler",
+      "slug": "chrysler"
+    },
+    {
+      "name": "Citroen",
+      "slug": "citroen"
+    },
+    {
+      "name": "Cupra",
+      "slug": "cupra"
+    },
+    {
+      "name": "Dacia",
+      "slug": "dacia"
+    },
+    {
+      "name": "Daewoo",
+      "slug": "daewoo"
+    },
+    {
+      "name": "Daihatsu",
+      "slug": "daihatsu"
+    },
+    {
+      "name": "Dodge",
+      "slug": "dodge"
+    },
+    {
+      "name": "DS Automobiles",
+      "slug": "ds-automobiles"
+    },
+    {
+      "name": "Ferrari",
+      "slug": "ferrari"
+    },
+    {
+      "name": "Fiat",
+      "slug": "fiat"
+    },
+    {
+      "name": "Ford",
+      "slug": "ford"
+    },
+    {
+      "name": "Geely",
+      "slug": "geely"
+    },
+    {
+      "name": "Honda",
+      "slug": "honda"
+    },
+    {
+      "name": "Hyundai",
+      "slug": "hyundai"
+    },
+    {
+      "name": "Ikco",
+      "slug": "ikco"
+    },
+    {
+      "name": "Infiniti",
+      "slug": "infiniti"
+    },
+    {
+      "name": "Jaguar",
+      "slug": "jaguar"
+    },
+    {
+      "name": "Kia",
+      "slug": "kia"
+    },
+    {
+      "name": "Kuba",
+      "slug": "kuba"
+    },
+    {
+      "name": "Lada",
+      "slug": "lada"
+    },
+    {
+      "name": "Lamborghini",
+      "slug": "lamborghini"
+    },
+    {
+      "name": "Lancia",
+      "slug": "lancia"
+    },
+    {
+      "name": "Leapmotor",
+      "slug": "leapmotor"
+    },
+    {
+      "name": "Lexus",
+      "slug": "lexus"
+    },
+    {
+      "name": "Lincoln",
+      "slug": "lincoln"
+    },
+    {
+      "name": "Maserati",
+      "slug": "maserati"
+    },
+    {
+      "name": "Mazda",
+      "slug": "mazda"
+    },
+    {
+      "name": "McLaren",
+      "slug": "mclaren"
+    },
+    {
+      "name": "Mercedes - Benz",
+      "slug": "mercedes-benz"
+    },
+    {
+      "name": "Mercury",
+      "slug": "mercury"
+    },
+    {
+      "name": "MG",
+      "slug": "mg"
+    },
+    {
+      "name": "Mini",
+      "slug": "mini"
+    },
+    {
+      "name": "Mitsubishi",
+      "slug": "mitsubishi"
+    },
+    {
+      "name": "Moskvitch",
+      "slug": "moskvitch"
+    },
+    {
+      "name": "Nieve",
+      "slug": "nieve"
+    },
+    {
+      "name": "Nissan",
+      "slug": "nissan"
+    },
+    {
+      "name": "Opel",
+      "slug": "opel"
+    },
+    {
+      "name": "Ortimobil",
+      "slug": "ortimobil"
+    },
+    {
+      "name": "Peugeot",
+      "slug": "peugeot"
+    },
+    {
+      "name": "Plymouth",
+      "slug": "plymouth"
+    },
+    {
+      "name": "Pontiac",
+      "slug": "pontiac"
+    },
+    {
+      "name": "Porsche",
+      "slug": "porsche"
+    },
+    {
+      "name": "Proton",
+      "slug": "proton"
+    },
+    {
+      "name": "Rainwoll",
+      "slug": "rainwoll"
+    },
+    {
+      "name": "Reeder",
+      "slug": "reeder"
+    },
+    {
+      "name": "Regal Raptor",
+      "slug": "regal-raptor"
+    },
+    {
+      "name": "Relive",
+      "slug": "relive"
+    },
+    {
+      "name": "Renault",
+      "slug": "renault"
+    },
+    {
+      "name": "RKS",
+      "slug": "rks"
+    },
+    {
+      "name": "Rolls-Royce",
+      "slug": "rolls-royce"
+    },
+    {
+      "name": "Rover",
+      "slug": "rover"
+    },
+    {
+      "name": "Saab",
+      "slug": "saab"
+    },
+    {
+      "name": "Seat",
+      "slug": "seat"
+    },
+    {
+      "name": "Skoda",
+      "slug": "skoda"
+    },
+    {
+      "name": "Smart",
+      "slug": "smart"
+    },
+    {
+      "name": "Subaru",
+      "slug": "subaru"
+    },
+    {
+      "name": "Suzuki",
+      "slug": "suzuki"
+    },
+    {
+      "name": "Tata",
+      "slug": "tata"
+    },
+    {
+      "name": "Tesla",
+      "slug": "tesla"
+    },
+    {
+      "name": "Tofaş",
+      "slug": "tofas"
+    },
+    {
+      "name": "TOGG",
+      "slug": "togg"
+    },
+    {
+      "name": "Toyota",
+      "slug": "toyota"
+    },
+    {
+      "name": "Vanderhall",
+      "slug": "vanderhall"
+    },
+    {
+      "name": "Volkswagen",
+      "slug": "volkswagen"
+    },
+    {
+      "name": "Volta",
+      "slug": "volta"
+    },
+    {
+      "name": "Volvo",
+      "slug": "volvo"
+    },
+    {
+      "name": "XEV",
+      "slug": "xev"
+    },
+    {
+      "name": "Yuki",
+      "slug": "yuki"
+    }
+  ],
+  "updatedAt": "2026-09-02T14:13:36.184Z",
+  "sourceUrl": "https://www.arabam.com/ikinci-el/otomobil"
+}
