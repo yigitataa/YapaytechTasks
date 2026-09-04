@@ -1,8 +1,31 @@
-import { MongoClient } from 'mongodb';
+import {
+  MongoClient,
+  MongoNetworkError,
+  MongoNetworkTimeoutError,
+  MongoNotConnectedError,
+  MongoOperationTimeoutError,
+  MongoServerSelectionError,
+  MongoTopologyClosedError,
+} from 'mongodb';
 
 let client;
 let database;
 let connectionPromise;
+
+const availabilityErrorTypes = [
+  MongoNetworkError,
+  MongoNetworkTimeoutError,
+  MongoNotConnectedError,
+  MongoOperationTimeoutError,
+  MongoServerSelectionError,
+  MongoTopologyClosedError,
+];
+
+function isMongoAvailabilityError(error) {
+  return availabilityErrorTypes.some(
+    (AvailabilityError) => error instanceof AvailabilityError,
+  );
+}
 
 function getMongoConfig() {
   const uri = process.env.MONGODB_URI;
@@ -60,4 +83,9 @@ async function closeMongoConnection() {
   connectionPromise = undefined;
 }
 
-export { closeMongoConnection, ensureMongoIndexes, getMongoDatabase };
+export {
+  closeMongoConnection,
+  ensureMongoIndexes,
+  getMongoDatabase,
+  isMongoAvailabilityError,
+};

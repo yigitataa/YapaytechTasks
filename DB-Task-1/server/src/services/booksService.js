@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { isMongoAvailabilityError } from '../db/mongodb.js';
 import { AppError } from '../errors/AppError.js';
 import * as authorsRepository from '../repositories/authorsRepository.js';
 import * as booksRepository from '../repositories/booksRepository.js';
@@ -259,13 +260,27 @@ async function deleteBook(id) {
     throw new AppError(404, 'BOOK_NOT_FOUND', 'Book not found.');
   }
 
-  const hasReadingEntries = await entriesRepository.hasEntriesForBook(id);
+  let hasReadingEntries;
+
+  try {
+    hasReadingEntries = await entriesRepository.hasEntriesForBook(id);
+  } catch (error) {
+    if (isMongoAvailabilityError(error)) {
+      throw new AppError(
+        503,
+        'MONGODB_UNAVAILABLE',
+        'Reading entries could not be checked because MongoDB is unavailable. The book was not deleted.',
+      );
+    }
+
+    throw error;
+  }
 
   if (hasReadingEntries) {
     throw new AppError(
       409,
       'BOOK_HAS_ENTRIES',
-      'Book cannot be deleted while reading entries are linked to it.',
+      "Delete the book's reading entries before deleting the book.",
     );
   }
 

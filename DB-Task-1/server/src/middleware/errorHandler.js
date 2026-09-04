@@ -1,3 +1,4 @@
+import { isMongoAvailabilityError } from '../db/mongodb.js';
 import { AppError } from '../errors/AppError.js';
 
 function errorHandler(error, request, response, next) {
@@ -21,6 +22,16 @@ function errorHandler(error, request, response, next) {
       error: {
         code: 'INVALID_JSON',
         message: 'Request body must contain valid JSON.',
+      },
+    });
+    return;
+  }
+
+  if (isMongoAvailabilityError(error)) {
+    response.status(503).json({
+      error: {
+        code: 'MONGODB_UNAVAILABLE',
+        message: 'MongoDB is temporarily unavailable. Try again later.',
       },
     });
     return;
